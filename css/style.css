@@ -42,29 +42,47 @@ body {
 .nav {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 22px;
 }
 
-/* CART LINK */
+/* FIX PURPLE LINKS */
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: gold;
+}
+
+/* =========================
+   CART ICON + BADGE
+   ========================= */
 .cart-link {
   position: relative;
-  font-size: 16px;
-  border: 1px solid gold;
-  padding: 6px 12px;
-  border-radius: 20px;
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
 }
 
-/* CART BADGE */
+.cart-link i {
+  font-size: 20px;
+}
+
 #cartCount {
+  position: absolute;
+  top: -6px;
+  right: -10px;
   background: gold;
   color: black;
-  font-size: 12px;
+  font-size: 11px;
   padding: 2px 6px;
   border-radius: 50%;
-  margin-left: 5px;
   font-weight: bold;
 }
-
 
 /* =========================
    HERO / SLIDESHOW
