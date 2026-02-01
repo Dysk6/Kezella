@@ -1,128 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Luxury Suit | Kezeélla</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Kezeélla | Product</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  >
+  <style>
+    body {
+      background: #f5f5f5;
+      color: #000;
+    }
+
+    .product-page {
+      max-width: 1100px;
+      margin: 120px auto 60px;
+      background: white;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    /* IMAGE */
+    .product-image img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    /* DETAILS */
+    .product-details h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .rating {
+      font-size: 14px;
+      color: #f5a623;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 28px;
+      color: #d32f2f;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .section-title {
+      margin: 20px 0 10px;
+      font-weight: 600;
+    }
+
+    /* OPTIONS */
+    .options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .option {
+      border: 1px solid #ccc;
+      padding: 8px 14px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .option.active {
+      border-color: black;
+      background: black;
+      color: white;
+    }
+
+    /* QUANTITY */
+    .qty {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .qty button {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #ccc;
+      background: white;
+      cursor: pointer;
+    }
+
+    /* ACTION BUTTONS */
+    .actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .add-cart {
+      flex: 1;
+      padding: 14px;
+      border: 1px solid black;
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .buy-now {
+      flex: 1;
+      padding: 14px;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .add-cart:hover {
+      background: black;
+      color: white;
+    }
+
+    .buy-now:hover {
+      opacity: 0.85;
+    }
+
+    @media (max-width: 900px) {
+      .product-page {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
 <header class="header">
   <div class="logo">Kezeélla</div>
   <nav class="nav">
-    <a href="shop.html">Back to Shop</a>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
   </nav>
 </header>
 
-<main class="ae-product">
+<section class="product-page">
 
-  <!-- MEDIA -->
-  <section class="ae-media">
-    <img id="mainImage" src="images/suit1.jpg" alt="Product">
+  <!-- IMAGE -->
+  <div class="product-image">
+    <img src="images/product1.jpg" id="mainImage">
+  </div>
 
-    <div class="ae-thumbs">
-      <img src="images/suit1.jpg" onclick="changeImage(this)">
-      <img src="images/suit2.jpg" onclick="changeImage(this)">
-      <img src="images/suit3.jpg" onclick="changeImage(this)">
-      <img src="images/suit4.jpg" onclick="changeImage(this)">
-    </div>
-  </section>
-
-  <!-- INFO -->
-  <section class="ae-info">
-
-    <h1>(Jacket + Vest + Pants) Luxury Suit</h1>
-
-    <div class="ae-rating">
-      ⭐⭐⭐⭐☆ <span>4.3 | 83 sold</span>
-    </div>
-
-    <div class="ae-price" id="price">₦85,000</div>
+  <!-- DETAILS -->
+  <div class="product-details">
+    <h1>Luxury 3-Piece Men Suit</h1>
+    <div class="rating">★★★★☆ 4.3 (83 sold)</div>
+    <div class="price">₦45,000 – ₦55,000</div>
 
     <!-- COLOR -->
-    <div class="ae-option">
-      <p>Color</p>
-      <div class="ae-colors">
-        <img src="images/suit1.jpg" onclick="changeImage(this)">
-        <img src="images/suit2.jpg" onclick="changeImage(this)">
-        <img src="images/suit3.jpg" onclick="changeImage(this)">
-      </div>
+    <div class="section-title">Color</div>
+    <div class="options" id="colorOptions">
+      <div class="option active">Navy</div>
+      <div class="option">Black</div>
+      <div class="option">Beige</div>
     </div>
 
     <!-- SIZE -->
-    <div class="ae-option">
-      <p>Size</p>
-      <div class="ae-sizes">
-        <button onclick="setPrice(80000)">S</button>
-        <button onclick="setPrice(85000)">M</button>
-        <button onclick="setPrice(90000)">L</button>
-        <button onclick="setPrice(95000)">XL</button>
-      </div>
+    <div class="section-title">Size</div>
+    <div class="options" id="sizeOptions">
+      <div class="option">S</div>
+      <div class="option active">M</div>
+      <div class="option">L</div>
+      <div class="option">XL</div>
     </div>
 
-    <!-- SERVICE -->
-    <div class="ae-service">
-      <p><i class="fa fa-truck"></i> Shipping nationwide</p>
-      <p><i class="fa fa-rotate-left"></i> 7-day return policy</p>
-      <p><i class="fa fa-shield"></i> Secure order</p>
+    <!-- QUANTITY -->
+    <div class="section-title">Quantity</div>
+    <div class="qty">
+      <button onclick="changeQty(-1)">−</button>
+      <span id="qty">1</span>
+      <button onclick="changeQty(1)">+</button>
     </div>
 
-  </section>
-</main>
-
-<!-- DESCRIPTION -->
-<section class="ae-description">
-  <h2>Description</h2>
-  <p>
-    High-end formal suit crafted for elegance and confidence.
-    Perfect for weddings, business meetings, and premium events.
-  </p>
-</section>
-
-<!-- REVIEWS -->
-<section class="ae-reviews">
-  <h2>Customer Reviews</h2>
-
-  <div class="review">
-    ⭐⭐⭐⭐⭐
-    <p>Excellent product, looks premium and fits well.</p>
+    <!-- ACTIONS -->
+    <div class="actions">
+      <button class="add-cart" onclick="addToCart()">Add to Cart</button>
+      <button class="buy-now" onclick="buyNow()">Buy Now</button>
+    </div>
   </div>
 
-  <div class="review">
-    ⭐⭐⭐⭐☆
-    <p>Good quality, delivery was fast.</p>
-  </div>
 </section>
-
-<!-- STICKY BAR -->
-<div class="ae-sticky">
-  <button class="cart-btn">Add to Cart</button>
-  <a
-    class="buy-btn"
-    href="https://wa.me/2347067777246?text=Hello%20I%20want%20to%20order%20this%20Luxury%20Suit"
-    target="_blank"
-  >
-    Buy Now
-  </a>
-</div>
 
 <script>
-  function changeImage(img) {
-    document.getElementById("mainImage").src = img.src;
+  let quantity = 1;
+
+  function changeQty(amount) {
+    quantity += amount;
+    if (quantity < 1) quantity = 1;
+    document.getElementById("qty").innerText = quantity;
   }
 
-  function setPrice(amount) {
-    document.getElementById("price").innerText =
-      "₦" + amount.toLocaleString();
+  function getSelectedOption(containerId) {
+    return document.querySelector(`#${containerId} .option.active`).innerText;
+  }
+
+  document.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      opt.parentElement.querySelectorAll('.option')
+        .forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+    });
+  });
+
+  function addToCart() {
+    const product = {
+      id: "kezeella-suit-001",
+      name: "Luxury 3-Piece Men Suit",
+      price: 45000,
+      color: getSelectedOption("colorOptions"),
+      size: getSelectedOption("sizeOptions"),
+      quantity: quantity,
+      image: "images/product1.jpg"
+    };
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existing = cart.find(item =>
+      item.id === product.id &&
+      item.color === product.color &&
+      item.size === product.size
+    );
+
+    if (existing) {
+      existing.quantity += quantity;
+    } else {
+      cart.push(product);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Added to cart ✔");
+  }
+
+  function buyNow() {
+    addToCart();
+    window.location.href = "cart.html";
   }
 </script>
 
