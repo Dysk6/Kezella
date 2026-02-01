@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="icon" type="image/png" href="/favicon.png">
-
   <link rel="stylesheet" href="css/style.css" />
 
   <link
@@ -22,12 +21,16 @@
     <nav class="nav">
       <a href="shop.html">Shop</a>
       <a href="#contact">Contact</a>
+
+      <!-- cart link with badge -->
+      <a href="cart.html" class="cart-link">
+        🛒 <span id="cartCount">0</span>
+      </a>
     </nav>
   </header>
 
   <!-- HERO -->
   <section class="hero">
-
     <div class="slide active"></div>
     <div class="slide"></div>
     <div class="slide"></div>
@@ -44,7 +47,6 @@
       <p>Luxury fashion crafted for timeless style</p>
       <a href="shop.html" class="btn">Shop Now</a>
     </div>
-
   </section>
 
   <!-- ABOUT -->
@@ -79,6 +81,7 @@
     <p>© Kezeélla Luxury Fashion</p>
   </footer>
 
+  <!-- SLIDESHOW SCRIPT -->
   <script>
     const slides = document.querySelectorAll(".slide");
     let current = 0;
@@ -88,6 +91,14 @@
       current = (current + 1) % slides.length;
       slides[current].classList.add("active");
     }, 5000);
+
+    // Update cart badge
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById("cartCount").innerText = total;
+    }
+    updateCartCount();
   </script>
 
 </body>
