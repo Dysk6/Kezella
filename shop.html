@@ -4,7 +4,11 @@
   <meta charset="UTF-8" />
   <title>Kezeélla | Shop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="icon" type="image/png" href="favicon.png">
+
   <link rel="stylesheet" href="css/style.css" />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
@@ -14,6 +18,7 @@
   <nav class="nav">
     <a href="index.html" class="nav-link">Home</a>
     <a href="shop.html" class="nav-link">Shop</a>
+
     <a href="cart.html" class="cart-link">
       <i class="fas fa-bag-shopping"></i>
       <span id="cartCount">0</span>
@@ -23,17 +28,20 @@
 
 <section class="shop-section">
   <h1>Shop Kezeélla</h1>
+
   <div class="product-grid">
     <a href="product.html?id=1" class="product-card">
       <img src="images/product1.jpg" alt="Luxury Evening Dress">
       <h3>Luxury Evening Dress</h3>
       <p class="price">₦45,000 – ₦55,000</p>
     </a>
+
     <a href="product.html?id=2" class="product-card">
       <img src="images/product2.jpg" alt="Designer Outfit">
       <h3>Designer Outfit</h3>
       <p class="price">₦60,000 – ₦75,000</p>
     </a>
+
     <a href="product.html?id=3" class="product-card">
       <img src="images/product3.jpg" alt="Classic Wear">
       <h3>Classic Wear</h3>
@@ -41,6 +49,15 @@
     </a>
   </div>
 </section>
+
+<footer id="contact" class="footer">
+  <div class="social-icons">
+    <a href="https://wa.me/2347067777246" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://instagram.com/kezeeella" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="tel:+2347067777246"><i class="fas fa-phone"></i></a>
+  </div>
+  <p>© Kezeélla Luxury Fashion</p>
+</footer>
 
 <script src="js/cart.js"></script>
 </body>
