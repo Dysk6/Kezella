@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <title>Kezeélla | Shop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/shop.css" />
 </head>
 <body>
 
@@ -14,11 +13,8 @@
   <div class="logo">Kezeélla</div>
   <nav class="nav">
     <a href="index.html">Home</a>
-
-    <!-- cart link with badge -->
-    <a href="cart.html" class="cart-link">
-      🛒 <span id="cartCount">0</span>
-    </a>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html" class="cart-link">🛒 <span id="cartCount">0</span></a>
   </nav>
 </header>
 
@@ -27,20 +23,20 @@
 
   <div class="product-grid">
 
-    <a href="product.html" class="product-card">
-      <img src="images/product1.jpg" alt="Luxury Evening Dress">
+    <a href="product.html?id=1" class="product-card">
+      <img src="images/product1.jpg">
       <h3>Luxury Evening Dress</h3>
       <p class="price">₦45,000 – ₦55,000</p>
     </a>
 
-    <a href="product.html" class="product-card">
-      <img src="images/product2.jpg" alt="Designer Outfit">
+    <a href="product.html?id=2" class="product-card">
+      <img src="images/product2.jpg">
       <h3>Designer Outfit</h3>
       <p class="price">₦60,000 – ₦75,000</p>
     </a>
 
-    <a href="product.html" class="product-card">
-      <img src="images/product3.jpg" alt="Classic Wear">
+    <a href="product.html?id=3" class="product-card">
+      <img src="images/product3.jpg">
       <h3>Classic Wear</h3>
       <p class="price">₦38,000 – ₦48,000</p>
     </a>
@@ -48,15 +44,6 @@
   </div>
 </section>
 
-<script>
-  // Update cart badge
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.getElementById("cartCount").innerText = total;
-  }
-  updateCartCount();
-</script>
-
+<script src="js/cart.js"></script>
 </body>
 </html>
