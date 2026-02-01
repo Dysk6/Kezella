@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Kezeélla | Cart</title>
+  <title>Kezeélla | Your Cart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="icon" type="image/png" href="favicon.png">
+
   <link rel="stylesheet" href="css/style.css">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
@@ -21,14 +25,20 @@
 </header>
 
 <div class="cart-container">
-  <h2 style="color: gold; margin-bottom: 20px; letter-spacing: 2px;">YOUR CART</h2>
-  <div id="cartItems"></div>
+  <h2 style="color: gold; letter-spacing: 2px; margin-bottom: 30px;">YOUR SHOPPING BAG</h2>
+  
+  <div id="cartItems">
+    </div>
 
-  <div class="cart-summary" style="text-align: left; margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
-    <h3>Total: <span style="color: gold;">₦<span id="cartTotal">0</span></span></h3>
+  <div class="cart-summary" style="margin-top: 40px; border-top: 1px solid #222; padding-top: 20px;">
+    <h3 style="margin-bottom: 20px;">Total: <span style="color: gold;">₦<span id="cartTotal">0</span></span></h3>
     <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
   </div>
 </div>
+
+<footer class="footer">
+  <p>© Kezeélla Luxury Fashion</p>
+</footer>
 
 <script>
   function loadCart() {
@@ -38,7 +48,7 @@
     let total = 0;
 
     if (cart.length === 0) {
-      container.innerHTML = "<p style='color: #666;'>Your cart is empty.</p>";
+      container.innerHTML = "<p style='color: #666; text-align: center; padding: 50px 0;'>Your bag is empty.</p>";
     }
 
     cart.forEach((item, index) => {
@@ -47,16 +57,18 @@
         <div class="cart-item">
           <img src="${item.image}" alt="${item.name}">
           <div>
-            <h4>${item.name}</h4>
-            <p style="font-size: 12px; color: #888;">Size: ${item.size}</p>
-            <span class="remove-btn" onclick="removeItem(${index})">Remove</span>
+            <h4 style="font-size: 16px;">${item.name}</h4>
+            <p style="font-size: 12px; color: gold; margin-top: 5px;">Size: ${item.size}</p>
+            <span class="remove-btn" onclick="removeItem(${index})">
+              <i class="fas fa-trash"></i> Remove
+            </span>
           </div>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <button onclick="changeQty(${index}, -1)" style="background:#333; color:white; border:none; padding:5px 10px;">-</button>
+          <div style="display:flex; align-items:center; gap:15px;">
+            <button onclick="changeQty(${index}, -1)" style="background:#222; color:white; border:1px solid #444; width:30px; height:30px; cursor:pointer;">-</button>
             <span>${item.quantity}</span>
-            <button onclick="changeQty(${index}, 1)" style="background:#333; color:white; border:none; padding:5px 10px;">+</button>
+            <button onclick="changeQty(${index}, 1)" style="background:#222; color:white; border:1px solid #444; width:30px; height:30px; cursor:pointer;">+</button>
           </div>
-          <div style="color: gold; font-weight: bold;">₦${(item.price * item.quantity).toLocaleString()}</div>
+          <div style="font-weight: bold; min-width: 80px; text-align: right;">₦${(item.price * item.quantity).toLocaleString()}</div>
         </div>
       `;
     });
@@ -81,7 +93,7 @@
   }
 
   function checkout() {
-    alert("Directing to Secure Checkout...");
+    alert("Checkout process starting...");
   }
 
   function updateCartCount() {
