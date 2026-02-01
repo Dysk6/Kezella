@@ -4,7 +4,11 @@
   <meta charset="UTF-8" />
   <title>Kezeélla | Product Details</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="icon" type="image/png" href="favicon.png">
+
   <link rel="stylesheet" href="css/style.css" />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
@@ -22,28 +26,32 @@
 
 <section class="product-page">
   <div class="product-image">
-    <img id="productImage" src="" alt="Product">
+    <img id="productImage" src="" alt="Product Image">
   </div>
 
   <div class="product-details">
-    <h1 id="productName">Loading...</h1>
+    <h1 id="productName">Loading Product...</h1>
+
     <div class="rating">
-      <i class="fas fa-star" style="color: gold;"></i> <span id="ratingValue">0.0</span>
-      <small>(no ratings yet)</small>
+      <i class="fas fa-star"></i> <span id="ratingValue">5.0</span>
+      <small>(Premium Quality)</small>
     </div>
 
     <p class="price-tag" id="productPrice">₦0</p>
-    <p id="productDescription" style="margin-bottom: 20px; line-height: 1.6;"></p>
 
-    <div style="margin-bottom: 15px;">
-      <label style="display:block; margin-bottom: 10px; color: gold;">SELECT SIZE</label>
-      <div class="options" id="sizeContainer">
-        </div>
-    </div>
+    <p class="description" id="productDescription" style="margin-bottom: 25px; color: #ccc;"></p>
+
+    <label style="display: block; margin-bottom: 10px; color: gold; font-size: 12px; letter-spacing: 1px;">SELECT SIZE</label>
+    <div class="options" id="sizeContainer">
+      </div>
 
     <button class="action-btn" id="addToCart">Add to Cart</button>
   </div>
 </section>
+
+<footer class="footer">
+  <p>© Kezeélla Luxury Fashion</p>
+</footer>
 
 <script src="js/cart.js"></script>
 <script src="js/product.js"></script>
