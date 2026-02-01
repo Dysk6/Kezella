@@ -14,6 +14,11 @@
   <div class="logo">Kezeélla</div>
   <nav class="nav">
     <a href="index.html">Home</a>
+
+    <!-- cart link with badge -->
+    <a href="cart.html" class="cart-link">
+      🛒 <span id="cartCount">0</span>
+    </a>
   </nav>
 </header>
 
@@ -42,6 +47,16 @@
 
   </div>
 </section>
+
+<script>
+  // Update cart badge
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById("cartCount").innerText = total;
+  }
+  updateCartCount();
+</script>
 
 </body>
 </html>
