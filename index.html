@@ -5,29 +5,21 @@
   <title>Kezeélla | Luxury Fashion</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- FAVICON -->
   <link rel="icon" type="image/png" href="favicon.png">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- ICONS -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
 <header class="header">
   <div class="logo">Kezeélla</div>
 
   <nav class="nav">
     <a href="shop.html" class="nav-link">Shop</a>
-    <a href="#contact" class="nav-link">Contact</a>
+    <a href="#about" class="nav-link">About</a>
 
-    <!-- CART ICON -->
     <a href="cart.html" class="cart-link">
       <i class="fas fa-bag-shopping"></i>
       <span id="cartCount">0</span>
@@ -35,7 +27,6 @@
   </nav>
 </header>
 
-<!-- ================= HERO ================= -->
 <section class="hero">
   <div class="slide active"></div>
   <div class="slide"></div>
@@ -55,19 +46,26 @@
   </div>
 </section>
 
-<!-- ================= ABOUT ================= -->
-<section class="about">
-  <h2>About Kezeélla</h2>
-  <p>
-    Kezeélla is a luxury fashion brand dedicated to elegant,
-    carefully crafted designs that celebrate confidence,
-    beauty, and individuality.
-  </p>
+<section id="about" class="about">
+  <h2 style="color: gold; letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase;">About Kezeélla</h2>
+  
+  <div style="max-width: 800px; margin: 0 auto; line-height: 1.8; color: #ccc;">
+    <p style="margin-bottom: 20px;">
+      Kezeélla is a contemporary luxury fashion brand created for those who move through life with confidence, intention, and quiet strength. Born from a vision to blend timeless elegance with modern expression, Kezeélla exists to redefine what approachable luxury feels like. Every piece is thoughtfully designed to balance refined aesthetics, comfort, and bold individuality — fashion that speaks before you do.
+    </p>
+
+    <p style="margin-bottom: 20px;">
+      At the heart of Kezeélla is an uncompromising commitment to quality craftsmanship and attention to detail. Our designs are shaped by classic silhouettes, elevated with modern sensibilities, and tailored for both everyday wear and unforgettable moments. From special occasions to refined daily style, Kezeélla serves women who value presence, confidence, and effortless sophistication.
+    </p>
+
+    <p>
+      More than clothing, Kezeélla is a feeling. When you wear Kezeélla, you wear confidence. You wear elegance without intimidation. You wear a statement of self-assurance that cannot be shaken. Kezeélla is made for those who choose to stand firm, move boldly, and feel unbreakable — always.
+    </p>
+  </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
 <footer id="contact" class="footer">
-  <h3>Contact Kezeélla</h3>
+  <h3 style="color: white; margin-bottom: 15px;">Contact Kezeélla</h3>
 
   <div class="social-icons">
     <a href="https://wa.me/2347067777246" target="_blank"><i class="fab fa-whatsapp"></i></a>
@@ -79,8 +77,8 @@
   <p>© Kezeélla Luxury Fashion</p>
 </footer>
 
-<!-- ================= SCRIPTS ================= -->
 <script>
+  // SLIDESHOW SCRIPT
   const slides = document.querySelectorAll(".slide");
   let current = 0;
 
@@ -90,10 +88,12 @@
     slides[current].classList.add("active");
   }, 5000);
 
+  // CART COUNT SCRIPT
   function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.getElementById("cartCount").innerText = total;
+    const countEl = document.getElementById("cartCount");
+    if(countEl) countEl.innerText = total;
   }
   updateCartCount();
 </script>
