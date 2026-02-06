@@ -8,10 +8,15 @@ const products = {
       { type: 'video', src: 'images/p1_vid.mp4' },
       { type: 'image', src: 'images/p1_img1.jpg' },
       { type: 'image', src: 'images/p1_img2.jpg' },
-      { type: 'image', src: 'images/p1_img3.jpg' }
+      { type: 'image', src: 'images/p1_img3.jpg' },
+      { type: 'image', src: 'images/p1_img4.jpg' },
+      { type: 'image', src: 'images/p1_img5.jpg' },
+      { type: 'image', src: 'images/p1_img6.jpg' },
+      { type: 'image', src: 'images/p1_img7.jpg' },
+      { type: 'image', src: 'images/p1_img8.jpg' }
     ],
     sizes: { S: 45000, M: 47500, L: 50000, XL: 52500, XXL: 55000 },
-    stock: 10
+    stock: 1
   },
 
   // --- PRODUCT 2 ---
@@ -22,10 +27,19 @@ const products = {
       { type: 'video', src: 'images/p2_vid1.mp4' },
       { type: 'video', src: 'images/p2_vid2.mp4' },
       { type: 'image', src: 'images/p2_img1.jpg' },
-      { type: 'image', src: 'images/p2_img2.jpg' }
+      { type: 'image', src: 'images/p2_img2.jpg' },
+      { type: 'image', src: 'images/p2_img3.jpg' },
+      { type: 'image', src: 'images/p2_img4.jpg' },
+      { type: 'image', src: 'images/p2_img5.jpg' },
+      { type: 'image', src: 'images/p2_img6.jpg' },
+      { type: 'image', src: 'images/p2_img7.jpg' },
+      { type: 'image', src: 'images/p2_img8.jpg' },
+      { type: 'image', src: 'images/p2_img9.jpg' },
+      { type: 'image', src: 'images/p2_img10.jpg' },
+      { type: 'image', src: 'images/p2_img11.jpg' }
     ],
     sizes: { S: 60000, M: 64000, L: 68000, XL: 72000, XXL: 75000 },
-    stock: 5
+    stock: 1
   },
 
   // --- PRODUCT 3 ---
@@ -35,10 +49,14 @@ const products = {
     media: [
       { type: 'video', src: 'images/p3_vid.mp4' },
       { type: 'image', src: 'images/p3_img1.jpg' },
-      { type: 'image', src: 'images/p3_img2.jpg' }
+      { type: 'image', src: 'images/p3_img2.jpg' },
+      { type: 'image', src: 'images/p3_img3.jpg' },
+      { type: 'image', src: 'images/p3_img4.jpg' },
+      { type: 'image', src: 'images/p3_img5.jpg' },
+      { type: 'image', src: 'images/p3_img6.jpg' }
     ],
     sizes: { S: 38000, M: 40500, L: 43000, XL: 45500, XXL: 48000 },
-    stock: 8
+    stock: 1
   },
 
   // --- PRODUCT 4 ---
@@ -48,10 +66,15 @@ const products = {
     media: [
       { type: 'video', src: 'images/p4_vid.mp4' },
       { type: 'image', src: 'images/p4_img1.jpg' },
-      { type: 'image', src: 'images/p4_img2.jpg' }
+      { type: 'image', src: 'images/p4_img2.jpg' },
+      { type: 'image', src: 'images/p4_img3.jpg' },
+      { type: 'image', src: 'images/p4_img4.jpg' },
+      { type: 'image', src: 'images/p4_img5.jpg' },
+      { type: 'image', src: 'images/p4_img6.jpg' },
+      { type: 'image', src: 'images/p4_img7.jpg' }
     ],
     sizes: { S: 50000, M: 52000, L: 55000 },
-    stock: 12
+    stock: 1
   },
 
   // --- PRODUCT 5 ---
@@ -59,11 +82,19 @@ const products = {
     name: "Velvet Dinner Dress",
     description: "Rich velvet texture for a sophisticated look.",
     media: [
+      { type: 'video', src: 'images/p5_vid.mp4' },
       { type: 'image', src: 'images/p5_img1.jpg' },
-      { type: 'image', src: 'images/p5_img2.jpg' }
+      { type: 'image', src: 'images/p5_img2.jpg' },
+      { type: 'image', src: 'images/p5_img3.jpg' },
+      { type: 'image', src: 'images/p5_img4.jpg' },
+      { type: 'image', src: 'images/p5_img5.jpg' },
+      { type: 'image', src: 'images/p5_img6.jpg' },
+      { type: 'image', src: 'images/p5_img7.jpg' },
+      { type: 'image', src: 'images/p5_img8.jpg' },
+      { type: 'image', src: 'images/p5_img9.jpg' }
     ],
     sizes: { S: 40000, M: 42000, L: 45000 },
-    stock: 7
+    stock: 1
   },
 
   // --- PRODUCT 6 ---
@@ -73,10 +104,14 @@ const products = {
     media: [
       { type: 'image', src: 'images/p6_img1.jpg' },
       { type: 'image', src: 'images/p6_img2.jpg' },
-      { type: 'image', src: 'images/p6_img3.jpg' }
+      { type: 'image', src: 'images/p6_img3.jpg' },
+      { type: 'image', src: 'images/p6_img4.jpg' },
+      { type: 'image', src: 'images/p6_img5.jpg' },
+      { type: 'image', src: 'images/p6_img6.jpg' },
+      { type: 'image', src: 'images/p6_img7.jpg' }
     ],
     sizes: { S: 35000, M: 37000, L: 39000 },
-    stock: 15
+    stock: 1
   },
 
   // --- PRODUCT 7 ---
@@ -85,10 +120,17 @@ const products = {
     description: "A stunning maxi dress in royal blue.",
     media: [
       { type: 'video', src: 'images/p7_vid.mp4' },
-      { type: 'image', src: 'images/p7_img1.jpg' }
+      { type: 'image', src: 'images/p7_img1.jpg' },
+      { type: 'image', src: 'images/p7_img2.jpg' },
+      { type: 'image', src: 'images/p7_img3.jpg' },
+      { type: 'image', src: 'images/p7_img4.jpg' },
+      { type: 'image', src: 'images/p7_img5.jpg' },
+      { type: 'image', src: 'images/p7_img6.jpg' },
+      { type: 'image', src: 'images/p7_img7.jpg' },
+      { type: 'image', src: 'images/p7_img8.jpg' }
     ],
     sizes: { S: 48000, M: 50000, L: 52000 },
-    stock: 6
+    stock: 1
   },
 
   // --- PRODUCT 8 ---
@@ -98,10 +140,13 @@ const products = {
     media: [
       { type: 'video', src: 'images/p8_vid.mp4' },
       { type: 'image', src: 'images/p8_img1.jpg' },
-      { type: 'image', src: 'images/p8_img2.jpg' }
+      { type: 'image', src: 'images/p8_img2.jpg' },
+      { type: 'image', src: 'images/p8_img3.jpg' },
+      { type: 'image', src: 'images/p8_img4.jpg' },
+      { type: 'image', src: 'images/p8_img5.jpg' }
     ],
     sizes: { S: 70000, M: 75000, L: 80000 },
-    stock: 4
+    stock: 1
   },
 
   // --- PRODUCT 9 ---
@@ -109,11 +154,14 @@ const products = {
     name: "Corporate Chic Suit",
     description: "Power dressing for the modern woman.",
     media: [
+      { type: 'image', src: 'images/p9_vid.mp4' },
       { type: 'image', src: 'images/p9_img1.jpg' },
-      { type: 'image', src: 'images/p9_img2.jpg' }
+      { type: 'image', src: 'images/p9_img2.jpg' },
+      { type: 'image', src: 'images/p9_img3.jpg' },
+      { type: 'image', src: 'images/p9_img4.jpg' }
     ],
     sizes: { S: 55000, M: 58000, L: 60000 },
-    stock: 10
+    stock: 1
   },
 
   // --- PRODUCT 10 ---
@@ -122,10 +170,15 @@ const products = {
     description: "The essential little black dress, elevated.",
     media: [
       { type: 'video', src: 'images/p10_vid.mp4' },
-      { type: 'image', src: 'images/p10_img1.jpg' }
+      { type: 'image', src: 'images/p10_img1.jpg' },
+      { type: 'image', src: 'images/p10_img2.jpg' },
+      { type: 'image', src: 'images/p10_img3.jpg' },
+      { type: 'image', src: 'images/p10_img4.jpg' },
+      { type: 'image', src: 'images/p10_img5.jpg' },
+      { type: 'image', src: 'images/p10_img6.jpg' }
     ],
     sizes: { S: 30000, M: 32000, L: 34000 },
-    stock: 20
+    stock: 1
   },
 
   // --- PRODUCT 11 ---
@@ -133,11 +186,21 @@ const products = {
     name: "Floral Wrap Dress",
     description: "Beautiful floral patterns on premium fabric.",
     media: [
+      { type: 'image', src: 'images/p11_vid.mp4' },
       { type: 'image', src: 'images/p11_img1.jpg' },
-      { type: 'image', src: 'images/p11_img2.jpg' }
+      { type: 'image', src: 'images/p11_img2.jpg' },
+      { type: 'image', src: 'images/p11_img3.jpg' },
+      { type: 'image', src: 'images/p11_img4.jpg' },
+      { type: 'image', src: 'images/p11_img5.jpg' },
+      { type: 'image', src: 'images/p11_img6.jpg' },
+      { type: 'image', src: 'images/p11_img7.jpg' },
+      { type: 'image', src: 'images/p11_img8.jpg' },
+      { type: 'image', src: 'images/p11_img9.jpg' },
+      { type: 'image', src: 'images/p11_img10.jpg' },
+      { type: 'image', src: 'images/p11_img11.jpg' }
     ],
     sizes: { S: 28000, M: 30000, L: 32000 },
-    stock: 12
+    stock: 1
   },
 
   // --- PRODUCT 12 ---
@@ -146,10 +209,11 @@ const products = {
     description: "Smooth satin that feels like a second skin.",
     media: [
       { type: 'video', src: 'images/p12_vid.mp4' },
-      { type: 'image', src: 'images/p12_img1.jpg' }
+      { type: 'image', src: 'images/p12_img1.jpg' },
+      { type: 'image', src: 'images/p12_img2.jpg' }      
     ],
     sizes: { S: 25000, M: 27000, L: 29000 },
-    stock: 14
+    stock: 1
   },
 
   // --- PRODUCT 13 ---
@@ -157,12 +221,13 @@ const products = {
     name: "Embroidered Kaftan",
     description: "Luxurious comfort with detailed embroidery.",
     media: [
+      { type: 'video', src: 'images/p13_vid.mp4' },
       { type: 'image', src: 'images/p13_img1.jpg' },
       { type: 'image', src: 'images/p13_img2.jpg' },
       { type: 'image', src: 'images/p13_img3.jpg' }
     ],
     sizes: { OneSize: 45000 },
-    stock: 8
+    stock: 1
   },
 
   // --- PRODUCT 14 ---
@@ -170,11 +235,10 @@ const products = {
     name: "Off-Shoulder Party Dress",
     description: "Show off your style with this off-shoulder piece.",
     media: [
-      { type: 'video', src: 'images/p14_vid.mp4' },
-      { type: 'image', src: 'images/p14_img1.jpg' }
+      { type: 'video', src: 'images/p14_vid.mp4' }
     ],
     sizes: { S: 36000, M: 38000, L: 40000 },
-    stock: 9
+    stock: 1
   }
 };
 
