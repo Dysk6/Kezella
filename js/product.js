@@ -176,7 +176,6 @@ const products = {
       { type: 'image', src: 'images/p10_img10.jpg' },
       { type: 'image', src: 'images/p10_img11.jpg' }
     ],
-    // selections: {green, brown} -- REMOVED (caused crash)
     sizes: { XL: 59000 },
     stock: 1
   },
