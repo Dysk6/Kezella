@@ -14,7 +14,7 @@ const products = {
     stock: 10
   },
 
-  // --- PRODUCT 2 (Has 2 Videos) ---
+  // --- PRODUCT 2 ---
   2: {
     name: "Designer Outfit",
     description: "Premium designer outfit tailored for modern elegance.",
@@ -281,5 +281,17 @@ if (product) {
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
     alert("Added to cart!");
+  });
+
+  // 6. ARROW BUTTONS LOGIC (For PC)
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  prevBtn.addEventListener("click", () => {
+    slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" });
+  });
+
+  nextBtn.addEventListener("click", () => {
+    slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" });
   });
 }
