@@ -2,8 +2,8 @@
 const products = {
   // --- PRODUCT 1 ---
   1: {
-    name: "Glory Dress",
-    description: "An elegant luxury evening dress designed for special occasions.",
+    name: "KeKe Dress",
+    description: "Featuring a cape and an under elegant multipurpose dress",
     media: [
       { type: 'video', src: 'images/p1_vid.mp4' },
       { type: 'image', src: 'images/p1_img1.jpg' },
@@ -12,39 +12,28 @@ const products = {
       { type: 'image', src: 'images/p1_img4.jpg' },
       { type: 'image', src: 'images/p1_img5.jpg' },
       { type: 'image', src: 'images/p1_img6.jpg' },
-      { type: 'image', src: 'images/p1_img7.jpg' },
-      { type: 'image', src: 'images/p1_img8.jpg' }
+      { type: 'image', src: 'images/p1_img7.jpg' }
     ],
-    sizes: { OneSize: 75000 },
+    sizes: { XL: 74000 },
     stock: 1
   },
 
   // --- PRODUCT 2 ---
   2: {
-    name: "Designer Outfit",
+    name: "Star Dress",
     description: "Premium designer outfit tailored for modern elegance.",
     media: [
-      { type: 'video', src: 'images/p2_vid1.mp4' },
-      { type: 'video', src: 'images/p2_vid2.mp4' },
+      { type: 'video', src: 'images/p2_vid.mp4' },
       { type: 'image', src: 'images/p2_img1.jpg' },
-      { type: 'image', src: 'images/p2_img2.jpg' },
-      { type: 'image', src: 'images/p2_img3.jpg' },
-      { type: 'image', src: 'images/p2_img4.jpg' },
-      { type: 'image', src: 'images/p2_img5.jpg' },
-      { type: 'image', src: 'images/p2_img6.jpg' },
-      { type: 'image', src: 'images/p2_img7.jpg' },
-      { type: 'image', src: 'images/p2_img8.jpg' },
-      { type: 'image', src: 'images/p2_img9.jpg' },
-      { type: 'image', src: 'images/p2_img10.jpg' },
-      { type: 'image', src: 'images/p2_img11.jpg' }
+      { type: 'image', src: 'images/p2_img2.jpg' }
     ],
-    sizes: { S: 60000, M: 64000, L: 68000, XL: 72000, XXL: 75000 },
+    sizes: { XL: 110000 },
     stock: 1
   },
 
   // --- PRODUCT 3 ---
   3: {
-    name: "Classic Wear",
+    name: "Glory Dress",
     description: "Timeless classic wear suitable for all events.",
     media: [
       { type: 'video', src: 'images/p3_vid.mp4' },
@@ -53,15 +42,17 @@ const products = {
       { type: 'image', src: 'images/p3_img3.jpg' },
       { type: 'image', src: 'images/p3_img4.jpg' },
       { type: 'image', src: 'images/p3_img5.jpg' },
-      { type: 'image', src: 'images/p3_img6.jpg' }
+      { type: 'image', src: 'images/p3_img6.jpg' },
+      { type: 'image', src: 'images/p3_img7.jpg' },
+      { type: 'image', src: 'images/p3_img8.jpg' }
     ],
-    sizes: { S: 38000, M: 40500, L: 43000, XL: 45500, XXL: 48000 },
+    sizes: { XL: 75000 },
     stock: 1
   },
 
   // --- PRODUCT 4 ---
   4: {
-    name: "Elegant Silk Gown",
+    name: "Danny's Polkadots",
     description: "Soft silk gown that flows with every step.",
     media: [
       { type: 'video', src: 'images/p4_vid.mp4' },
@@ -70,16 +61,15 @@ const products = {
       { type: 'image', src: 'images/p4_img3.jpg' },
       { type: 'image', src: 'images/p4_img4.jpg' },
       { type: 'image', src: 'images/p4_img5.jpg' },
-      { type: 'image', src: 'images/p4_img6.jpg' },
-      { type: 'image', src: 'images/p4_img7.jpg' }
+      { type: 'image', src: 'images/p4_img6.jpg' }
     ],
-    sizes: { S: 50000, M: 52000, L: 55000 },
+    sizes: { XL: 66000 },
     stock: 1
   },
 
   // --- PRODUCT 5 ---
   5: {
-    name: "Velvet Dinner Dress",
+    name: "Fanny Dress",
     description: "Rich velvet texture for a sophisticated look.",
     media: [
       { type: 'video', src: 'images/p5_vid.mp4' },
@@ -91,32 +81,32 @@ const products = {
       { type: 'image', src: 'images/p5_img6.jpg' },
       { type: 'image', src: 'images/p5_img7.jpg' },
       { type: 'image', src: 'images/p5_img8.jpg' },
-      { type: 'image', src: 'images/p5_img9.jpg' }
+      { type: 'image', src: 'images/p5_img9.jpg' },
+      { type: 'image', src: 'images/p5_img10.jpg' },
+      { type: 'image', src: 'images/p5_img11.jpg' }
     ],
-    sizes: { S: 40000, M: 42000, L: 45000 },
+    sizes: { XL: 122000 },
     stock: 1
   },
 
   // --- PRODUCT 6 ---
   6: {
-    name: "Chic Summer Two-Piece",
+    name: "Easter Majesty",
     description: "Lightweight and stylish, perfect for warm weather.",
     media: [
+      { type: 'image', src: 'images/p6_vid.mp4' }
       { type: 'image', src: 'images/p6_img1.jpg' },
       { type: 'image', src: 'images/p6_img2.jpg' },
       { type: 'image', src: 'images/p6_img3.jpg' },
-      { type: 'image', src: 'images/p6_img4.jpg' },
-      { type: 'image', src: 'images/p6_img5.jpg' },
-      { type: 'image', src: 'images/p6_img6.jpg' },
-      { type: 'image', src: 'images/p6_img7.jpg' }
+      { type: 'image', src: 'images/p6_img4.jpg' }
     ],
-    sizes: { S: 35000, M: 37000, L: 39000 },
+    sizes: { XL: 205000 },
     stock: 1
   },
 
   // --- PRODUCT 7 ---
   7: {
-    name: "Royal Blue Maxi",
+    name: "Deeper Dress",
     description: "A stunning maxi dress in royal blue.",
     media: [
       { type: 'video', src: 'images/p7_vid.mp4' },
@@ -124,18 +114,15 @@ const products = {
       { type: 'image', src: 'images/p7_img2.jpg' },
       { type: 'image', src: 'images/p7_img3.jpg' },
       { type: 'image', src: 'images/p7_img4.jpg' },
-      { type: 'image', src: 'images/p7_img5.jpg' },
-      { type: 'image', src: 'images/p7_img6.jpg' },
-      { type: 'image', src: 'images/p7_img7.jpg' },
-      { type: 'image', src: 'images/p7_img8.jpg' }
+      { type: 'image', src: 'images/p7_img5.jpg' }
     ],
-    sizes: { S: 48000, M: 50000, L: 52000 },
+    sizes: { XL: 145000 },
     stock: 1
   },
 
   // --- PRODUCT 8 ---
   8: {
-    name: "Gold Sequin Dress",
+    name: "Kay Ambrose",
     description: "Shine bright with this premium sequin dress.",
     media: [
       { type: 'video', src: 'images/p8_vid.mp4' },
@@ -143,82 +130,88 @@ const products = {
       { type: 'image', src: 'images/p8_img2.jpg' },
       { type: 'image', src: 'images/p8_img3.jpg' },
       { type: 'image', src: 'images/p8_img4.jpg' },
-      { type: 'image', src: 'images/p8_img5.jpg' }
+      { type: 'image', src: 'images/p8_img5.jpg' },
+      { type: 'image', src: 'images/p8_img6.jpg' }
     ],
-    sizes: { S: 70000, M: 75000, L: 80000 },
+    sizes: { XL: 80000 },
     stock: 1
   },
 
   // --- PRODUCT 9 ---
   9: {
-    name: "Corporate Chic Suit",
+    name: "Zedeck Dress",
     description: "Power dressing for the modern woman.",
     media: [
       { type: 'image', src: 'images/p9_vid.mp4' },
       { type: 'image', src: 'images/p9_img1.jpg' },
       { type: 'image', src: 'images/p9_img2.jpg' },
       { type: 'image', src: 'images/p9_img3.jpg' },
-      { type: 'image', src: 'images/p9_img4.jpg' }
+      { type: 'image', src: 'images/p9_img4.jpg' },
+      { type: 'image', src: 'images/p9_img5.jpg' },
+      { type: 'image', src: 'images/p9_img6.jpg' },
+      { type: 'image', src: 'images/p9_img7.jpg' },
+      { type: 'image', src: 'images/p9_img8.jpg' },
+      { type: 'image', src: 'images/p9_img9.jpg' }
     ],
-    sizes: { S: 55000, M: 58000, L: 60000 },
+    sizes: { XL: 91000 },
     stock: 1
   },
 
   // --- PRODUCT 10 ---
   10: {
-    name: "Black Cocktail Dress",
+    name: "Ella Dress",
     description: "The essential little black dress, elevated.",
     media: [
-      { type: 'video', src: 'images/p10_vid.mp4' },
+      { type: 'video', src: 'images/p10_vid1.mp4' },
       { type: 'image', src: 'images/p10_img1.jpg' },
       { type: 'image', src: 'images/p10_img2.jpg' },
       { type: 'image', src: 'images/p10_img3.jpg' },
       { type: 'image', src: 'images/p10_img4.jpg' },
       { type: 'image', src: 'images/p10_img5.jpg' },
-      { type: 'image', src: 'images/p10_img6.jpg' }
+      { type: 'video', src: 'images/p10_vid2.mp4' },
+      { type: 'image', src: 'images/p10_img6.jpg' },
+      { type: 'image', src: 'images/p10_img7.jpg' },
+      { type: 'image', src: 'images/p10_img8.jpg' },
+      { type: 'image', src: 'images/p10_img9.jpg' },
+      { type: 'image', src: 'images/p10_img10.jpg' },
+      { type: 'image', src: 'images/p10_img11.jpg' }
     ],
-    sizes: { S: 30000, M: 32000, L: 34000 },
+    selections: {green, brown},
+    sizes: { XL: 59000 },
     stock: 1
   },
 
   // --- PRODUCT 11 ---
   11: {
-    name: "Floral Wrap Dress",
+    name: "The Desire",
     description: "Beautiful floral patterns on premium fabric.",
     media: [
-      { type: 'image', src: 'images/p11_vid.mp4' },
-      { type: 'image', src: 'images/p11_img1.jpg' },
-      { type: 'image', src: 'images/p11_img2.jpg' },
-      { type: 'image', src: 'images/p11_img3.jpg' },
-      { type: 'image', src: 'images/p11_img4.jpg' },
-      { type: 'image', src: 'images/p11_img5.jpg' },
-      { type: 'image', src: 'images/p11_img6.jpg' },
-      { type: 'image', src: 'images/p11_img7.jpg' },
-      { type: 'image', src: 'images/p11_img8.jpg' },
-      { type: 'image', src: 'images/p11_img9.jpg' },
-      { type: 'image', src: 'images/p11_img10.jpg' },
-      { type: 'image', src: 'images/p11_img11.jpg' }
+      { type: 'image', src: 'images/p11_vid.mp4' }
     ],
-    sizes: { S: 28000, M: 30000, L: 32000 },
+    sizes: { XL: 150000 },
     stock: 1
   },
 
   // --- PRODUCT 12 ---
   12: {
-    name: "Satin Slip Dress",
+    name: "Seraphina's Grown",
     description: "Smooth satin that feels like a second skin.",
     media: [
       { type: 'video', src: 'images/p12_vid.mp4' },
       { type: 'image', src: 'images/p12_img1.jpg' },
-      { type: 'image', src: 'images/p12_img2.jpg' }      
+      { type: 'image', src: 'images/p12_img2.jpg' },
+      { type: 'image', src: 'images/p12_img3.jpg' },
+      { type: 'image', src: 'images/p12_img4.jpg' },
+      { type: 'image', src: 'images/p12_img5.jpg' },
+      { type: 'image', src: 'images/p12_img6.jpg' }
     ],
-    sizes: { S: 25000, M: 27000, L: 29000 },
+    sizes: { XL: 87000 },
     stock: 1
   },
 
   // --- PRODUCT 13 ---
   13: {
-    name: "Embroidered Kaftan",
+    name: "Kamsi Kimono",
     description: "Luxurious comfort with detailed embroidery.",
     media: [
       { type: 'video', src: 'images/p13_vid.mp4' },
@@ -226,18 +219,25 @@ const products = {
       { type: 'image', src: 'images/p13_img2.jpg' },
       { type: 'image', src: 'images/p13_img3.jpg' }
     ],
-    sizes: { OneSize: 45000 },
+    sizes: { OneSize: 31000 },
     stock: 1
   },
 
   // --- PRODUCT 14 ---
   14: {
-    name: "Off-Shoulder Party Dress",
+    name: "Elo Dress",
     description: "Show off your style with this off-shoulder piece.",
     media: [
       { type: 'video', src: 'images/p14_vid.mp4' }
+      { type: 'image', src: 'images/p14_img1.jpg' },
+      { type: 'image', src: 'images/p14_img2.jpg' },
+      { type: 'image', src: 'images/p14_img3.jpg' },
+      { type: 'image', src: 'images/p14_img4.jpg' },
+      { type: 'image', src: 'images/p14_img5.jpg' },
+      { type: 'image', src: 'images/p14_img6.jpg' },
+      { type: 'image', src: 'images/p14_img7.jpg' }
     ],
-    sizes: { S: 36000, M: 38000, L: 40000 },
+    sizes: { XL: 25000 },
     stock: 1
   }
 };
