@@ -2,7 +2,7 @@
 const products = {
   // --- PRODUCT 1 ---
   1: {
-    name: "Luxury Evening Dress",
+    name: "Glory Dress",
     description: "An elegant luxury evening dress designed for special occasions.",
     media: [
       { type: 'video', src: 'images/p1_vid.mp4' },
@@ -15,7 +15,7 @@ const products = {
       { type: 'image', src: 'images/p1_img7.jpg' },
       { type: 'image', src: 'images/p1_img8.jpg' }
     ],
-    sizes: { S: 45000, M: 47500, L: 50000, XL: 52500, XXL: 55000 },
+    sizes: { OneSize: 75000 },
     stock: 1
   },
 
