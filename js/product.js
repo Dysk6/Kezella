@@ -1,9 +1,4 @@
-// ================= PRODUCT DATA =================
-// INSTRUCTIONS:
-// 1. Name your files in GitHub exactly like the 'src' links below (e.g., p1_vid.mp4, p1_img1.jpg).
-// 2. If you don't have a video for a product, delete the line with 'video'.
-// 3. If you have more photos, copy and paste the 'image' line to add more.
-
+// ================= PRODUCT DATA (14 Items) =================
 const products = {
   // --- PRODUCT 1 ---
   1: {
@@ -24,8 +19,8 @@ const products = {
     name: "Designer Outfit",
     description: "Premium designer outfit tailored for modern elegance.",
     media: [
-      { type: 'video', src: 'images/p2_vid1.mp4' }, // Video 1
-      { type: 'video', src: 'images/p2_vid2.mp4' }, // Video 2
+      { type: 'video', src: 'images/p2_vid1.mp4' },
+      { type: 'video', src: 'images/p2_vid2.mp4' },
       { type: 'image', src: 'images/p2_img1.jpg' },
       { type: 'image', src: 'images/p2_img2.jpg' }
     ],
@@ -180,14 +175,14 @@ const products = {
     ],
     sizes: { S: 36000, M: 38000, L: 40000 },
     stock: 9
-  },
+  }
 };
 
 // ================= PAGE LOGIC (DO NOT TOUCH BELOW) =================
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 const product = products[productId];
-let selectedSize = ""; // Start empty to force selection
+let selectedSize = ""; 
 
 if (product) {
   // 1. POPULATE TEXT DETAILS
@@ -205,7 +200,6 @@ if (product) {
     slideDiv.className = "slide-item";
     
     if (item.type === 'video') {
-      // Auto-play muted video loop
       slideDiv.innerHTML = `<video src="${item.src}" controls loop muted playsinline autoplay></video>`;
     } else {
       slideDiv.innerHTML = `<img src="${item.src}" alt="${product.name}">`;
@@ -218,13 +212,12 @@ if (product) {
     dotsContainer.appendChild(dot);
   });
 
-  // 3. SLIDER SCROLL TRACKER (For Dots)
+  // 3. SLIDER SCROLL TRACKER
   slider.addEventListener("scroll", () => {
     const scrollPos = slider.scrollLeft;
     const width = slider.offsetWidth;
     const index = Math.round(scrollPos / width);
     
-    // Update dots
     const dots = document.querySelectorAll(".dot");
     dots.forEach(d => d.classList.remove("active"));
     if (dots[index]) dots[index].classList.add("active");
@@ -234,7 +227,6 @@ if (product) {
   const sizeContainer = document.getElementById("sizeContainer");
   const priceEl = document.getElementById("productPrice");
 
-  // Select the first size automatically
   const firstSize = Object.keys(product.sizes)[0];
   selectedSize = firstSize;
 
@@ -251,7 +243,6 @@ if (product) {
     sizeContainer.appendChild(btn);
   });
 
-  // Initial Price
   priceEl.textContent = "₦" + product.sizes[firstSize].toLocaleString();
 
   // 5. ADD TO CART
@@ -261,13 +252,11 @@ if (product) {
       return;
     }
 
-    // FIND FIRST IMAGE FOR CART THUMBNAIL (Avoid using video)
     let thumbnail = "";
     const imageItem = product.media.find(m => m.type === 'image');
     if (imageItem) {
       thumbnail = imageItem.src;
     } else {
-      // Fallback if product ONLY has videos (unlikely, but safe)
       thumbnail = "favicon.png"; 
     }
 
