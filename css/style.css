@@ -415,3 +415,40 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer;
   text-transform: uppercase;
 }
+
+/* =========================
+   DESKTOP SLIDER ARROWS
+   ========================= */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6); /* Dark background for visibility */
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  display: flex; /* Centers the icon */
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.slider-btn:hover {
+  background: gold;
+  color: black;
+  border-color: gold;
+}
+
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
+/* HIDE ARROWS ON MOBILE (Touchscreens) */
+@media (max-width: 768px) {
+  .slider-btn {
+    display: none;
+  }
+}
