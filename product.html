@@ -6,9 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <link rel="icon" type="image/png" href="favicon.png">
-
   <link rel="stylesheet" href="css/style.css" />
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
@@ -25,12 +23,18 @@
 </header>
 
 <section class="product-page">
-  <div class="product-image">
-    <img id="productImage" src="" alt="Product Image">
+  
+  <div class="gallery-wrapper">
+    <div class="gallery-container">
+      <div class="slider" id="productSlider">
+        </div>
+      <div class="dots-container" id="sliderDots">
+        </div>
+    </div>
   </div>
 
   <div class="product-details">
-    <h1 id="productName">Loading Product...</h1>
+    <h1 id="productName">Loading...</h1>
 
     <div class="rating">
       <i class="fas fa-star"></i> <span id="ratingValue">5.0</span>
@@ -38,12 +42,12 @@
     </div>
 
     <p class="price-tag" id="productPrice">₦0</p>
-
     <p class="description" id="productDescription" style="margin-bottom: 25px; color: #ccc;"></p>
 
+    <p id="stockCount" style="color: gold; font-size: 12px; margin-bottom: 10px;"></p>
+
     <label style="display: block; margin-bottom: 10px; color: gold; font-size: 12px; letter-spacing: 1px;">SELECT SIZE</label>
-    <div class="options" id="sizeContainer">
-      </div>
+    <div class="options" id="sizeContainer"></div>
 
     <button class="action-btn" id="addToCart">Add to Cart</button>
   </div>
