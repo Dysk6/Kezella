@@ -94,7 +94,7 @@ const products = {
     name: "Easter Majesty",
     description: "Lightweight and stylish, perfect for warm weather.",
     media: [
-      { type: 'image', src: 'images/p6_vid.mp4' }
+      { type: 'video', src: 'images/p6_vid.mp4' }, // Fixed: was missing comma & wrong type
       { type: 'image', src: 'images/p6_img1.jpg' },
       { type: 'image', src: 'images/p6_img2.jpg' },
       { type: 'image', src: 'images/p6_img3.jpg' },
@@ -142,7 +142,7 @@ const products = {
     name: "Zedeck Dress",
     description: "Power dressing for the modern woman.",
     media: [
-      { type: 'image', src: 'images/p9_vid.mp4' },
+      { type: 'video', src: 'images/p9_vid.mp4' }, // Fixed: was type 'image'
       { type: 'image', src: 'images/p9_img1.jpg' },
       { type: 'image', src: 'images/p9_img2.jpg' },
       { type: 'image', src: 'images/p9_img3.jpg' },
@@ -176,7 +176,7 @@ const products = {
       { type: 'image', src: 'images/p10_img10.jpg' },
       { type: 'image', src: 'images/p10_img11.jpg' }
     ],
-    selections: {green, brown},
+    // selections: {green, brown} -- REMOVED (caused crash)
     sizes: { XL: 59000 },
     stock: 1
   },
@@ -186,7 +186,7 @@ const products = {
     name: "The Desire",
     description: "Beautiful floral patterns on premium fabric.",
     media: [
-      { type: 'image', src: 'images/p11_vid.mp4' }
+      { type: 'video', src: 'images/p11_vid.mp4' } // Fixed: was type 'image'
     ],
     sizes: { XL: 150000 },
     stock: 1
@@ -194,7 +194,7 @@ const products = {
 
   // --- PRODUCT 12 ---
   12: {
-    name: "Seraphina's Grown",
+    name: "Seraphina's Gown",
     description: "Smooth satin that feels like a second skin.",
     media: [
       { type: 'video', src: 'images/p12_vid.mp4' },
@@ -228,7 +228,7 @@ const products = {
     name: "Elo Dress",
     description: "Show off your style with this off-shoulder piece.",
     media: [
-      { type: 'video', src: 'images/p14_vid.mp4' }
+      { type: 'video', src: 'images/p14_vid.mp4' }, // Fixed: was missing comma
       { type: 'image', src: 'images/p14_img1.jpg' },
       { type: 'image', src: 'images/p14_img2.jpg' },
       { type: 'image', src: 'images/p14_img3.jpg' },
@@ -242,24 +242,23 @@ const products = {
   }
 };
 
-// ================= PAGE LOGIC (DO NOT TOUCH BELOW) =================
+// ================= PAGE LOGIC =================
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 const product = products[productId];
 let selectedSize = ""; 
 
 if (product) {
-  // 1. POPULATE TEXT DETAILS
+  // 1. TEXT DETAILS
   document.getElementById("productName").textContent = product.name;
   document.getElementById("productDescription").textContent = product.description;
   document.getElementById("stockCount").textContent = `${product.stock} items available`;
 
-  // 2. BUILD THE SLIDER (Video + Images)
+  // 2. SLIDER
   const slider = document.getElementById("productSlider");
   const dotsContainer = document.getElementById("sliderDots");
 
   product.media.forEach((item, index) => {
-    // Create Slide
     const slideDiv = document.createElement("div");
     slideDiv.className = "slide-item";
     
@@ -270,18 +269,16 @@ if (product) {
     }
     slider.appendChild(slideDiv);
 
-    // Create Dot
     const dot = document.createElement("div");
     dot.className = "dot" + (index === 0 ? " active" : "");
     dotsContainer.appendChild(dot);
   });
 
-  // 3. SLIDER SCROLL TRACKER
+  // 3. TRACKER
   slider.addEventListener("scroll", () => {
     const scrollPos = slider.scrollLeft;
     const width = slider.offsetWidth;
     const index = Math.round(scrollPos / width);
-    
     const dots = document.querySelectorAll(".dot");
     dots.forEach(d => d.classList.remove("active"));
     if (dots[index]) dots[index].classList.add("active");
@@ -290,7 +287,6 @@ if (product) {
   // 4. PRICE & SIZES
   const sizeContainer = document.getElementById("sizeContainer");
   const priceEl = document.getElementById("productPrice");
-
   const firstSize = Object.keys(product.sizes)[0];
   selectedSize = firstSize;
 
@@ -309,20 +305,15 @@ if (product) {
 
   priceEl.textContent = "₦" + product.sizes[firstSize].toLocaleString();
 
-  // 5. ADD TO CART
+  // 5. CART
   document.getElementById("addToCart").addEventListener("click", () => {
     if (product.stock <= 0) {
       alert("Sorry, this item is out of stock!");
       return;
     }
-
     let thumbnail = "";
     const imageItem = product.media.find(m => m.type === 'image');
-    if (imageItem) {
-      thumbnail = imageItem.src;
-    } else {
-      thumbnail = "favicon.png"; 
-    }
+    thumbnail = imageItem ? imageItem.src : "favicon.png"; 
 
     const cartItem = {
       id: productId,
@@ -335,27 +326,18 @@ if (product) {
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existing = cart.find(i => i.id === productId && i.size === selectedSize);
-    
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push(cartItem);
-    }
+    if (existing) { existing.quantity += 1; } else { cart.push(cartItem); }
 
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
     alert("Added to cart!");
   });
 
-  // 6. ARROW BUTTONS LOGIC (For PC)
+  // 6. ARROW BUTTONS (PC)
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
-
-  prevBtn.addEventListener("click", () => {
-    slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" });
-  });
-
-  nextBtn.addEventListener("click", () => {
-    slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" });
-  });
+  if(prevBtn && nextBtn) {
+    prevBtn.addEventListener("click", () => { slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" }); });
+    nextBtn.addEventListener("click", () => { slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); });
+  }
 }
