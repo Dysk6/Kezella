@@ -8,6 +8,59 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* Container for the split layout */
+    .details-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      align-items: flex-start; /* Aligns items to top */
+    }
+
+    /* Left Side: Media/Slider */
+    .product-media {
+      flex: 1 1 500px; /* Takes up roughly half width */
+      width: 100%;
+    }
+
+    /* Right Side: Info */
+    .product-info {
+      flex: 1 1 400px; /* Takes up roughly half width */
+      padding-top: 10px;
+    }
+
+    /* Fix image/video sizing so they don't fill the screen */
+    .slider img, .slider video {
+      width: 100%;
+      height: auto;
+      max-height: 600px; /* Limits height so it fits on screen */
+      object-fit: cover;
+      border-radius: 8px;
+      display: block; /* Removes bottom gap */
+    }
+
+    /* Ensure title is big and bold */
+    #productName {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-transform: uppercase; /* Match shop page style */
+    }
+
+    /* Mobile Responsive Adjustments */
+    @media (max-width: 768px) {
+      .details-container {
+        flex-direction: column; /* Stack vertically on phones */
+        gap: 20px;
+      }
+      .product-media, .product-info {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -16,6 +69,7 @@
   <nav class="nav">
     <a href="index.html" class="nav-link">Home</a>
     <a href="shop.html" class="nav-link">Shop</a>
+    <a href="contact.html" class="nav-link">Contact Us</a>
     <a href="cart.html" class="cart-link">
       <i class="fas fa-bag-shopping"></i>
       <span id="cartCount">0</span>
@@ -24,12 +78,14 @@
 </header>
 
 <section class="product-details">
-  <a href="shop.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Shop</a>
+  <a href="shop.html" class="back-btn" style="display:inline-block; margin: 20px 0 0 20px;">
+    <i class="fas fa-arrow-left"></i> Back to Shop
+  </a>
 
   <div class="details-container">
     
     <div class="product-media">
-      <div class="slider-wrapper">
+      <div class="slider-wrapper" style="position: relative;">
         <button id="prevBtn" class="slider-btn left"><i class="fas fa-chevron-left"></i></button>
         
         <div class="slider" id="productSlider">
@@ -38,26 +94,26 @@
         <button id="nextBtn" class="slider-btn right"><i class="fas fa-chevron-right"></i></button>
       </div>
       
-      <div class="slider-dots" id="sliderDots"></div>
+      <div class="slider-dots" id="sliderDots" style="text-align:center; margin-top:10px;"></div>
     </div>
 
     <div class="product-info">
       <h1 id="productName">Loading...</h1>
-      <p class="description" id="productDescription">Please wait...</p>
+      <p class="description" id="productDescription" style="line-height: 1.6; margin-bottom: 20px;">Please wait...</p>
       
-      <div class="price-box">
-        <span id="productPrice" class="price">--</span>
+      <div class="price-box" style="margin-bottom: 20px;">
+        <span id="productPrice" class="price" style="font-size: 1.5rem; font-weight: bold; color: #d4af37;">--</span>
       </div>
 
-      <div class="options">
-        <h3>Select Size:</h3>
-        <div class="size-options" id="sizeContainer">
+      <div class="options" style="margin-bottom: 20px;">
+        <h3 style="margin-bottom: 10px;">Select Size:</h3>
+        <div class="size-options" id="sizeContainer" style="display: flex; gap: 10px;">
           </div>
       </div>
 
-      <p class="stock-status" id="stockCount"></p>
+      <p class="stock-status" id="stockCount" style="margin-bottom: 20px; color: #666;"></p>
 
-      <button id="addToCart" class="add-cart-btn">
+      <button id="addToCart" class="add-cart-btn" style="width: 100%; padding: 15px; background: #000; color: #fff; border: none; font-size: 1rem; cursor: pointer;">
         ADD TO CART
       </button>
     </div>
@@ -66,6 +122,7 @@
 
 <footer class="footer">
   <div class="social-icons">
+    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
     <a href="https://wa.me/2347067777246" target="_blank"><i class="fab fa-whatsapp"></i></a>
     <a href="https://www.instagram.com/kezeella/" target="_blank"><i class="fab fa-instagram"></i></a>
     <a href="tel:+2347067777246"><i class="fas fa-phone"></i></a>
