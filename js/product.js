@@ -94,7 +94,7 @@ const products = {
     name: "Easter Majesty",
     description: "Lightweight and stylish, perfect for warm weather.",
     media: [
-      { type: 'video', src: 'images/p6_vid.mp4' }, // Fixed: was missing comma & wrong type
+      { type: 'video', src: 'images/p6_vid.mp4' },
       { type: 'image', src: 'images/p6_img1.jpg' },
       { type: 'image', src: 'images/p6_img2.jpg' },
       { type: 'image', src: 'images/p6_img3.jpg' },
@@ -142,7 +142,7 @@ const products = {
     name: "Zedeck Dress",
     description: "Power dressing for the modern woman.",
     media: [
-      { type: 'video', src: 'images/p9_vid.mp4' }, // Fixed: was type 'image'
+      { type: 'video', src: 'images/p9_vid.mp4' },
       { type: 'image', src: 'images/p9_img1.jpg' },
       { type: 'image', src: 'images/p9_img2.jpg' },
       { type: 'image', src: 'images/p9_img3.jpg' },
@@ -185,7 +185,7 @@ const products = {
     name: "The Desire",
     description: "Beautiful floral patterns on premium fabric.",
     media: [
-      { type: 'video', src: 'images/p11_vid.mp4' } // Fixed: was type 'image'
+      { type: 'video', src: 'images/p11_vid.mp4' }
     ],
     sizes: { XL: 150000 },
     stock: 1
@@ -227,7 +227,7 @@ const products = {
     name: "Elo Dress",
     description: "Show off your style with this off-shoulder piece.",
     media: [
-      { type: 'video', src: 'images/p14_vid.mp4' }, // Fixed: was missing comma
+      { type: 'video', src: 'images/p14_vid.mp4' },
       { type: 'image', src: 'images/p14_img1.jpg' },
       { type: 'image', src: 'images/p14_img2.jpg' },
       { type: 'image', src: 'images/p14_img3.jpg' },
