@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Kezeélla | Product Details</title>
+  <title>Kezeélla | Product</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <link rel="icon" type="image/png" href="favicon.png">
@@ -10,66 +10,137 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
-    /* Container for the split layout */
-    .details-container {
+    /* 1. Main Container: Centered, White Background, not full width */
+    .ali-container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
       display: flex;
       flex-wrap: wrap;
-      gap: 40px;
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 20px;
-      align-items: flex-start; /* Aligns items to top */
+      gap: 30px;
+      /* Optional: subtle shadow to make it pop like a card */
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      border-radius: 8px;
     }
 
-    /* Left Side: Media/Slider */
-    .product-media {
-      flex: 1 1 500px; /* Takes up roughly half width */
+    /* 2. Left Column: Images */
+    .ali-gallery {
+      flex: 1 1 500px; /* Takes 50% width approx */
       width: 100%;
     }
+    
+    /* Ensure slider images fit nicely inside the box */
+    .slider img, .slider video {
+      width: 100%;
+      height: 500px; /* Fixed height for uniformity */
+      object-fit: cover; /* Crop to fit, don't stretch */
+      border-radius: 8px;
+      border: 1px solid #eee;
+    }
 
-    /* Right Side: Info */
-    .product-info {
-      flex: 1 1 400px; /* Takes up roughly half width */
+    /* 3. Right Column: Info */
+    .ali-info {
+      flex: 1 1 400px; /* Takes remaining width */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
       padding-top: 10px;
     }
 
-    /* Fix image/video sizing so they don't fill the screen */
-    .slider img, .slider video {
-      width: 100%;
-      height: auto;
-      max-height: 600px; /* Limits height so it fits on screen */
-      object-fit: cover;
-      border-radius: 8px;
-      display: block; /* Removes bottom gap */
+    /* Title Styling */
+    .ali-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 15px;
+      text-transform: uppercase;
     }
 
-    /* Ensure title is big and bold */
-    #productName {
-      font-size: 2.5rem;
+    /* Price Styling - The "AliExpress" Red/Orange look */
+    .ali-price-box {
+      background: #fafafa;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+    .ali-price {
+      font-size: 28px;
+      color: #ff4747; /* AliExpress Red */
+      font-weight: 800;
+    }
+
+    /* Size Selector - Box Style */
+    .ali-size-title {
+      font-size: 14px;
+      color: #666;
       margin-bottom: 10px;
-      text-transform: uppercase; /* Match shop page style */
+      font-weight: bold;
+    }
+    
+    /* Force the size container to row layout */
+    #sizeContainer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
     }
 
-    /* Mobile Responsive Adjustments */
+    /* Styling the JS injected buttons */
+    #sizeContainer button {
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      background: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    #sizeContainer button:hover {
+      border-color: #000;
+    }
+    #sizeContainer button.active, #sizeContainer button:focus {
+      border-color: #ff4747;
+      color: #ff4747;
+      background: #fff0f0;
+    }
+
+    /* Add to Cart Button */
+    .ali-btn-cart {
+      background-color: #ff4747; /* Orange/Red */
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      padding: 18px;
+      width: 100%;
+      cursor: pointer;
+      text-transform: uppercase;
+      border-radius: 4px;
+      margin-top: auto; /* Pushes to bottom */
+    }
+    .ali-btn-cart:hover {
+      background-color: #e03e3e;
+    }
+
+    /* Mobile */
     @media (max-width: 768px) {
-      .details-container {
-        flex-direction: column; /* Stack vertically on phones */
-        gap: 20px;
+      .ali-container {
+        flex-direction: column;
+        padding: 10px;
+        box-shadow: none;
       }
-      .product-media, .product-info {
-        flex: 1 1 100%;
+      .slider img, .slider video {
+        height: auto;
+        aspect-ratio: 1/1;
       }
     }
   </style>
 </head>
-<body>
-
-<header class="header">
+<body style="background-color: #f5f5f5;"> <header class="header">
   <div class="logo">Kezeélla</div>
   <nav class="nav">
     <a href="index.html" class="nav-link">Home</a>
     <a href="shop.html" class="nav-link">Shop</a>
-    <a href="contact.html" class="nav-link">Contact Us</a>
     <a href="cart.html" class="cart-link">
       <i class="fas fa-bag-shopping"></i>
       <span id="cartCount">0</span>
@@ -77,54 +148,51 @@
   </nav>
 </header>
 
-<section class="product-details">
-  <a href="shop.html" class="back-btn" style="display:inline-block; margin: 20px 0 0 20px;">
-    <i class="fas fa-arrow-left"></i> Back to Shop
-  </a>
+<div style="max-width: 1100px; margin: 20px auto; padding: 0 20px; font-size: 14px; color: #888;">
+  <a href="shop.html" style="color: #333; text-decoration: none;">&larr; Back to Shop</a>
+</div>
 
-  <div class="details-container">
-    
-    <div class="product-media">
-      <div class="slider-wrapper" style="position: relative;">
-        <button id="prevBtn" class="slider-btn left"><i class="fas fa-chevron-left"></i></button>
-        
-        <div class="slider" id="productSlider">
-          </div>
-
-        <button id="nextBtn" class="slider-btn right"><i class="fas fa-chevron-right"></i></button>
-      </div>
-      
-      <div class="slider-dots" id="sliderDots" style="text-align:center; margin-top:10px;"></div>
+<section class="ali-container">
+  
+  <div class="ali-gallery">
+    <div class="slider-wrapper" style="position: relative;">
+      <button id="prevBtn" class="slider-btn left"><i class="fas fa-chevron-left"></i></button>
+      <div class="slider" id="productSlider">
+        </div>
+      <button id="nextBtn" class="slider-btn right"><i class="fas fa-chevron-right"></i></button>
     </div>
-
-    <div class="product-info">
-      <h1 id="productName">Loading...</h1>
-      <p class="description" id="productDescription" style="line-height: 1.6; margin-bottom: 20px;">Please wait...</p>
-      
-      <div class="price-box" style="margin-bottom: 20px;">
-        <span id="productPrice" class="price" style="font-size: 1.5rem; font-weight: bold; color: #d4af37;">--</span>
-      </div>
-
-      <div class="options" style="margin-bottom: 20px;">
-        <h3 style="margin-bottom: 10px;">Select Size:</h3>
-        <div class="size-options" id="sizeContainer" style="display: flex; gap: 10px;">
-          </div>
-      </div>
-
-      <p class="stock-status" id="stockCount" style="margin-bottom: 20px; color: #666;"></p>
-
-      <button id="addToCart" class="add-cart-btn" style="width: 100%; padding: 15px; background: #000; color: #fff; border: none; font-size: 1rem; cursor: pointer;">
-        ADD TO CART
-      </button>
-    </div>
+    <div class="slider-dots" id="sliderDots" style="text-align: center; margin-top: 10px;"></div>
   </div>
+
+  <div class="ali-info">
+    <h1 id="productName" class="ali-title">Loading...</h1>
+    
+    <div class="ali-price-box">
+      <span id="productPrice" class="ali-price">--</span>
+    </div>
+
+    <p class="ali-size-title">SELECT SIZE:</p>
+    <div id="sizeContainer">
+      </div>
+
+    <p id="productDescription" style="color: #666; font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
+      Loading description...
+    </p>
+
+    <p id="stockCount" style="color: green; font-size: 13px; margin-bottom: 20px;"></p>
+
+    <button id="addToCart" class="ali-btn-cart">
+      ADD TO CART
+    </button>
+  </div>
+
 </section>
 
 <footer class="footer">
   <div class="social-icons">
-    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
     <a href="https://wa.me/2347067777246" target="_blank"><i class="fab fa-whatsapp"></i></a>
     <a href="https://www.instagram.com/kezeella/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://facebook.com/kezeeella" target="_blank"><i class="fab fa-facebook"></i></a>
     <a href="tel:+2347067777246"><i class="fas fa-phone"></i></a>
   </div>
   <p>© Kezeélla Luxury Fashion</p>
