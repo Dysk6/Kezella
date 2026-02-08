@@ -446,95 +446,114 @@ const products = {
   }
 };
 
-// Logic for Initialization
-document.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const productId = params.get("id") || "1";
-  const product = products[productId];
+// ================= PAGE LOGIC =================
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id");
+const product = products[productId];
+let selectedSize = ""; 
 
-  let selectedSize = "S";
-  let selectedColor = product.colors ? product.colors[0].name : null;
+if (product) {
+  // 1. TEXT DETAILS
+  document.getElementById("productName").textContent = product.name;
+  document.getElementById("productDescription").textContent = product.description;
+  document.getElementById("stockCount").textContent = `${product.stock} items available`;
 
-  // 1. Fill Name & Price
-  document.getElementById("productName").innerText = product.name;
-  const priceEl = document.getElementById("productPrice");
-  priceEl.innerText = "₦" + product.sizes[selectedSize].toLocaleString();
+  // --- ADD THESE LINES BELOW ---
+  const storyEl = document.getElementById("productStory");
+  const storySection = document.getElementById("storySection");
+  
+  if (product.story) {
+    storyEl.innerHTML = product.story; // Use innerHTML to allow <strong> tags
+    storySection.style.display = "block";
+  } else {
+    storySection.style.display = "none"; // Hide section if no story exists yet
+  }
+  // ------------------------------
 
-  // 2. Generate Size Buttons
+  // 2. SLIDER
+  const slider = document.getElementById("productSlider");
+  const dotsContainer = document.getElementById("sliderDots");
+
+  product.media.forEach((item, index) => {
+    const slideDiv = document.createElement("div");
+    slideDiv.className = "slide-item";
+    
+    if (item.type === 'video') {
+      slideDiv.innerHTML = `<video src="${item.src}" controls loop muted playsinline autoplay></video>`;
+    } else {
+      slideDiv.innerHTML = `<img src="${item.src}" alt="${product.name}">`;
+    }
+    slider.appendChild(slideDiv);
+
+    const dot = document.createElement("div");
+    dot.className = "dot" + (index === 0 ? " active" : "");
+    dotsContainer.appendChild(dot);
+  });
+
+  // 3. TRACKER
+  slider.addEventListener("scroll", () => {
+    const scrollPos = slider.scrollLeft;
+    const width = slider.offsetWidth;
+    const index = Math.round(scrollPos / width);
+    const dots = document.querySelectorAll(".dot");
+    dots.forEach(d => d.classList.remove("active"));
+    if (dots[index]) dots[index].classList.add("active");
+  });
+
+  // 4. PRICE & SIZES
   const sizeContainer = document.getElementById("sizeContainer");
+  const priceEl = document.getElementById("productPrice");
+  const firstSize = Object.keys(product.sizes)[0];
+  selectedSize = firstSize;
+
   Object.keys(product.sizes).forEach(size => {
     const btn = document.createElement("button");
-    btn.className = "size-btn" + (size === selectedSize ? " active" : "");
-    btn.innerText = size;
+    btn.className = "option-btn" + (size === firstSize ? " active" : "");
+    btn.textContent = size;
     btn.onclick = () => {
-      selectedSize = size;
-      document.querySelectorAll(".size-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      priceEl.innerText = "₦" + product.sizes[size].toLocaleString();
+      selectedSize = size;
+      priceEl.textContent = "₦" + product.sizes[size].toLocaleString();
     };
     sizeContainer.appendChild(btn);
   });
 
-  // 3. Generate Color Boxes (For Ella & Kamsi)
-  const colorWrapper = document.getElementById("colorWrapper");
-  const colorContainer = document.getElementById("colorContainer");
-  if (product.colors) {
-    colorWrapper.style.display = "block";
-    product.colors.forEach(c => {
-      const box = document.createElement("div");
-      box.className = "color-box" + (c.name === selectedColor ? " active" : "");
-      box.style.backgroundColor = c.hex;
-      box.title = c.name;
-      box.onclick = () => {
-        selectedColor = c.name;
-        document.querySelectorAll(".color-box").forEach(b => b.classList.remove("active"));
-        box.classList.add("active");
-      };
-      colorContainer.appendChild(box);
-    });
-  }
+  priceEl.textContent = "₦" + product.sizes[firstSize].toLocaleString();
 
-  // 4. Load Reviews
-  displayReviews(productId);
+  // 5. CART
+  document.getElementById("addToCart").addEventListener("click", () => {
+    if (product.stock <= 0) {
+      alert("Sorry, this item is out of stock!");
+      return;
+    }
+    let thumbnail = "";
+    const imageItem = product.media.find(m => m.type === 'image');
+    thumbnail = imageItem ? imageItem.src : "favicon.png"; 
 
-  // 5. Review Form Visibility (Simulation)
-  // In a real site, this checks your database. Here, we'll show it for testing.
-  document.getElementById("reviewFormWrapper").style.display = "block";
+    const cartItem = {
+      id: productId,
+      name: product.name,
+      size: selectedSize,
+      price: product.sizes[selectedSize],
+      image: thumbnail, 
+      quantity: 1
+    };
 
-  // Handle Review Submission
-  document.getElementById("submitReview").onclick = () => {
-    const rating = document.querySelector('input[name="rating"]:checked');
-    const comment = document.getElementById("reviewComment").value;
-    
-    if (!rating) { alert("Please select a star rating!"); return; }
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existing = cart.find(i => i.id === productId && i.size === selectedSize);
+    if (existing) { existing.quantity += 1; } else { cart.push(cartItem); }
 
-    const newReview = { rating: rating.value, comment: comment, date: new Date().toLocaleDateString() };
-    let reviews = JSON.parse(localStorage.getItem("reviews_" + productId)) || [];
-    reviews.push(newReview);
-    localStorage.setItem("reviews_" + productId, JSON.stringify(reviews));
-    
-    alert("Thank you for your review!");
-    location.reload(); // Refresh to show new review
-  };
-});
-
-function displayReviews(id) {
-  const reviews = JSON.parse(localStorage.getItem("reviews_" + id)) || [];
-  const container = document.getElementById("existingReviews");
-  if (reviews.length === 0) return;
-
-  container.innerHTML = "";
-  let totalStars = 0;
-
-  reviews.forEach(r => {
-    totalStars += parseInt(r.rating);
-    const div = document.createElement("div");
-    div.className = "review-item";
-    div.innerHTML = `<div class="stars">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</div>
-                     <p>${r.comment}</p><small>${r.date} - Verified Buyer</small>`;
-    container.appendChild(div);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+    alert("Added to cart!");
   });
 
-  const avg = (totalStars / reviews.length).toFixed(1);
-  document.getElementById("ratingValue").innerText = avg;
+  // 6. ARROW BUTTONS (PC)
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  if(prevBtn && nextBtn) {
+    prevBtn.addEventListener("click", () => { slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" }); });
+    nextBtn.addEventListener("click", () => { slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); });
+  }
 }
