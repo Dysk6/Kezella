@@ -389,8 +389,8 @@ const products = {
     stock: 1
   },
 
-  // --- PRODUCT 11 ---
-  11: {
+  // --- PRODUCT 13 ---
+  13: {
     name: "KAMSI KIMONO",
     description: "A vibrant three-panel 'Wearable Prayer' in sky blue, crisp white, and leaf green, designed for the woman who bridges worlds with grace and boundless freedom.",
     story: `<strong>THE KAMSI DRESS: THE SPECTRUM OF HARMONY</strong>
@@ -411,13 +411,10 @@ const products = {
     <strong>THE FEELING</strong>
     Walking in the Kamsi feels like carrying your own atmosphere. The sheer, expansive panels catch the light and the wind, turning a simple stroll into a grand procession. When you wrap yourself in these colors, you feel a sense of boundless freedom and the quiet confidence that you are exactly where you are meant to be.`,
     media: [
-      { type: 'video', src: 'images/p11_vid.mp4' },
-      { type: 'image', src: 'images/p11_img1.jpg' },
-      { type: 'image', src: 'images/p11_img2.jpg' },
-      { type: 'image', src: 'images/p11_img3.jpg' },
-      { type: 'image', src: 'images/p11_img4.jpg' },
-      { type: 'image', src: 'images/p11_img5.jpg' },
-      { type: 'image', src: 'images/p11_img6.jpg' }
+      { type: 'video', src: 'images/p13_vid.mp4' },
+      { type: 'image', src: 'images/p13_img1.jpg' },
+      { type: 'image', src: 'images/p13_img2.jpg' },
+      { type: 'image', src: 'images/p13_img3.jpg' }
     ],
     sizes: { XL: 30000 },
     stock: 1
