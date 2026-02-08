@@ -68,26 +68,43 @@ const products = {
   },
 
   // --- PRODUCT 5 ---
-  5: {
-    name: "Fanny Dress",
-    description: "Rich velvet texture for a sophisticated look.",
-    media: [
-      { type: 'video', src: 'images/p5_vid.mp4' },
-      { type: 'image', src: 'images/p5_img1.jpg' },
-      { type: 'image', src: 'images/p5_img2.jpg' },
-      { type: 'image', src: 'images/p5_img3.jpg' },
-      { type: 'image', src: 'images/p5_img4.jpg' },
-      { type: 'image', src: 'images/p5_img5.jpg' },
-      { type: 'image', src: 'images/p5_img6.jpg' },
-      { type: 'image', src: 'images/p5_img7.jpg' },
-      { type: 'image', src: 'images/p5_img8.jpg' },
-      { type: 'image', src: 'images/p5_img9.jpg' },
-      { type: 'image', src: 'images/p5_img10.jpg' },
-      { type: 'image', src: 'images/p5_img11.jpg' }
-    ],
-    sizes: { XL: 122000 },
-    stock: 1
-  },
+  5: {
+    name: "Fanny Dress",
+    // Brief one-liner
+    description: "A three-piece crimson masterpiece designed for the woman who refuses to be defined by a single silhouette.",
+    story: `<strong>The Fanny Dress: A Trilogy of Self</strong>
+    
+    "Why choose one version of yourself when you can be all of them?"
+    
+    The Fanny Dress isn’t just an outfit; it’s a narrative of transformation. Drenched in a bold, unapologetic crimson, this three-piece ensemble was designed for the woman who is the architect of her own life.
+    
+    <strong>THE STORY BEHIND THE DESIGN</strong>
+    Inspired by the idea of "The Eternal Bloom," the Fanny Dress mimics the petals of a dark rose. Each layer represents a different chapter of a woman’s day. The deep texture of the fabric is intentional—it’s tactile and grounded.
+    
+    <strong>ONE SET, THREE LIVES</strong>
+    • <strong>The Full Manifestation:</strong> The ruffled top and tiered skirt create a gown of commanding presence.
+    • <strong>The Romantic Rebel:</strong> Pair the ruffled top with vintage denim for a bit of drama in the everyday.
+    • <strong>The Grounded Goddess:</strong> The tiered skirt paired with silk camisole creates a silhouette of quiet confidence.
+    
+    <strong>THE FEELING</strong>
+    When you slip into the Fanny Dress, you are putting on your armor and your art all at once. It’s a reminder that you have the power to change, to adapt, and to bloom.`,
+    media: [
+      { type: 'video', src: 'images/p5_vid.mp4' },
+      { type: 'image', src: 'images/p5_img1.jpg' },
+      { type: 'image', src: 'images/p5_img2.jpg' },
+      { type: 'image', src: 'images/p5_img3.jpg' },
+      { type: 'image', src: 'images/p5_img4.jpg' },
+      { type: 'image', src: 'images/p5_img5.jpg' },
+      { type: 'image', src: 'images/p5_img6.jpg' },
+      { type: 'image', src: 'images/p5_img7.jpg' },
+      { type: 'image', src: 'images/p5_img8.jpg' },
+      { type: 'image', src: 'images/p5_img9.jpg' },
+      { type: 'image', src: 'images/p5_img10.jpg' },
+      { type: 'image', src: 'images/p5_img11.jpg' }
+    ],
+    sizes: { XL: 122000 },
+    stock: 1
+  },
 
   // --- PRODUCT 6 ---
   6: {
