@@ -30,8 +30,8 @@ const products = {
       { type: 'image', src: 'images/p1_img6.jpg' },
       { type: 'image', src: 'images/p1_img7.jpg' }
     ],
-    sizes: { XL: 74000 },
-    stock: 1
+    sizes: { S:95000 M:99500 L:104000 },
+    stock: 10
   },
 
   // --- PRODUCT 2 ---
@@ -346,12 +346,28 @@ const products = {
 
   // --- PRODUCT 11 ---
   11: {
-    name: "The Desire",
-    description: "Beautiful floral patterns on premium fabric.",
+    name: "THE DESIRE",
+    description: "A sculptural nude-blush masterpiece featuring intricate full-body shirring, a cross-heart bodice, and dramatic hip drapery.",
+    story: `<strong>THE DESIRE: THE ARCHITECTURE OF ALLURE</strong>
+    
+    "Desire isn't just a feeling; it is a form."
+    
+    This dress was designed to celebrate the landscape of the female body. "The Desire" is a study in texture—a garment that doesn't just sit on the skin but moves with it. Rendered in a soft, sun-baked blush tone, it blurs the line between the woman and the art she is wearing.
+    
+    <strong>THE STORY BEHIND THE DESIGN</strong>
+    It is for the woman who understands that true allure isn't about revealing everything, but about the mystery of the silhouette. The dress hugs every curve like a second skin, offering a supportive embrace that sculpts the figure without restricting it.
+    
+    <strong>THE DETAILS</strong>
+    • <strong>The Living Texture:</strong> The bodice is crafted with high-density shirring (ruching) that mimics the ripples of sand dunes, expanding and contracting with your movement.
+    • <strong>The Sculpted Hip:</strong> The texture descends into a dramatic V-shape, releasing into voluminous, architectural folds that exaggerate the curves with avant-garde grace.
+    • <strong>The Cross-Heart Bodice:</strong> Smooth bands cross over the chest and wrap around the shoulders, creating a modern geometric frame for the face.
+    
+    <strong>THE FEELING</strong>
+    Protective yet undeniably sensual. When you walk, the heavy drapes at the hip swing with a rhythmic grace, making you feel like a living statue—timeless, artistic, and breathtakingly grounded.`,
     media: [
-      { type: 'video', src: 'images/p11_vid.mp4' }
+      { type: 'image', src: 'images/p11_vid.mp4' }
     ],
-    sizes: { XL: 150000 },
+    sizes: { XL: 95000 },
     stock: 1
   },
 
