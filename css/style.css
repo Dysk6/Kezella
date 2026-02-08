@@ -378,6 +378,78 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer;
 }
 
+/* --- LUXURY SIZE CHART STYLES --- */
+.size-chart-container {
+    width: 100%;
+    max-width: 800px; /* Keeps it from getting too wide on desktop */
+    margin: 40px 0;   /* Adds breathing room before the story */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #ffffff;
+}
+
+.size-chart-container h3 {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-left: 3px solid #d4af37; /* Kezeélla Gold accent */
+    padding-left: 10px;
+}
+
+.table-responsive {
+    overflow-x: auto; /* Allows scrolling on mobile if table is too wide */
+}
+
+.size-chart {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #111; /* Deep black background */
+    font-size: 0.9rem;
+}
+
+.size-chart th, 
+.size-chart td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #333; /* Subtle divider lines */
+}
+
+.size-chart th {
+    background-color: #000;
+    color: #888; /* Muted header text like the image */
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.size-chart td {
+    color: #fff;
+    font-weight: 300;
+}
+
+.size-chart tr:last-child td {
+    border-bottom: none;
+}
+
+.size-chart tr:hover {
+    background-color: #1a1a1a; /* Subtle highlight on hover */
+}
+
+.size-note {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.section-divider {
+    border: 0;
+    height: 1px;
+    background: #333;
+    margin: 40px 0;
+}
+
 /* =========================
    CART PAGE
    ========================= */
