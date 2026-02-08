@@ -266,9 +266,21 @@ let selectedSize = "";
 
 if (product) {
   // 1. TEXT DETAILS
-  document.getElementById("productName").textContent = product.name;
-  document.getElementById("productDescription").textContent = product.description;
-  document.getElementById("stockCount").textContent = `${product.stock} items available`;
+  document.getElementById("productName").textContent = product.name;
+  document.getElementById("productDescription").textContent = product.description;
+  document.getElementById("stockCount").textContent = `${product.stock} items available`;
+
+  // --- ADD THESE LINES BELOW ---
+  const storyEl = document.getElementById("productStory");
+  const storySection = document.getElementById("storySection");
+  
+  if (product.story) {
+    storyEl.innerHTML = product.story; // Use innerHTML to allow <strong> tags
+    storySection.style.display = "block";
+  } else {
+    storySection.style.display = "none"; // Hide section if no story exists yet
+  }
+  // ------------------------------
 
   // 2. SLIDER
   const slider = document.getElementById("productSlider");
