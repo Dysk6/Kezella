@@ -30,7 +30,7 @@ const products = {
       { type: 'image', src: 'images/p1_img7.jpg' }
     ],
     sizes: { "S": 95000, "M": 99500, "L": 104000 },
-    stock: 10
+    stock: 1
   },
   2: {
     name: "STAR DRESS",
@@ -58,7 +58,7 @@ const products = {
       { type: 'image', src: 'images/p2_img2.jpg' }
     ],
     sizes: { "S": 175000, "M": 185000, "L": 195000 },
-    stock: 10
+    stock: 1
   },
   3: {
     name: "GLORY DRESS",
@@ -91,7 +91,7 @@ const products = {
       { type: 'image', src: 'images/p3_img8.jpg' }
     ],
     sizes: { "S": 80000, "M": 85500, "L": 92000 },
-    stock: 10
+    stock: 1
   },
   4: {
     name: "DANNY'S POLKADOTS",
@@ -122,7 +122,7 @@ const products = {
       { type: 'image', src: 'images/p4_img6.jpg' }
     ],
     sizes: { "S": 99000, "M": 106000, "L": 113000 },
-    stock: 10
+    stock: 1
   },
   5: {
     name: "Fanny Dress",
@@ -159,7 +159,7 @@ const products = {
       { type: 'image', src: 'images/p5_img11.jpg' }
     ],
     sizes: { "S": 155000, "M": 165000, "L": 175000 },
-    stock: 10
+    stock: 1
   },
   6: {
     name: "EASTER MAJESTY",
@@ -188,7 +188,7 @@ const products = {
       { type: 'image', src: 'images/p6_img4.jpg' }
     ],
     sizes: { "S": 299000, "M": 315000, "L": 329000 },
-    stock: 10
+    stock: 1
   },
   7: {
     name: "DEEPER DRESS",
@@ -219,7 +219,7 @@ const products = {
       { type: 'image', src: 'images/p7_img5.jpg' }
     ],
     sizes: { "S": 210000, "M": 227000, "L": 241000 },
-    stock: 10
+    stock: 1
   },
   8: {
     name: "KAY AMBROSE",
@@ -251,7 +251,7 @@ const products = {
       { type: 'image', src: 'images/p8_img6.jpg' }
     ],
     sizes: { "S": 119000, "M": 124500, "L": 129000 },
-    stock: 10
+    stock: 1
   },
   9: {
     name: "Zedeck Dress",
@@ -285,7 +285,7 @@ const products = {
       { type: 'image', src: 'images/p9_img9.jpg' }
     ],
     sizes: { "S": 115000, "M": 119000, "L": 125000 },
-    stock: 10
+    stock: 1
   },
   10: {
     name: "ELLA DRESS",
@@ -323,7 +323,7 @@ const products = {
     ],
     sizes: { "S": 89000, "M": 93000, "L": 96000 },
     colors: [ {name: "Green", hex: "#006400"}, {name: "Brown", hex: "#5D4037"} ],
-    stock: 10
+    stock: 1
   },
   11: {
     name: "THE DESIRE",
@@ -348,7 +348,7 @@ const products = {
       { type: 'image', src: 'images/p11_vid.mp4' }
     ],
     sizes: { "S": 175000, "M": 185000, "L": 195000 },
-    stock: 10
+    stock: 1
   },
   12: {
     name: "SERAPHINA'S GOWN",
@@ -380,7 +380,7 @@ const products = {
       { type: 'image', src: 'images/p12_img6.jpg' }
     ],
     sizes: { "S": 102000, "M": 108000, "L": 114000 },
-    stock: 10
+    stock: 1
   },
   13: {
     name: "KAMSI KIMONO",
@@ -410,7 +410,7 @@ const products = {
     ],
     sizes: { "S": 55000, "M": 58000, "L": 61000 },
     colors: [ {name: "Blue", hex: "#0000FF"}, {name: "GreenBlue", hex: "#008080"} ],
-    stock: 10
+    stock: 1
   },
   14: {
     name: "ELO DRESS",
@@ -442,7 +442,7 @@ const products = {
       { type: 'image', src: 'images/p14_img7.jpg' }
     ],
     sizes: { "S": 40000, "M": 42500, "L": 45000 },
-    stock: 10
+    stock: 1
   }
 };
 
@@ -450,110 +450,82 @@ const products = {
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 const product = products[productId];
-let selectedSize = ""; 
 
-if (product) {
-  // 1. TEXT DETAILS
-  document.getElementById("productName").textContent = product.name;
-  document.getElementById("productDescription").textContent = product.description;
-  document.getElementById("stockCount").textContent = `${product.stock} items available`;
+let selectedSize = null;
+let selectedQty = 1;
 
-  // --- ADD THESE LINES BELOW ---
-  const storyEl = document.getElementById("productStory");
-  const storySection = document.getElementById("storySection");
-  
-  if (product.story) {
-    storyEl.innerHTML = product.story; // Use innerHTML to allow <strong> tags
-    storySection.style.display = "block";
-  } else {
-    storySection.style.display = "none"; // Hide section if no story exists yet
+const priceTag = document.querySelector(".price-tag");
+const sizeButtons = document.querySelectorAll(".option-btn");
+const qtyValue = document.getElementById("qtyValue");
+
+// ---- SIZE SELECTION ----
+sizeButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    sizeButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    selectedSize = btn.dataset.size;
+    selectedQty = 1;
+    qtyValue.textContent = 1;
+
+    priceTag.textContent =
+      "₦" + product.sizes[selectedSize].price.toLocaleString();
+  });
+});
+
+// ---- QUANTITY CONTROLS ----
+document.getElementById("qtyMinus").onclick = () => {
+  if (selectedQty > 1) {
+    selectedQty--;
+    qtyValue.textContent = selectedQty;
   }
-  // ------------------------------
+};
 
-  // 2. SLIDER
-  const slider = document.getElementById("productSlider");
-  const dotsContainer = document.getElementById("sliderDots");
+document.getElementById("qtyPlus").onclick = () => {
+  if (!selectedSize) {
+    alert("Please select a size first.");
+    return;
+  }
 
-  product.media.forEach((item, index) => {
-    const slideDiv = document.createElement("div");
-    slideDiv.className = "slide-item";
-    
-    if (item.type === 'video') {
-      slideDiv.innerHTML = `<video src="${item.src}" controls loop muted playsinline autoplay></video>`;
-    } else {
-      slideDiv.innerHTML = `<img src="${item.src}" alt="${product.name}">`;
-    }
-    slider.appendChild(slideDiv);
+  if (selectedQty < product.sizes[selectedSize].stock) {
+    selectedQty++;
+    qtyValue.textContent = selectedQty;
+  }
+};
 
-    const dot = document.createElement("div");
-    dot.className = "dot" + (index === 0 ? " active" : "");
-    dotsContainer.appendChild(dot);
-  });
+// ---- ADD TO CART ----
+document.getElementById("addToCartBtn").onclick = () => {
+  if (!selectedSize) {
+    alert("Please select a size before adding to cart.");
+    return;
+  }
 
-  // 3. TRACKER
-  slider.addEventListener("scroll", () => {
-    const scrollPos = slider.scrollLeft;
-    const width = slider.offsetWidth;
-    const index = Math.round(scrollPos / width);
-    const dots = document.querySelectorAll(".dot");
-    dots.forEach(d => d.classList.remove("active"));
-    if (dots[index]) dots[index].classList.add("active");
-  });
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // 4. PRICE & SIZES
-  const sizeContainer = document.getElementById("sizeContainer");
-  const priceEl = document.getElementById("productPrice");
-  const firstSize = Object.keys(product.sizes)[0];
-  selectedSize = firstSize;
+  const existing = cart.find(
+    item => item.id === productId && item.size === selectedSize
+  );
 
-  Object.keys(product.sizes).forEach(size => {
-    const btn = document.createElement("button");
-    btn.className = "option-btn" + (size === firstSize ? " active" : "");
-    btn.textContent = size;
-    btn.onclick = () => {
-      document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      selectedSize = size;
-      priceEl.textContent = "₦" + product.sizes[size].toLocaleString();
-    };
-    sizeContainer.appendChild(btn);
-  });
-
-  priceEl.textContent = "₦" + product.sizes[firstSize].toLocaleString();
-
-  // 5. CART
-  document.getElementById("addToCart").addEventListener("click", () => {
-    if (product.stock <= 0) {
-      alert("Sorry, this item is out of stock!");
+  if (existing) {
+    if (
+      existing.quantity + selectedQty >
+      product.sizes[selectedSize].stock
+    ) {
+      alert("Not enough stock available for this size.");
       return;
     }
-    let thumbnail = "";
-    const imageItem = product.media.find(m => m.type === 'image');
-    thumbnail = imageItem ? imageItem.src : "favicon.png"; 
-
-    const cartItem = {
+    existing.quantity += selectedQty;
+  } else {
+    cart.push({
       id: productId,
       name: product.name,
       size: selectedSize,
-      price: product.sizes[selectedSize],
-      image: thumbnail, 
-      quantity: 1
-    };
-
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existing = cart.find(i => i.id === productId && i.size === selectedSize);
-    if (existing) { existing.quantity += 1; } else { cart.push(cartItem); }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
-    alert("Added to cart!");
-  });
-
-  // 6. ARROW BUTTONS (PC)
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-  if(prevBtn && nextBtn) {
-    prevBtn.addEventListener("click", () => { slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" }); });
-    nextBtn.addEventListener("click", () => { slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); });
+      price: product.sizes[selectedSize].price,
+      quantity: selectedQty
+    });
   }
-}
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+  alert("Added to bag.");
+};
