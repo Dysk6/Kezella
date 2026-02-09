@@ -711,7 +711,7 @@ a { text-decoration: none; color: inherit; }
   .stacked-row img {
     width: 90px;
     height: 150px;
-    margin-left: -75px; /* VERY tight stack for mobile */
+    margin-left: -65px; /* VERY tight stack for mobile */
   }
   .stacked-row img:hover {
     transform: scale(1.2) translateY(-10px);
