@@ -641,48 +641,45 @@ a { text-decoration: none; color: inherit; }
   padding: 80px 0;
   background: #000;
   text-align: center;
-  overflow: hidden; /* Keeps the zoom effect inside the screen */
+  overflow: hidden;
 }
 
-.collection-link {
-  display: block;
-  cursor: pointer;
-  text-decoration: none;
-}
-
+/* The images container is no longer inside the link */
 .stacked-row {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 40px 0;
-  /* This creates the "Stacked" look */
-  margin-left: 50px; 
+  margin-left: 60px; /* Offset to center the stack */
 }
 
 .stacked-row img {
-  width: 180px; /* Adjust size as needed */
+  width: 180px; 
   height: 280px;
   object-fit: cover;
   border: 1px solid #111;
-  /* Negative margin makes them sit ON each other */
-  margin-left: -60px; 
+  margin-left: -60px; /* Desktop overlap */
   transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   box-shadow: -10px 0 20px rgba(0,0,0,0.5);
   position: relative;
+  cursor: default; /* Shows the mouse isn't clicking here */
 }
 
-/* HOVER ANIMATION */
 .stacked-row img:hover {
-  transform: scale(1.15) translateY(-20px); /* Pops up and grows */
-  margin-right: 40px; /* Pushes the neighbor away slightly */
-  margin-left: 20px;  /* Creates space to see the full photo */
-  z-index: 100;       /* Brings it to the very front */
+  transform: scale(1.1) translateY(-15px);
+  margin-right: 35px;
+  margin-left: 15px;
+  z-index: 100;
   border-color: gold;
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+.collection-link {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
 }
 
 .collection-title {
-  margin-top: 30px;
   font-size: 28px;
   letter-spacing: 8px;
   text-transform: uppercase;
@@ -695,7 +692,7 @@ a { text-decoration: none; color: inherit; }
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 3px;
-  margin-top: 5px;
+  margin-top: 8px;
   transition: 0.3s;
 }
 
@@ -704,12 +701,22 @@ a { text-decoration: none; color: inherit; }
   letter-spacing: 5px;
 }
 
-/* Mobile Tweak: On small screens, we stack them less so they don't disappear */
+/* =========================
+   MOBILE TIGHT STACKING
+   ========================= */
 @media (max-width: 768px) {
+  .stacked-row {
+    margin-left: 40px; /* Slight adjust for mobile centering */
+  }
   .stacked-row img {
-    width: 100px;
-    height: 160px;
-    margin-left: -40px;
+    width: 90px;
+    height: 150px;
+    margin-left: -75px; /* VERY tight stack for mobile */
+  }
+  .stacked-row img:hover {
+    transform: scale(1.2) translateY(-10px);
+    margin-right: 20px;
+    margin-left: 5px;
   }
   .collection-title { font-size: 18px; letter-spacing: 4px; }
 }
