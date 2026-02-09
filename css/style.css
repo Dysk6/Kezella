@@ -702,34 +702,45 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* =========================
-   MOBILE TIGHT STACKING (LOOSENED)
+   MOBILE TIGHT STACKING (BALANCED)
    ========================= */
 @media (max-width: 768px) {
   .collection-showcase {
-    padding: 40px 0; /* Reduced padding for mobile screens */
+    padding: 50px 0; 
   }
 
   .stacked-row {
-    margin-left: 55px; /* Centers the fanned stack better */
+    /* Adjusted centering for the new overlap */
+    margin-left: 45px; 
     padding: 20px 0;
   }
 
   .stacked-row img {
-    width: 110px;      /* Slightly wider images for detail */
-    height: 170px;
-    margin-left: -60px; /* Loosened overlap (shows about half of each photo) */
+    width: 105px;      
+    height: 165px;
+    /* -65px is the "Goldilocks" overlap: tight but readable */
+    margin-left: -65px; 
     box-shadow: -5px 0 15px rgba(0,0,0,0.4);
+    border-radius: 2px; /* Slight softening for the stack */
   }
 
   .stacked-row img:hover {
-    transform: scale(1.15) translateY(-10px);
+    /* More dramatic pop on mobile to see the item clearly */
+    transform: scale(1.2) translateY(-12px);
     margin-right: 25px;
-    margin-left: 5px;
+    margin-left: 10px;
+    z-index: 100;
   }
 
   .collection-title { 
-    font-size: 20px; 
+    font-size: 19px; 
     letter-spacing: 5px; 
     margin-top: 25px;
+    color: gold;
+  }
+  
+  .shop-prompt {
+    font-size: 9px;
+    letter-spacing: 2px;
   }
 }
