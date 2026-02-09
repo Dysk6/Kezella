@@ -2,103 +2,142 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kezeélla Product</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Kezeélla | Product Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
 <header class="header">
-  <a href="index.html" class="logo">KEZEÉLLA</a>
-  <a href="cart.html" class="cart-link">Bag (<span id="cartCount">0</span>)</a>
+  <div class="logo">Kezeélla</div>
+  <nav class="nav">
+    <a href="shop.html" class="nav-link">Shop</a>
+    <a href="cart.html" class="cart-link">
+      <i class="fas fa-bag-shopping"></i>
+      <span id="cartCount">0</span>
+    </a>
+  </nav>
 </header>
 
-<main class="product-container">
+<section class="product-page">
+  
+  <div class="gallery-wrapper">
+    <div class="gallery-container">
+      
+      <button class="slider-btn prev-btn" id="prevBtn">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="slider-btn next-btn" id="nextBtn">
+        <i class="fas fa-chevron-right"></i>
+      </button>
 
-  <!-- PRODUCT MEDIA -->
-  <div class="product-media">
-    <img id="mainImage" src="images/sample.jpg" alt="Product">
+      <div class="slider" id="productSlider">
+        </div>
+      
+      <div class="dots-container" id="sliderDots">
+        </div>
+    </div>
   </div>
 
-  <!-- PRODUCT INFO -->
-  <div class="product-info">
+  <div class="product-details">
+    <h1 id="productName">Loading...</h1>
 
-    <h1 id="productName">Luxury Corset Dress</h1>
-    <p id="productPrice">₦120,000</p>
-
-    <!-- SIZE SELECTION -->
-    <label class="section-label">SIZE</label>
-    <div id="sizeOptions" class="size-options"></div>
-
-    <!-- QUANTITY -->
-    <label class="section-label">QUANTITY</label>
-    <div class="qty-box">
-      <button id="qtyMinus">−</button>
-      <span id="qtyValue">1</span>
-      <button id="qtyPlus">+</button>
+    <div class="rating">
+      <i class="fas fa-star"></i> <span id="ratingValue">5.0</span>
+      <small>(Premium Quality)</small>
     </div>
 
-    <!-- ADD TO CART -->
-    <button id="addToCart" class="add-to-cart">
-      ADD TO BAG
-    </button>
+    <p class="price-tag" id="productPrice">₦0</p>
+    <p class="description" id="productDescription" style="margin-bottom: 25px; color: #ccc;"></p>
 
-    <!-- SIZE CHART COLLAPSE -->
-    <div class="size-chart-wrapper">
+    <p id="stockCount" style="color: gold; font-size: 12px; margin-bottom: 10px;"></p>
 
-      <div class="size-chart-header" id="toggleSizeChart">
-        <span>SIZE CHART</span>
-        <span class="arrow">▾</span>
-      </div>
+    <label style="display: block; margin-bottom: 10px; color: gold; font-size: 12px; letter-spacing: 1px;">SELECT SIZE</label>
+    <div class="options" id="sizeContainer"></div>
 
-      <div class="size-chart-content" id="sizeChartContent">
+    <button class="action-btn" id="addToCart">Add to Cart</button>
+  </div>
+</section>
 
+<div class="size-chart-container">
+    <h3>SIZE GUIDE</h3>
+    <div class="table-responsive">
         <table class="size-chart">
-          <tr>
-            <th>Size</th>
-            <th>Bust</th>
-            <th>Waist</th>
-            <th>Hip</th>
-          </tr>
-          <tr>
-            <td>S</td>
-            <td>34</td>
-            <td>26</td>
-            <td>36</td>
-          </tr>
-          <tr>
-            <td>M</td>
-            <td>36</td>
-            <td>28</td>
-            <td>38</td>
-          </tr>
-          <tr>
-            <td>L</td>
-            <td>38</td>
-            <td>30</td>
-            <td>40</td>
-          </tr>
+            <thead>
+                <tr>
+                    <th>Size</th>
+                    <th>Numeric (US)</th>
+                    <th>Bust (in)</th>
+                    <th>Waist (in)</th>
+                    <th>Hips (in)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Small (S)</strong></td>
+                    <td>4 – 6</td>
+                    <td>34" – 35"</td>
+                    <td>26" – 27"</td>
+                    <td>36" – 37"</td>
+                </tr>
+                <tr>
+                    <td><strong>Medium (M)</strong></td>
+                    <td>8 – 10</td>
+                    <td>36" – 37"</td>
+                    <td>28" – 29.5"</td>
+                    <td>38" – 39.5"</td>
+                </tr>
+                <tr>
+                    <td><strong>Large (L)</strong></td>
+                    <td>12 – 14</td>
+                    <td>38" – 40"</td>
+                    <td>30" – 32.5"</td>
+                    <td>40" – 42.5"</td>
+                </tr>
+                <tr>
+                    <td><strong>XL</strong></td>
+                    <td>16</td>
+                    <td>41" – 43"</td>
+                    <td>33" – 35.5"</td>
+                    <td>43" – 45.5"</td>
+                </tr>
+                <tr>
+                    <td><strong>XXL</strong></td>
+                    <td>18</td>
+                    <td>44" – 46"</td>
+                    <td>36" – 38.5"</td>
+                    <td>46" – 48.5"</td>
+                </tr>
+            </tbody>
         </table>
-
-        <p class="size-note">
-          Measurements are in inches. Fits true to size.
-        </p>
-
-        <p class="size-note">
-          <button class="link-btn"
-            onclick="window.open('https://wa.me/2347067777246','_blank')">
-            Contact us
-          </button>
-          with size specifics if need be
-        </p>
-
-      </div>
     </div>
+    <p class="size-note">Measurements are in inches. Fits true to size.</p>
+</div>
+<hr class="section-divider">
 
+<div class="product-story-section" id="storySection" style="margin-top: 40px; border-top: 1px solid #333; padding-top: 20px;">
+  <h2 style="color: gold; letter-spacing: 2px; text-transform: uppercase; font-size: 14px; margin-bottom: 15px;">The Story</h2>
+  <div id="productStory" style="line-height: 1.8; color: #ccc; font-size: 14px; white-space: pre-line;">
+    </div>
+</div>
+  
+<footer id="contact" class="footer">
+  <h3 style="color: white; margin-bottom: 15px;">Contact Kezeélla</h3>
+
+  <div class="social-icons">
+    <a href="https://wa.me/2347067777246" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://www.instagram.com/kezeella/" target="_blank"><i class="fab fa-instagram"></i></a>
+    <a href="https://facebook.com/kezeeella" target="_blank"><i class="fab fa-facebook"></i></a>
+    <a href="tel:+2347067777246"><i class="fas fa-phone"></i></a>
   </div>
-</main>
 
-<script src="js/product.js"></script>
+  <p>© Kezeélla Luxury Fashion</p>
+</footer>
+
 <script src="js/cart.js"></script>
+<script src="js/product.js"></script>
 </body>
 </html>
