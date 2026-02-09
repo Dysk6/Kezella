@@ -450,82 +450,110 @@ const products = {
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
 const product = products[productId];
+let selectedSize = ""; 
 
-let selectedSize = null;
-let selectedQty = 1;
+if (product) {
+  // 1. TEXT DETAILS
+  document.getElementById("productName").textContent = product.name;
+  document.getElementById("productDescription").textContent = product.description;
+  document.getElementById("stockCount").textContent = `${product.stock} items available`;
 
-const priceTag = document.querySelector(".price-tag");
-const sizeButtons = document.querySelectorAll(".option-btn");
-const qtyValue = document.getElementById("qtyValue");
+  // --- ADD THESE LINES BELOW ---
+  const storyEl = document.getElementById("productStory");
+  const storySection = document.getElementById("storySection");
+  
+  if (product.story) {
+    storyEl.innerHTML = product.story; // Use innerHTML to allow <strong> tags
+    storySection.style.display = "block";
+  } else {
+    storySection.style.display = "none"; // Hide section if no story exists yet
+  }
+  // ------------------------------
 
-// ---- SIZE SELECTION ----
-sizeButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    sizeButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
+  // 2. SLIDER
+  const slider = document.getElementById("productSlider");
+  const dotsContainer = document.getElementById("sliderDots");
 
-    selectedSize = btn.dataset.size;
-    selectedQty = 1;
-    qtyValue.textContent = 1;
+  product.media.forEach((item, index) => {
+    const slideDiv = document.createElement("div");
+    slideDiv.className = "slide-item";
+    
+    if (item.type === 'video') {
+      slideDiv.innerHTML = `<video src="${item.src}" controls loop muted playsinline autoplay></video>`;
+    } else {
+      slideDiv.innerHTML = `<img src="${item.src}" alt="${product.name}">`;
+    }
+    slider.appendChild(slideDiv);
 
-    priceTag.textContent =
-      "₦" + product.sizes[selectedSize].price.toLocaleString();
+    const dot = document.createElement("div");
+    dot.className = "dot" + (index === 0 ? " active" : "");
+    dotsContainer.appendChild(dot);
   });
-});
 
-// ---- QUANTITY CONTROLS ----
-document.getElementById("qtyMinus").onclick = () => {
-  if (selectedQty > 1) {
-    selectedQty--;
-    qtyValue.textContent = selectedQty;
-  }
-};
+  // 3. TRACKER
+  slider.addEventListener("scroll", () => {
+    const scrollPos = slider.scrollLeft;
+    const width = slider.offsetWidth;
+    const index = Math.round(scrollPos / width);
+    const dots = document.querySelectorAll(".dot");
+    dots.forEach(d => d.classList.remove("active"));
+    if (dots[index]) dots[index].classList.add("active");
+  });
 
-document.getElementById("qtyPlus").onclick = () => {
-  if (!selectedSize) {
-    alert("Please select a size first.");
-    return;
-  }
+  // 4. PRICE & SIZES
+  const sizeContainer = document.getElementById("sizeContainer");
+  const priceEl = document.getElementById("productPrice");
+  const firstSize = Object.keys(product.sizes)[0];
+  selectedSize = firstSize;
 
-  if (selectedQty < product.sizes[selectedSize].stock) {
-    selectedQty++;
-    qtyValue.textContent = selectedQty;
-  }
-};
+  Object.keys(product.sizes).forEach(size => {
+    const btn = document.createElement("button");
+    btn.className = "option-btn" + (size === firstSize ? " active" : "");
+    btn.textContent = size;
+    btn.onclick = () => {
+      document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedSize = size;
+      priceEl.textContent = "₦" + product.sizes[size].toLocaleString();
+    };
+    sizeContainer.appendChild(btn);
+  });
 
-// ---- ADD TO CART ----
-document.getElementById("addToCartBtn").onclick = () => {
-  if (!selectedSize) {
-    alert("Please select a size before adding to cart.");
-    return;
-  }
+  priceEl.textContent = "₦" + product.sizes[firstSize].toLocaleString();
 
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  const existing = cart.find(
-    item => item.id === productId && item.size === selectedSize
-  );
-
-  if (existing) {
-    if (
-      existing.quantity + selectedQty >
-      product.sizes[selectedSize].stock
-    ) {
-      alert("Not enough stock available for this size.");
+  // 5. CART
+  document.getElementById("addToCart").addEventListener("click", () => {
+    if (product.stock <= 0) {
+      alert("Sorry, this item is out of stock!");
       return;
     }
-    existing.quantity += selectedQty;
-  } else {
-    cart.push({
+    let thumbnail = "";
+    const imageItem = product.media.find(m => m.type === 'image');
+    thumbnail = imageItem ? imageItem.src : "favicon.png"; 
+
+    const cartItem = {
       id: productId,
       name: product.name,
       size: selectedSize,
-      price: product.sizes[selectedSize].price,
-      quantity: selectedQty
-    });
-  }
+      price: product.sizes[selectedSize],
+      image: thumbnail, 
+      quantity: 1
+    };
 
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartCount();
-  alert("Added to bag.");
-};
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existing = cart.find(i => i.id === productId && i.size === selectedSize);
+    if (existing) { existing.quantity += 1; } else { cart.push(cartItem); }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+    alert("Added to cart!");
+  });
+
+  // 6. ARROW BUTTONS (PC)
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  if(prevBtn && nextBtn) {
+    prevBtn.addEventListener("click", () => { slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" }); });
+    nextBtn.addEventListener("click", () => { slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); });
+  }
+}
