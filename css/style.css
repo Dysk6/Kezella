@@ -524,3 +524,112 @@ a { text-decoration: none; color: inherit; }
     display: none;
   }
 }
+
+/* GENERAL */
+.section-label {
+  margin-top: 20px;
+  display: block;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: gold;
+}
+
+.size-options button {
+  margin: 5px;
+  padding: 8px 14px;
+  border: 1px solid gold;
+  background: none;
+  color: gold;
+  cursor: pointer;
+}
+
+.size-options button.active {
+  background: gold;
+  color: black;
+}
+
+/* QUANTITY */
+.qty-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.qty-box button {
+  padding: 6px 14px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* ADD TO CART */
+.add-to-cart {
+  width: 100%;
+  padding: 14px;
+  background: gold;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* SIZE CHART */
+.size-chart-wrapper {
+  margin-top: 30px;
+  border-top: 1px solid #333;
+}
+
+.size-chart-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  cursor: pointer;
+  color: gold;
+}
+
+.size-chart-content {
+  display: none;
+}
+
+.size-chart {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.size-chart th,
+.size-chart td {
+  border: 1px solid #333;
+  padding: 8px;
+  text-align: center;
+}
+
+.size-note {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-top: 10px;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: gold;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+/* CART REMOVE ANIMATION */
+.cart-item {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.cart-item.removing {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .add-to-cart {
+    font-size: 14px;
+  }
+}
