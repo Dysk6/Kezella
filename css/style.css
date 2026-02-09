@@ -633,3 +633,83 @@ a { text-decoration: none; color: inherit; }
     font-size: 14px;
   }
 }
+
+/* =========================
+   LA FAMILLE COLLECTION ROW
+   ========================= */
+.collection-showcase {
+  padding: 80px 0;
+  background: #000;
+  text-align: center;
+  overflow: hidden; /* Keeps the zoom effect inside the screen */
+}
+
+.collection-link {
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.stacked-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  /* This creates the "Stacked" look */
+  margin-left: 50px; 
+}
+
+.stacked-row img {
+  width: 180px; /* Adjust size as needed */
+  height: 280px;
+  object-fit: cover;
+  border: 1px solid #111;
+  /* Negative margin makes them sit ON each other */
+  margin-left: -60px; 
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: -10px 0 20px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+/* HOVER ANIMATION */
+.stacked-row img:hover {
+  transform: scale(1.15) translateY(-20px); /* Pops up and grows */
+  margin-right: 40px; /* Pushes the neighbor away slightly */
+  margin-left: 20px;  /* Creates space to see the full photo */
+  z-index: 100;       /* Brings it to the very front */
+  border-color: gold;
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+.collection-title {
+  margin-top: 30px;
+  font-size: 28px;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: gold;
+  font-weight: 300;
+}
+
+.shop-prompt {
+  color: #555;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-top: 5px;
+  transition: 0.3s;
+}
+
+.collection-link:hover .shop-prompt {
+  color: white;
+  letter-spacing: 5px;
+}
+
+/* Mobile Tweak: On small screens, we stack them less so they don't disappear */
+@media (max-width: 768px) {
+  .stacked-row img {
+    width: 100px;
+    height: 160px;
+    margin-left: -40px;
+  }
+  .collection-title { font-size: 18px; letter-spacing: 4px; }
+}
