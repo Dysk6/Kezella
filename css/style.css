@@ -702,21 +702,34 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* =========================
-   MOBILE TIGHT STACKING
+   MOBILE TIGHT STACKING (LOOSENED)
    ========================= */
 @media (max-width: 768px) {
+  .collection-showcase {
+    padding: 40px 0; /* Reduced padding for mobile screens */
+  }
+
   .stacked-row {
-    margin-left: 40px; /* Slight adjust for mobile centering */
+    margin-left: 55px; /* Centers the fanned stack better */
+    padding: 20px 0;
   }
+
   .stacked-row img {
-    width: 90px;
-    height: 150px;
-    margin-left: -65px; /* VERY tight stack for mobile */
+    width: 110px;      /* Slightly wider images for detail */
+    height: 170px;
+    margin-left: -55px; /* Loosened overlap (shows about half of each photo) */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.4);
   }
+
   .stacked-row img:hover {
-    transform: scale(1.2) translateY(-10px);
-    margin-right: 20px;
+    transform: scale(1.15) translateY(-10px);
+    margin-right: 25px;
     margin-left: 5px;
   }
-  .collection-title { font-size: 18px; letter-spacing: 4px; }
+
+  .collection-title { 
+    font-size: 20px; 
+    letter-spacing: 5px; 
+    margin-top: 25px;
+  }
 }
