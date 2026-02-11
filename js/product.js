@@ -560,3 +560,15 @@ if (product) {
     nextBtn.addEventListener("click", () => { slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); });
   }
 }
+
+// ================= SIZE GUIDE TOGGLE =================
+const sizeGuideToggle = document.getElementById("sizeGuideToggle");
+const sizeGuideContent = document.getElementById("sizeGuideContent");
+const sizeArrow = document.getElementById("sizeArrow");
+
+if (sizeGuideToggle) {
+  sizeGuideToggle.addEventListener("click", () => {
+    sizeGuideContent.classList.toggle("open");
+    sizeArrow.classList.toggle("rotate");
+  });
+}
