@@ -8,6 +8,44 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <style>
+    /* COLOR SWATCH STYLING */
+    .color-swatch-container {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+      margin-bottom: 25px;
+    }
+    .color-swatch {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: 2px solid #333;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .color-swatch:hover { transform: scale(1.1); }
+    .color-swatch.active {
+      border-color: gold;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    }
+    .color-swatch::after {
+      content: attr(data-color-name);
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      color: #888;
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0;
+      transition: 0.3s;
+    }
+    .color-swatch:hover::after, .color-swatch.active::after { opacity: 1; }
+  </style>
 </head>
 <body>
 
@@ -24,43 +62,29 @@
 </header>
 
 <section class="product-page">
-  
   <div class="gallery-wrapper">
     <div class="gallery-container">
-      
-      <button class="slider-btn prev-btn" id="prevBtn">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      <button class="slider-btn next-btn" id="nextBtn">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-
-      <div class="slider" id="productSlider">
-        </div>
-      
-      <div class="dots-container" id="sliderDots">
-        </div>
+      <button class="slider-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+      <button class="slider-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+      <div class="slider" id="productSlider"></div>
+      <div class="dots-container" id="sliderDots"></div>
     </div>
   </div>
 
   <div class="product-details">
     <h1 id="productName">Loading...</h1>
-
     <div class="rating">
       <i class="fas fa-star"></i> <span id="ratingValue">5.0</span>
       <small>(Premium Quality)</small>
     </div>
-
     <p class="price-tag" id="productPrice">₦0</p>
     <p class="description" id="productDescription" style="margin-bottom: 25px; color: #ccc;"></p>
-
     <p id="stockCount" style="color: gold; font-size: 12px; margin-bottom: 10px;"></p>
 
-    <div class="product-selection">
-  <label class="field-label">Select Color</label>
-  <div id="colorOptions" class="color-swatch-container">
+    <div class="product-selection" id="colorSection" style="display:none;">
+      <label class="field-label" style="display: block; margin-bottom: 10px; color: gold; font-size: 12px; letter-spacing: 1px;">SELECT COLOR</label>
+      <div id="colorOptions" class="color-swatch-container"></div>
     </div>
-</div>
 
     <label style="display: block; margin-bottom: 10px; color: gold; font-size: 12px; letter-spacing: 1px;">SELECT SIZE</label>
     <div class="options" id="sizeContainer"></div>
@@ -70,14 +94,11 @@
 </section>
 
 <div class="size-chart-container">
-
   <div class="size-chart-header" id="toggleSizeChart">
     <h3>SIZE GUIDE</h3>
-    <span style="cursor:pointer;">▾</span>
+    <span id="arrow">▾</span>
   </div>
-
   <div id="sizeChartContent" style="display:none;">
-
     <div class="table-responsive">
         <table class="size-chart">
             <thead>
@@ -90,99 +111,23 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><strong>Small (S)</strong></td>
-                    <td>4 – 6</td>
-                    <td>34" – 35"</td>
-                    <td>26" – 27"</td>
-                    <td>36" – 37"</td>
-                </tr>
-                <tr>
-                    <td><strong>Medium (M)</strong></td>
-                    <td>8 – 10</td>
-                    <td>36" – 37"</td>
-                    <td>28" – 29.5"</td>
-                    <td>38" – 39.5"</td>
-                </tr>
-                <tr>
-                    <td><strong>Large (L)</strong></td>
-                    <td>12 – 14</td>
-                    <td>38" – 40"</td>
-                    <td>30" – 32.5"</td>
-                    <td>40" – 42.5"</td>
-                </tr>
-                <tr>
-                    <td><strong>XL</strong></td>
-                    <td>16</td>
-                    <td>41" – 43"</td>
-                    <td>33" – 35.5"</td>
-                    <td>43" – 45.5"</td>
-                </tr>
-                <tr>
-                    <td><strong>XXL</strong></td>
-                    <td>18</td>
-                    <td>44" – 46"</td>
-                    <td>36" – 38.5"</td>
-                    <td>46" – 48.5"</td>
-                </tr>
+                <tr><td><strong>Small (S)</strong></td><td>4 – 6</td><td>34" – 35"</td><td>26" – 27"</td><td>36" – 37"</td></tr>
+                <tr><td><strong>Medium (M)</strong></td><td>8 – 10</td><td>36" – 37"</td><td>28" – 29.5"</td><td>38" – 39.5"</td></tr>
+                <tr><td><strong>Large (L)</strong></td><td>12 – 14</td><td>38" – 40"</td><td>30" – 32.5"</td><td>40" – 42.5"</td></tr>
             </tbody>
         </table>
     </div>
-    <p class="size-note">
-      Measurements are in inches. Fits true to size.
-    </p>
-
-    <p class="size-note">
-      <button
-        onclick="window.open('https://wa.me/2347067777246','_blank')"
-        style="background:none;border:none;color:gold;padding:0;cursor:pointer;">
-        Contact us
-      </button>
-      with size specifics if need be
-    </p>
-
+    <p class="size-note">Measurements are in inches. Fits true to size.</p>
   </div>
 </div>
 
 <div class="product-story-section" id="storySection" style="margin-top: 40px; border-top: 1px solid #333; padding-top: 20px;">
   <h2 style="color: gold; letter-spacing: 2px; text-transform: uppercase; font-size: 14px; margin-bottom: 15px;">The Story</h2>
-  <div id="productStory" style="line-height: 1.8; color: #ccc; font-size: 14px; white-space: pre-line;">
-    </div>
+  <div id="productStory" style="line-height: 1.8; color: #ccc; font-size: 14px; white-space: pre-line;"></div>
 </div>
-  
+
 <footer id="contact" class="footer">
-  <div class="footer-container">
-    
-    <div class="footer-section">
-      <h3>Contact Kezeélla</h3>
-      <a href="mailto:kezeella.store@gmail.com" class="email-link">
-        <i class="fas fa-envelope"></i> kezeella.store@gmail.com
-      </a>
-    </div>
-
-    <div class="footer-section">
-      <h3>Follow Us On</h3>
-      <div class="social-icons">
-        <a href="https://www.threads.com/@kezeella?igshid=NTc4MTIwNjQ2YQ==" target="_blank" title="Threads">
-          <i class="fa-brands fa-threads"></i>
-        </a>
-        <a href="https://www.instagram.com/kezeella?igsh=MXNlbG82ZG5ldTZ1MQ%3D%3D&utm_source=qr" target="_blank" title="Instagram">
-          <i class="fa-brands fa-instagram"></i>
-        </a>
-        <a href="https://www.facebook.com/share/14VaV3Qz4aR/?mibextid=LQQJ4d" target="_blank" title="Facebook">
-          <i class="fa-brands fa-facebook"></i>
-        </a>
-        <a href="https://www.tiktok.com/@kezeella" target="_blank" title="TikTok">
-          <i class="fa-brands fa-tiktok"></i>
-        </a>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    <p>© Kezeélla Luxury Fashion</p>
-  </div>
+  <div class="footer-bottom"><p>© Kezeélla Luxury Fashion</p></div>
 </footer>
 
 <script src="js/cart.js"></script>
@@ -190,7 +135,14 @@
 <script>
 document.getElementById("toggleSizeChart").onclick = () => {
   const c = document.getElementById("sizeChartContent");
-  c.style.display = c.style.display === "block" ? "none" : "block";
+  const arrow = document.getElementById("arrow");
+  if(c.style.display === "none") {
+    c.style.display = "block";
+    arrow.innerText = "▴";
+  } else {
+    c.style.display = "none";
+    arrow.innerText = "▾";
+  }
 };
 </script>
 </body>
