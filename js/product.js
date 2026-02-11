@@ -449,10 +449,12 @@ const products = {
   }
 };
 
-// ================= PAGE LOGIC =================
+// ================= GLOBAL STATE =================
 let selectedSize = null;
 let selectedColor = null;
 let currentProductId = null;
+
+// ================= PAGE LOGIC =================
 
 function loadProduct() {
     const params = new URLSearchParams(window.location.search);
@@ -465,13 +467,13 @@ function loadProduct() {
         return;
     }
 
-    // Basic Info
+    // 1. Basic Info
     document.getElementById('productName').innerText = product.name;
     document.getElementById('productDescription').innerText = product.description;
     document.getElementById('productStory').innerHTML = product.story;
     document.getElementById('stockCount').innerText = product.stock > 0 ? "IN STOCK - READY TO SHIP" : "OUT OF STOCK";
 
-    // RENDER COLORS
+    // 2. Render Colors
     const colorSection = document.getElementById('colorSection');
     const colorContainer = document.getElementById('colorOptions');
     colorContainer.innerHTML = "";
@@ -491,9 +493,11 @@ function loadProduct() {
             };
             colorContainer.appendChild(swatch);
         });
+    } else {
+        colorSection.style.display = "none";
     }
 
-    // RENDER SIZES
+    // 3. Render Sizes
     const sizeContainer = document.getElementById('sizeContainer');
     sizeContainer.innerHTML = "";
     Object.keys(product.sizes).forEach(size => {
@@ -509,7 +513,7 @@ function loadProduct() {
         sizeContainer.appendChild(btn);
     });
 
-    // LOAD MEDIA
+    // 4. Load Media & Slider logic
     const slider = document.getElementById('productSlider');
     slider.innerHTML = "";
     product.media.forEach(item => {
@@ -522,51 +526,68 @@ function loadProduct() {
         }
         slider.appendChild(slide);
     });
+
+    // 5. Arrow Buttons Logic (Moved inside to access 'slider' variable)
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    
+    if(prevBtn && nextBtn) {
+        prevBtn.onclick = () => { 
+            slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" }); 
+        };
+        nextBtn.onclick = () => { 
+            slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); 
+        };
+    }
 }
 
-// --- ADD TO CART ---
+// ================= ADD TO CART =================
 document.getElementById('addToCart').onclick = () => {
     const product = products[currentProductId];
-    
-    // Check if product has colors; if it does, color must be selected
+    if (!product) return;
+
     const needsColor = product.colors && product.colors.length > 0;
 
+    // Validation
     if (!selectedSize || (needsColor && !selectedColor)) {
-        alert(`Please select a ${!selectedSize ? 'Size' : ''} ${(!selectedSize && needsColor && !selectedColor) ? 'and ' : ''} ${ (needsColor && !selectedColor) ? 'Color' : ''}`);
+        let msg = "Please select: ";
+        if (!selectedSize) msg += "Size ";
+        if (!selectedSize && needsColor && !selectedColor) msg += "and ";
+        if (needsColor && !selectedColor) msg += "Color";
+        alert(msg);
         return;
     }
 
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Find first available image for thumbnail
+    const imgObj = product.media.find(m => m.type === 'image') || {src: 'favicon.png'};
+
     cart.push({
         id: currentProductId,
         name: product.name,
         price: product.sizes[selectedSize],
         size: selectedSize,
         color: selectedColor || "Standard",
-        image: product.media.find(m => m.type === 'image').src,
+        image: imgObj.src,
         quantity: 1
     });
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    alert(`${product.name} (${selectedSize} / ${selectedColor || ''}) added to bag.`);
+    alert(`${product.name} added to bag.`);
     updateCartCount();
 };
 
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    document.getElementById('cartCount').innerText = cart.length;
+    const countElement = document.getElementById('cartCount');
+    if (countElement) {
+        countElement.innerText = cart.length;
+    }
 }
 
+// ================= INITIALIZE =================
 window.onload = () => {
     loadProduct();
     updateCartCount();
 };
-
-  // ARROW BUTTONS (PC)
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-  if(prevBtn && nextBtn) {
-    prevBtn.addEventListener("click", () => { slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" }); });
-    nextBtn.addEventListener("click", () => { slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); });
-  }
-}
