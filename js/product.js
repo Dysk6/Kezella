@@ -254,7 +254,7 @@ const products = {
     stock: 1
   },
   9: {
-    name: "Zedeck Dress",
+    name: "ZEDECK DRESS",
     description: "A soulful emerald masterpiece designed for the woman who changes the energy of every room she enters through effortless, regal ease.",
     story: `<strong>The Zedeck Dress: A Study in Movement</strong>
     
@@ -322,6 +322,29 @@ const products = {
       { type: 'image', src: 'images/p10_img11.jpg' }
     ],
     sizes: { "S": 89000, "M": 93000, "L": 96000 },
+    const colorContainer = document.getElementById('colorOptions');
+colorContainer.innerHTML = ""; // Clear existing
+
+if (product.colors && product.colors.length > 0) {
+  product.colors.forEach(color => {
+    const swatch = document.createElement('div');
+    swatch.className = 'color-swatch';
+    swatch.style.backgroundColor = color.hex;
+    swatch.setAttribute('data-color-name', color.name);
+    swatch.title = color.name;
+
+    swatch.onclick = function() {
+      // Remove "active" from others
+      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+      // Add to this one
+      this.classList.add('active');
+      // Save selected color to a global variable for the "Add to Cart" button
+      selectedColor = color.name; 
+    };
+
+    colorContainer.appendChild(swatch);
+  });
+}
     colors: [ {name: "Green", hex: "#006400"}, {name: "Brown", hex: "#5D4037"} ],
     stock: 1
   },
