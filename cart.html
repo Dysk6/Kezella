@@ -37,53 +37,102 @@
     </div>
 
     <div class="checkout-form-section" style="background: #111; padding: 30px; border: 1px solid #222; height: fit-content;">
-      <h3 style="color: gold; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Shipping Details</h3>
-      
-      <form id="paymentForm">
-        <div style="margin-bottom: 15px;">
-          <label style="display: block; font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 5px;">Full Name</label>
-          <input type="text" id="fullName" placeholder="Enter your name" required style="width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white;">
-        </div>
-
-        <div style="margin-bottom: 15px;">
-          <label style="display: block; font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 5px;">Email Address</label>
-          <input type="email" id="email" placeholder="Enter your email" required style="width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white;">
-        </div>
-        
-        <div style="margin-bottom: 15px;">
-          <label style="display: block; font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 5px;">Phone Number</label>
-          <input type="tel" id="phone" placeholder="080..." required style="width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white;">
-        </div>
-
-        <div style="margin-bottom: 20px;">
-          <label style="display: block; font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 5px;">Delivery Location</label>
-          <select id="locationSelect" onchange="calculateTotal()" style="width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white; cursor: pointer;">
-            <option value="nigeria">Within Nigeria (₦6,000)</option>
-            <option value="international">Outside Nigeria (Contact Us)</option>
-          </select>
-        </div>
-
-        <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
-
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px;">
-          <span style="color: #aaa;">Subtotal</span>
-          <span id="subtotalDisplay">₦0</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px;">
-          <span style="color: #aaa;">Shipping</span>
-          <span id="shippingDisplay">₦6,000</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-top: 20px; font-size: 18px; color: gold; font-weight: bold;">
-          <span>TOTAL</span>
-          <span id="totalDisplay">₦0</span>
-        </div>
-
-        <button type="submit" id="payBtn" class="checkout-btn">Proceed to Payment</button>
-      </form>
+  <h3 style="color: gold; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Shipping Details</h3>
+  
+  <form id="paymentForm">
+    <div style="margin-bottom: 15px;">
+      <label class="field-label">Full Name</label>
+      <input type="text" id="fullName" placeholder="Enter your name" required class="dark-input">
     </div>
 
-  </div>
+    <div style="margin-bottom: 15px;">
+      <label class="field-label">Email Address</label>
+      <input type="email" id="email" placeholder="Enter your email" required class="dark-input">
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+      <label class="field-label">Phone Number</label>
+      <input type="tel" id="phone" placeholder="080..." required class="dark-input">
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+      <div>
+        <label class="field-label">State</label>
+        <input type="text" id="state" placeholder="e.g. Lagos" required class="dark-input">
+      </div>
+      <div>
+        <label class="field-label">City</label>
+        <input type="text" id="city" placeholder="e.g. Ikeja" required class="dark-input">
+      </div>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <label class="field-label">Town / Landmark</label>
+      <input type="text" id="town" placeholder="e.g. Near the Central Mosque" required class="dark-input">
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <label class="field-label">Delivery Region</label>
+      <select id="locationSelect" onchange="calculateTotal()" class="dark-input" style="cursor: pointer;">
+        <option value="nigeria">Within Nigeria (₦6,000)</option>
+        <option value="international">Outside Nigeria (Contact Us)</option>
+      </select>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+
+    <div class="total-row">
+      <span>Subtotal</span>
+      <span id="subtotalDisplay">₦0</span>
+    </div>
+    <div class="total-row">
+      <span>Shipping</span>
+      <span id="shippingDisplay">₦6,000</span>
+    </div>
+    <div class="total-row main-total">
+      <span>TOTAL</span>
+      <span id="totalDisplay">₦0</span>
+    </div>
+
+    <button type="submit" id="payBtn" class="checkout-btn">Proceed to Payment</button>
+  </form>
 </div>
+
+<style>
+  .field-label {
+    display: block; 
+    font-size: 10px; 
+    color: #888; 
+    text-transform: uppercase; 
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+  }
+  .dark-input {
+    width: 100%; 
+    padding: 12px; 
+    background: #000; 
+    border: 1px solid #333; 
+    color: white;
+    font-size: 14px;
+  }
+  .dark-input:focus {
+    border-color: gold;
+    outline: none;
+  }
+  .total-row {
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 10px; 
+    font-size: 14px;
+    color: #aaa;
+  }
+  .main-total {
+    margin-top: 20px; 
+    font-size: 18px; 
+    color: gold; 
+    font-weight: bold;
+  }
+</style>
 
 <footer id="contact" class="footer">
   <div class="footer-container">
@@ -195,12 +244,13 @@
       currency: "NGN",
       ref: ''+Math.floor((Math.random() * 1000000000) + 1),
       metadata: {
-        custom_fields: [
-          { display_name: "Full Name", variable_name: "full_name", value: name },
-          { display_name: "Phone Number", variable_name: "phone", value: phone },
-          { display_name: "Cart Items", variable_name: "cart_items", value: JSON.stringify(cart.map(c => `${c.name} (${c.size})`)) }
-        ]
-      },
+  custom_fields: [
+    { display_name: "Full Name", variable_name: "full_name", value: name },
+    { display_name: "Phone Number", variable_name: "phone", value: phone },
+    { display_name: "Address", variable_name: "address", value: `${document.getElementById('town').value}, ${document.getElementById('city').value}, ${document.getElementById('state').value}` },
+    { display_name: "Cart Items", variable_name: "cart_items", value: JSON.stringify(cart.map(c => `${c.name} (${c.size})`)) }
+  ]
+},
       callback: function(response) {
         alert("Payment successful! Reference: " + response.reference);
         localStorage.removeItem("cart"); // Clear cart
