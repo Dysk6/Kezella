@@ -761,51 +761,46 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* =========================
-   MOBILE ULTRA-TIGHT STACK
+   MOBILE 10% TIGHTER STACK
    ========================= */
 @media (max-width: 768px) {
   .collection-showcase {
-    padding: 40px 0; 
-    overflow-x: hidden; /* Prevents horizontal scroll from hover effects */
+    padding: 50px 0; 
   }
 
   .stacked-row {
-    /* Increased left padding to center the much narrower stack */
-    padding-left: 80px; 
-    padding-top: 20px;
-    padding-bottom: 20px;
-    display: flex;
-    justify-content: flex-start; /* Ensures stack starts from the padded area */
+    /* Slightly increased padding to keep the narrower stack centered */
+    margin-left: 45px; 
+    padding: 20px 0;
   }
 
   .stacked-row img {
-    width: 100px;         /* Slightly smaller to help the tight fit */
-    height: 155px;
-    /* -90px: The new 30% tighter overlap */
-    margin-left: -90px; 
-    box-shadow: -5px 0 15px rgba(0,0,0,0.6); /* Darker shadow for depth */
+    width: 105px;      
+    height: 165px;
+    /* -77px: Exactly 10% tighter than the original -70px */
+    margin-left: -77px; 
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
     border-radius: 2px;
-    transition: all 0.4s ease; /* Smoother animation for the tight squeeze */
+    transition: 0.3s ease;
   }
 
-  /* First image needs to be visible, so we reset its margin */
+  /* Ensure the first image doesn't get pulled left */
   .stacked-row img:first-child {
     margin-left: 0;
   }
 
   .stacked-row img:hover {
-    /* Drastic pop-out so the user can see the hidden card */
-    transform: scale(1.25) translateY(-15px) rotate(2deg);
-    margin-right: 45px; /* Pushes neighbors away */
+    /* Pop-out effect */
+    transform: scale(1.2) translateY(-12px);
+    margin-right: 35px; /* Added 5px here to help clear the tighter overlap */
     margin-left: 10px;
-    z-index: 1000;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+    z-index: 100;
   }
 
   .collection-title { 
-    font-size: 18px; 
-    letter-spacing: 4px; 
-    margin-top: 30px;
+    font-size: 19px; 
+    letter-spacing: 5px; 
+    margin-top: 25px;
     color: gold;
     text-align: center;
   }
