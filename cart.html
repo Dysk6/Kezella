@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Kezeélla | Your Cart</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Your Bag | Kezeélla</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <link rel="icon" type="image/png" href="favicon.png">
-
-  <link rel="stylesheet" href="css/style.css">
-
+  <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <script src="https://js.paystack.co/v1/inline.js"></script>
 </head>
 <body>
 
 <header class="header">
   <div class="logo">Kezeélla</div>
   <nav class="nav">
-    <a href="shop.html" class="nav-link">Continue Shopping</a>
+    <a href="shop.html" class="nav-link">Shop</a>
     <a href="cart.html" class="cart-link">
       <i class="fas fa-bag-shopping"></i>
       <span id="cartCount">0</span>
@@ -25,117 +25,222 @@
 </header>
 
 <div class="cart-container">
-  <h2 style="color: gold; letter-spacing: 2px; margin-bottom: 30px;">YOUR SHOPPING BAG</h2>
-  
-  <div id="cartItems">
+  <h1 style="text-align: center; letter-spacing: 4px; margin-bottom: 40px; text-transform: uppercase;">Shopping Bag</h1>
+
+  <div class="checkout-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+    
+    <div class="cart-items-section">
+      <div id="cartItemsWrapper">
+        </div>
+      <p id="emptyMsg" style="text-align: center; color: #888; display: none;">Your bag is empty.</p>
     </div>
 
-  <div class="cart-summary" style="margin-top: 40px; border-top: 1px solid #222; padding-top: 20px;">
-    <h3 style="margin-bottom: 20px;">Total: <span style="color: gold;">₦<span id="cartTotal">0</span></span></h3>
-    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+    <div class="checkout-form-section" style="background: #111; padding: 30px; border: 1px solid #222; height: fit-content;">
+      <h3 style="color: gold; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;">Shipping Details</h3>
+      
+      <form id="paymentForm">
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 5px;">Full Name</label>
+          <input type="text" id="fullName" placeholder="Enter your name" required style="width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 5px;">Email Address</label>
+          <input type="email" id="email" placeholder="Enter your email" required style="width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white;">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <label style="display: block; font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 5px;">Phone Number</label>
+          <input type="tel" id="phone" placeholder="080..." required style="width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <label style="display: block; font-size: 10px; color: #888; text-transform: uppercase; margin-bottom: 5px;">Delivery Location</label>
+          <select id="locationSelect" onchange="calculateTotal()" style="width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white; cursor: pointer;">
+            <option value="nigeria">Within Nigeria (₦6,000)</option>
+            <option value="international">Outside Nigeria (Contact Us)</option>
+          </select>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px;">
+          <span style="color: #aaa;">Subtotal</span>
+          <span id="subtotalDisplay">₦0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px;">
+          <span style="color: #aaa;">Shipping</span>
+          <span id="shippingDisplay">₦6,000</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 20px; font-size: 18px; color: gold; font-weight: bold;">
+          <span>TOTAL</span>
+          <span id="totalDisplay">₦0</span>
+        </div>
+
+        <button type="submit" id="payBtn" class="checkout-btn">Proceed to Payment</button>
+      </form>
+    </div>
+
   </div>
 </div>
 
 <footer id="contact" class="footer">
   <div class="footer-container">
-    
     <div class="footer-section">
       <h3>Contact Kezeélla</h3>
       <a href="mailto:kezeella.store@gmail.com" class="email-link">
         <i class="fas fa-envelope"></i> kezeella.store@gmail.com
       </a>
     </div>
-
     <div class="footer-section">
       <h3>Follow Us On</h3>
       <div class="social-icons">
-        <a href="https://www.threads.com/@kezeella?igshid=NTc4MTIwNjQ2YQ==" target="_blank" title="Threads">
-          <i class="fa-brands fa-threads"></i>
-        </a>
-        <a href="https://www.instagram.com/kezeella?igsh=MXNlbG82ZG5ldTZ1MQ%3D%3D&utm_source=qr" target="_blank" title="Instagram">
-          <i class="fa-brands fa-instagram"></i>
-        </a>
-        <a href="https://www.facebook.com/share/14VaV3Qz4aR/?mibextid=LQQJ4d" target="_blank" title="Facebook">
-          <i class="fa-brands fa-facebook"></i>
-        </a>
-        <a href="https://www.tiktok.com/@kezeella" target="_blank" title="TikTok">
-          <i class="fa-brands fa-tiktok"></i>
-        </a>
+        <a href="https://www.threads.com/@kezeella?igshid=NTc4MTIwNjQ2YQ==" target="_blank"><i class="fa-brands fa-threads"></i></a>
+        <a href="https://www.instagram.com/kezeella?igsh=MXNlbG82ZG5ldTZ1MQ%3D%3D&utm_source=qr" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.facebook.com/share/14VaV3Qz4aR/?mibextid=LQQJ4d" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.tiktok.com/@kezeella" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
       </div>
     </div>
-
   </div>
-
-  <div class="footer-bottom">
-    <p>© Kezeélla Luxury Fashion</p>
-  </div>
+  <div class="footer-bottom"><p>© Kezeélla Luxury Fashion</p></div>
 </footer>
 
 <script>
-  function loadCart() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const container = document.getElementById("cartItems");
-    container.innerHTML = "";
-    let total = 0;
+  // ================= CONFIGURATION =================
+  // REPLACE THIS WITH YOUR OWN PUBLIC KEY FROM PAYSTACK DASHBOARD
+  const publicKey = "pk_test_YOUR_PUBLIC_KEY_HERE"; 
+  // =================================================
+
+  const shippingCost = 6000;
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  function renderCart() {
+    const wrapper = document.getElementById("cartItemsWrapper");
+    const emptyMsg = document.getElementById("emptyMsg");
+    wrapper.innerHTML = "";
 
     if (cart.length === 0) {
-      container.innerHTML = "<p style='color: #666; text-align: center; padding: 50px 0;'>Your bag is empty.</p>";
+      emptyMsg.style.display = "block";
+      document.querySelector(".checkout-form-section").style.display = "none";
+      return;
     }
 
     cart.forEach((item, index) => {
-      total += item.price * item.quantity;
-      container.innerHTML += `
-        <div class="cart-item">
-          <img src="${item.image}" alt="${item.name}">
-          <div>
-            <h4 style="font-size: 16px;">${item.name}</h4>
-            <p style="font-size: 12px; color: gold; margin-top: 5px;">Size: ${item.size}</p>
-            <span class="remove-btn" onclick="removeItem(${index})">
-              <i class="fas fa-trash"></i> Remove
-            </span>
-          </div>
-          <div style="display:flex; align-items:center; gap:15px;">
-            <button onclick="changeQty(${index}, -1)" style="background:#222; color:white; border:1px solid #444; width:30px; height:30px; cursor:pointer;">-</button>
-            <span>${item.quantity}</span>
-            <button onclick="changeQty(${index}, 1)" style="background:#222; color:white; border:1px solid #444; width:30px; height:30px; cursor:pointer;">+</button>
-          </div>
-          <div style="font-weight: bold; min-width: 80px; text-align: right;">₦${(item.price * item.quantity).toLocaleString()}</div>
+      const div = document.createElement("div");
+      div.classList.add("cart-item");
+      div.style.display = "flex";
+      div.style.gap = "20px";
+      div.style.borderBottom = "1px solid #222";
+      div.style.padding = "20px 0";
+
+      div.innerHTML = `
+        <img src="${item.image}" style="width: 80px; height: 100px; object-fit: cover;">
+        <div style="flex: 1;">
+          <h4 style="color: gold; text-transform: uppercase;">${item.name}</h4>
+          <p style="font-size: 12px; color: #888;">Size: ${item.size}</p>
+          <p style="font-size: 14px; margin-top: 5px;">₦${item.price.toLocaleString()}</p>
+          <button onclick="removeItem(${index})" style="background:none; border:none; color: #ff4444; font-size: 11px; margin-top: 10px; cursor: pointer;">REMOVE</button>
         </div>
       `;
+      wrapper.appendChild(div);
     });
 
-    document.getElementById("cartTotal").innerText = total.toLocaleString();
-    updateCartCount();
-  }
-
-  function changeQty(index, change) {
-    let cart = JSON.parse(localStorage.getItem("cart"));
-    cart[index].quantity += change;
-    if (cart[index].quantity < 1) cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    loadCart();
+    calculateTotal();
+    updateGlobalCartCount(); // From script.js
   }
 
   function removeItem(index) {
-    let cart = JSON.parse(localStorage.getItem("cart"));
     cart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(cart));
-    loadCart();
+    renderCart();
   }
 
-  function checkout() {
-    alert("Checkout process starting...");
+  function calculateTotal() {
+    const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+    const location = document.getElementById("locationSelect").value;
+    const btn = document.getElementById("payBtn");
+    
+    document.getElementById("subtotalDisplay").innerText = "₦" + subtotal.toLocaleString();
+
+    if (location === "nigeria") {
+      const total = subtotal + shippingCost;
+      document.getElementById("shippingDisplay").innerText = "₦" + shippingCost.toLocaleString();
+      document.getElementById("totalDisplay").innerText = "₦" + total.toLocaleString();
+      btn.innerText = "Pay Now (Secured by Paystack)";
+      btn.onclick = (e) => payWithPaystack(e, total);
+    } else {
+      document.getElementById("shippingDisplay").innerText = "TBD";
+      document.getElementById("totalDisplay").innerText = "Inquire";
+      btn.innerText = "Contact Us for International Invoice";
+      btn.onclick = (e) => contactForInternational(e);
+    }
   }
 
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const total = cart.reduce((sum, i) => sum + i.quantity, 0);
-    const countEl = document.getElementById("cartCount");
-    if(countEl) countEl.innerText = total;
+  function payWithPaystack(e, amount) {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const name = document.getElementById("fullName").value;
+
+    if (!email || !phone || !name) {
+      alert("Please fill in all details.");
+      return;
+    }
+
+    const handler = PaystackPop.setup({
+      key: publicKey,
+      email: email,
+      amount: amount * 100, // Paystack counts in Kobo
+      currency: "NGN",
+      ref: ''+Math.floor((Math.random() * 1000000000) + 1),
+      metadata: {
+        custom_fields: [
+          { display_name: "Full Name", variable_name: "full_name", value: name },
+          { display_name: "Phone Number", variable_name: "phone", value: phone },
+          { display_name: "Cart Items", variable_name: "cart_items", value: JSON.stringify(cart.map(c => `${c.name} (${c.size})`)) }
+        ]
+      },
+      callback: function(response) {
+        alert("Payment successful! Reference: " + response.reference);
+        localStorage.removeItem("cart"); // Clear cart
+        window.location.href = "index.html"; // Go home
+      },
+      onClose: function() {
+        alert('Transaction was not completed, window closed.');
+      }
+    });
+    handler.openIframe();
   }
 
-  loadCart();
+  function contactForInternational(e) {
+    e.preventDefault();
+    // Redirect to WhatsApp with cart details
+    let msg = "Hello Kezeélla, I would like to order:\n";
+    cart.forEach(item => {
+      msg += `- ${item.name} (Size: ${item.size})\n`;
+    });
+    msg += "\nI am ordering from outside Nigeria. Please provide a shipping quote.";
+    
+    const url = `https://wa.me/2347067777246?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  }
+
+  // Initial Render
+  document.addEventListener("DOMContentLoaded", renderCart);
+  
+  // Global cart count helper (same as script.js to keep header updated)
+  function updateGlobalCartCount() {
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
+    const badge = document.getElementById("cartCount");
+    if (badge) badge.innerText = count;
+  }
 </script>
+
+<style>
+  @media (max-width: 768px) {
+    .checkout-grid { grid-template-columns: 1fr !important; }
+  }
+</style>
 
 </body>
 </html>
