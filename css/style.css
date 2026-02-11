@@ -805,3 +805,33 @@ a { text-decoration: none; color: inherit; }
     text-align: center;
   }
 }
+
+/* SIZE GUIDE COLLAPSIBLE */
+.size-guide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px 0;
+}
+
+.size-arrow {
+    transition: transform 0.3s ease;
+    font-size: 14px;
+}
+
+.size-guide-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.size-guide-content.open {
+    max-height: 1000px; /* enough to fit table */
+    opacity: 1;
+}
+
+.size-arrow.rotate {
+    transform: rotate(180deg);
+}
