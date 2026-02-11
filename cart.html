@@ -58,17 +58,17 @@
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
       <div>
         <label class="field-label">State</label>
-        <input type="text" id="state" placeholder="e.g. Lagos" required class="dark-input">
+        <input type="text" id="state" placeholder="e.g. Abuja" required class="dark-input">
       </div>
       <div>
         <label class="field-label">City</label>
-        <input type="text" id="city" placeholder="e.g. Ikeja" required class="dark-input">
+        <input type="text" id="city" placeholder="e.g. Bwari" required class="dark-input">
       </div>
     </div>
 
     <div style="margin-bottom: 15px;">
-      <label class="field-label">Town / Landmark</label>
-      <input type="text" id="town" placeholder="e.g. Near the Central Mosque" required class="dark-input">
+      <label class="field-label">Town</label>
+      <input type="text" id="town" placeholder="e.g. Kubwa" required class="dark-input">
     </div>
 
     <div style="margin-bottom: 20px;">
@@ -97,6 +97,42 @@
     <button type="submit" id="payBtn" class="checkout-btn">Proceed to Payment</button>
   </form>
 </div>
+
+<style>
+  .field-label {
+    display: block; 
+    font-size: 10px; 
+    color: #888; 
+    text-transform: uppercase; 
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+  }
+  .dark-input {
+    width: 100%; 
+    padding: 12px; 
+    background: #000; 
+    border: 1px solid #333; 
+    color: white;
+    font-size: 14px;
+  }
+  .dark-input:focus {
+    border-color: gold;
+    outline: none;
+  }
+  .total-row {
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 10px; 
+    font-size: 14px;
+    color: #aaa;
+  }
+  .main-total {
+    margin-top: 20px; 
+    font-size: 18px; 
+    color: gold; 
+    font-weight: bold;
+  }
+</style>
 
 <footer id="contact" class="footer">
   <div class="footer-container">
