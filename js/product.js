@@ -322,30 +322,10 @@ const products = {
       { type: 'image', src: 'images/p10_img11.jpg' }
     ],
     sizes: { "S": 89000, "M": 93000, "L": 96000 },
-    const colorContainer = document.getElementById('colorOptions');
-colorContainer.innerHTML = ""; // Clear existing
-
-if (product.colors && product.colors.length > 0) {
-  product.colors.forEach(color => {
-    const swatch = document.createElement('div');
-    swatch.className = 'color-swatch';
-    swatch.style.backgroundColor = color.hex;
-    swatch.setAttribute('data-color-name', color.name);
-    swatch.title = color.name;
-
-    swatch.onclick = function() {
-      // Remove "active" from others
-      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-      // Add to this one
-      this.classList.add('active');
-      // Save selected color to a global variable for the "Add to Cart" button
-      selectedColor = color.name; 
-    };
-
-    colorContainer.appendChild(swatch);
-  });
-}
-    colors: [ {name: "Green", hex: "#006400"}, {name: "Brown", hex: "#5D4037"} ],
+    colors: [
+      {name: "Green", hex: "#006400"},
+      {name: "Brown", hex: "#5D4037"}
+    ],
     stock: 1
   },
   11: {
@@ -470,109 +450,119 @@ if (product.colors && product.colors.length > 0) {
 };
 
 // ================= PAGE LOGIC =================
-const params = new URLSearchParams(window.location.search);
-const productId = params.get("id");
-const product = products[productId];
-let selectedSize = ""; 
+let selectedSize = null;
+let selectedColor = null;
+let currentProductId = null;
 
-if (product) {
-  // 1. TEXT DETAILS
-  document.getElementById("productName").textContent = product.name;
-  document.getElementById("productDescription").textContent = product.description;
-  document.getElementById("stockCount").textContent = `${product.stock} items available`;
+function loadProduct() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    currentProductId = id;
+    const product = products[id];
 
-  // --- ADD THESE LINES BELOW ---
-  const storyEl = document.getElementById("productStory");
-  const storySection = document.getElementById("storySection");
-  
-  if (product.story) {
-    storyEl.innerHTML = product.story; // Use innerHTML to allow <strong> tags
-    storySection.style.display = "block";
-  } else {
-    storySection.style.display = "none"; // Hide section if no story exists yet
-  }
-  // ------------------------------
+    if (!product) {
+        document.getElementById('productName').innerText = "Product Not Found";
+        return;
+    }
 
-  // 2. SLIDER
-  const slider = document.getElementById("productSlider");
-  const dotsContainer = document.getElementById("sliderDots");
+    // Basic Info
+    document.getElementById('productName').innerText = product.name;
+    document.getElementById('productDescription').innerText = product.description;
+    document.getElementById('productStory').innerHTML = product.story;
+    document.getElementById('stockCount').innerText = product.stock > 0 ? "IN STOCK - READY TO SHIP" : "OUT OF STOCK";
 
-  product.media.forEach((item, index) => {
-    const slideDiv = document.createElement("div");
-    slideDiv.className = "slide-item";
+    // RENDER COLORS
+    const colorSection = document.getElementById('colorSection');
+    const colorContainer = document.getElementById('colorOptions');
+    colorContainer.innerHTML = "";
+
+    if (product.colors && product.colors.length > 0) {
+        colorSection.style.display = "block";
+        product.colors.forEach(color => {
+            const swatch = document.createElement('div');
+            swatch.className = 'color-swatch';
+            swatch.style.backgroundColor = color.hex;
+            swatch.setAttribute('data-color-name', color.name);
+            
+            swatch.onclick = function() {
+                document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                this.classList.add('active');
+                selectedColor = color.name;
+            };
+            colorContainer.appendChild(swatch);
+        });
+    }
+
+    // RENDER SIZES
+    const sizeContainer = document.getElementById('sizeContainer');
+    sizeContainer.innerHTML = "";
+    Object.keys(product.sizes).forEach(size => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = size;
+        btn.onclick = () => {
+            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedSize = size;
+            document.getElementById('productPrice').innerText = `₦${product.sizes[size].toLocaleString()}`;
+        };
+        sizeContainer.appendChild(btn);
+    });
+
+    // LOAD MEDIA
+    const slider = document.getElementById('productSlider');
+    slider.innerHTML = "";
+    product.media.forEach(item => {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        if (item.type === 'video') {
+            slide.innerHTML = `<video src="${item.src}" autoplay loop muted playsinline></video>`;
+        } else {
+            slide.innerHTML = `<img src="${item.src}" alt="${product.name}">`;
+        }
+        slider.appendChild(slide);
+    });
+}
+
+// --- ADD TO CART ---
+document.getElementById('addToCart').onclick = () => {
+    const product = products[currentProductId];
     
-    if (item.type === 'video') {
-      slideDiv.innerHTML = `<video src="${item.src}" controls loop muted playsinline autoplay></video>`;
-    } else {
-      slideDiv.innerHTML = `<img src="${item.src}" alt="${product.name}">`;
+    // Check if product has colors; if it does, color must be selected
+    const needsColor = product.colors && product.colors.length > 0;
+
+    if (!selectedSize || (needsColor && !selectedColor)) {
+        alert(`Please select a ${!selectedSize ? 'Size' : ''} ${(!selectedSize && needsColor && !selectedColor) ? 'and ' : ''} ${ (needsColor && !selectedColor) ? 'Color' : ''}`);
+        return;
     }
-    slider.appendChild(slideDiv);
 
-    const dot = document.createElement("div");
-    dot.className = "dot" + (index === 0 ? " active" : "");
-    dotsContainer.appendChild(dot);
-  });
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({
+        id: currentProductId,
+        name: product.name,
+        price: product.sizes[selectedSize],
+        size: selectedSize,
+        color: selectedColor || "Standard",
+        image: product.media.find(m => m.type === 'image').src,
+        quantity: 1
+    });
 
-  // 3. TRACKER
-  slider.addEventListener("scroll", () => {
-    const scrollPos = slider.scrollLeft;
-    const width = slider.offsetWidth;
-    const index = Math.round(scrollPos / width);
-    const dots = document.querySelectorAll(".dot");
-    dots.forEach(d => d.classList.remove("active"));
-    if (dots[index]) dots[index].classList.add("active");
-  });
-
-  // 4. PRICE & SIZES
-  const sizeContainer = document.getElementById("sizeContainer");
-  const priceEl = document.getElementById("productPrice");
-  const firstSize = Object.keys(product.sizes)[0];
-  selectedSize = firstSize;
-
-  Object.keys(product.sizes).forEach(size => {
-    const btn = document.createElement("button");
-    btn.className = "option-btn" + (size === firstSize ? " active" : "");
-    btn.textContent = size;
-    btn.onclick = () => {
-      document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      selectedSize = size;
-      priceEl.textContent = "₦" + product.sizes[size].toLocaleString();
-    };
-    sizeContainer.appendChild(btn);
-  });
-
-  priceEl.textContent = "₦" + product.sizes[firstSize].toLocaleString();
-
-  // 5. CART
-  document.getElementById("addToCart").addEventListener("click", () => {
-    if (product.stock <= 0) {
-      alert("Sorry, this item is out of stock!");
-      return;
-    }
-    let thumbnail = "";
-    const imageItem = product.media.find(m => m.type === 'image');
-    thumbnail = imageItem ? imageItem.src : "favicon.png"; 
-
-    const cartItem = {
-      id: productId,
-      name: product.name,
-      size: selectedSize,
-      price: product.sizes[selectedSize],
-      image: thumbnail, 
-      quantity: 1
-    };
-
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existing = cart.find(i => i.id === productId && i.size === selectedSize);
-    if (existing) { existing.quantity += 1; } else { cart.push(cartItem); }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${product.name} (${selectedSize} / ${selectedColor || ''}) added to bag.`);
     updateCartCount();
-    alert("Added to cart!");
-  });
+};
 
-  // 6. ARROW BUTTONS (PC)
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    document.getElementById('cartCount').innerText = cart.length;
+}
+
+window.onload = () => {
+    loadProduct();
+    updateCartCount();
+};
+
+  // ARROW BUTTONS (PC)
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
   if(prevBtn && nextBtn) {
