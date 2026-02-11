@@ -761,40 +761,52 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* =========================
-   MOBILE TIGHT STACKING
+   MOBILE ULTRA-TIGHT STACK
    ========================= */
 @media (max-width: 768px) {
   .collection-showcase {
     padding: 40px 0; 
+    overflow-x: hidden; /* Prevents horizontal scroll from hover effects */
   }
 
   .stacked-row {
-    /* Adjusted centering for the tighter -70px overlap */
-    margin-left: 40px; 
-    padding: 20px 0;
+    /* Increased left padding to center the much narrower stack */
+    padding-left: 80px; 
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: flex-start; /* Ensures stack starts from the padded area */
   }
 
   .stacked-row img {
-    width: 105px;      
-    height: 165px;
-    /* -70px: The perfect tight "deck of cards" overlap */
-    margin-left: -70px; 
-    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+    width: 100px;         /* Slightly smaller to help the tight fit */
+    height: 155px;
+    /* -90px: The new 30% tighter overlap */
+    margin-left: -90px; 
+    box-shadow: -5px 0 15px rgba(0,0,0,0.6); /* Darker shadow for depth */
     border-radius: 2px;
+    transition: all 0.4s ease; /* Smoother animation for the tight squeeze */
+  }
+
+  /* First image needs to be visible, so we reset its margin */
+  .stacked-row img:first-child {
+    margin-left: 0;
   }
 
   .stacked-row img:hover {
-    /* Keeps the pop-out effect strong so users can see the piece */
-    transform: scale(1.2) translateY(-12px);
-    margin-right: 30px;
-    margin-left: 15px;
-    z-index: 100;
+    /* Drastic pop-out so the user can see the hidden card */
+    transform: scale(1.25) translateY(-15px) rotate(2deg);
+    margin-right: 45px; /* Pushes neighbors away */
+    margin-left: 10px;
+    z-index: 1000;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.8);
   }
 
   .collection-title { 
-    font-size: 19px; 
-    letter-spacing: 5px; 
-    margin-top: 25px;
+    font-size: 18px; 
+    letter-spacing: 4px; 
+    margin-top: 30px;
     color: gold;
+    text-align: center;
   }
 }
