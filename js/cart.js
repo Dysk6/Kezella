@@ -1,19 +1,29 @@
-function addToCart() {
-  if (!selectedSize || !selectedColor) {
-    alert("Please select both a Size and a Color");
-    return;
+// ==========================
+// ADD TO CART FUNCTION
+// ==========================
+function addToCart(item) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  // Check if same product + same size already exists
+  const existingItem = cart.find(cartItem =>
+    cartItem.id === item.id &&
+    cartItem.size === item.size
+  );
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push(item);
   }
 
-  const cartItem = {
-    id: currentProductId,
-    name: product.name,
-    image: product.media[1].src, // Uses the first image
-    price: product.sizes[selectedSize], // Grabs price based on size
-    size: selectedSize,
-    color: selectedColor, // <--- NEW
-    quantity: 1
-  };
+  localStorage.setItem("cart", JSON.stringify(cart));
 
+  updateCartCount();
+}
+
+// ==========================
+// UPDATE CART COUNT
+// ==========================
 function updateCartCount() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   let total = 0;
@@ -23,10 +33,15 @@ function updateCartCount() {
   });
 
   const cartCount = document.getElementById("cartCount");
+
   if (cartCount) {
     cartCount.innerText = total;
   }
 }
 
-updateCartCount();
-}
+// ==========================
+// RUN ON EVERY PAGE LOAD
+// ==========================
+document.addEventListener("DOMContentLoaded", function () {
+  updateCartCount();
+});
