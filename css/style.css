@@ -169,120 +169,34 @@ a { text-decoration: none; color: inherit; }
 /* =========================
    ABOUT & FOOTER
    ========================= */
-.footer {
-  background: #050505;
-  padding: 60px 20px;
-  border-top: 1px solid #111;
+.about {
+  padding: 80px 20px;
+  background: #111;
   color: white;
   text-align: center;
 }
 
-.footer-container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.footer-section h3 {
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: gold; 
-  margin-bottom: 25px;
+.footer {
+  background: black;
+  padding: 60px 20px;
+  text-align: center;
+  border-top: 1px solid #222;
 }
 
 .social-icons {
+  margin: 25px 0;
   display: flex;
   justify-content: center;
-  gap: 25px;
-  margin-bottom: 40px;
+  gap: 30px;
 }
 
 .social-icons a {
-  font-size: 20px;
-  color: #fff;
-  transition: 0.3s;
-  text-decoration: none;
-}
-
-.social-icons a:hover {
   color: gold;
-  transform: translateY(-3px);
+  font-size: 22px;
+  transition: transform 0.3s ease;
 }
 
-.footer-bottom {
-  border-top: 1px solid #111;
-  padding-top: 20px;
-  font-size: 9px;
-  color: #444;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* --- LUXURY SIZE CHART STYLES (Collapsible) --- */
-.size-chart-container {
-    width: 100%;
-    margin: 30px 0;
-    border-top: 1px solid #222;
-    border-bottom: 1px solid #222;
-}
-
-.size-guide-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
-    cursor: pointer;
-}
-
-.size-guide-header h3 {
-    font-size: 13px;
-    letter-spacing: 2px;
-    margin: 0;
-    text-transform: uppercase;
-    color: gold;
-}
-
-.size-arrow {
-    color: gold;
-    font-size: 18px;
-}
-
-.size-guide-content {
-    display: none; /* Hidden by default */
-    padding-bottom: 30px;
-}
-
-.table-responsive {
-    overflow-x: auto;
-}
-
-.size-chart {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-}
-
-.size-chart th {
-    text-align: left;
-    padding: 12px 5px;
-    color: #666;
-    text-transform: uppercase;
-    font-size: 10px;
-    border-bottom: 1px solid #222;
-}
-
-.size-chart td {
-    padding: 15px 5px;
-    border-bottom: 1px solid #111;
-    color: #ccc;
-}
-
-.size-note {
-    font-size: 11px;
-    color: #555;
-    margin-top: 15px;
-    font-style: italic;
-}
+.social-icons a:hover { transform: scale(1.2); }
 
 /* =========================
    SHOP PAGE
@@ -464,6 +378,78 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer;
 }
 
+/* --- LUXURY SIZE CHART STYLES --- */
+.size-chart-container {
+    width: 100%;
+    max-width: 800px; /* Keeps it from getting too wide on desktop */
+    margin: 40px 0;   /* Adds breathing room before the story */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #ffffff;
+}
+
+.size-chart-container h3 {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-left: 3px solid #d4af37; /* Kezeélla Gold accent */
+    padding-left: 10px;
+}
+
+.table-responsive {
+    overflow-x: auto; /* Allows scrolling on mobile if table is too wide */
+}
+
+.size-chart {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #111; /* Deep black background */
+    font-size: 0.9rem;
+}
+
+.size-chart th, 
+.size-chart td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #333; /* Subtle divider lines */
+}
+
+.size-chart th {
+    background-color: #000;
+    color: #888; /* Muted header text like the image */
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.size-chart td {
+    color: #fff;
+    font-weight: 300;
+}
+
+.size-chart tr:last-child td {
+    border-bottom: none;
+}
+
+.size-chart tr:hover {
+    background-color: #1a1a1a; /* Subtle highlight on hover */
+}
+
+.size-note {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.section-divider {
+    border: 0;
+    height: 1px;
+    background: #333;
+    margin: 40px 0;
+}
+
 /* =========================
    CART PAGE
    ========================= */
@@ -537,256 +523,4 @@ a { text-decoration: none; color: inherit; }
   .slider-btn {
     display: none;
   }
-}
-
-/* GENERAL */
-.section-label {
-  margin-top: 20px;
-  display: block;
-  font-size: 12px;
-  letter-spacing: 1px;
-  color: gold;
-}
-
-.size-options button {
-  margin: 5px;
-  padding: 8px 14px;
-  border: 1px solid gold;
-  background: none;
-  color: gold;
-  cursor: pointer;
-}
-
-.size-options button.active {
-  background: gold;
-  color: black;
-}
-
-/* QUANTITY */
-.qty-box {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.qty-box button {
-  padding: 6px 14px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-/* ADD TO CART */
-.add-to-cart {
-  width: 100%;
-  padding: 14px;
-  background: gold;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* SIZE CHART */
-.size-chart-wrapper {
-  margin-top: 30px;
-  border-top: 1px solid #333;
-}
-
-.size-chart-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 0;
-  cursor: pointer;
-  color: gold;
-}
-
-.size-chart-content {
-  display: none;
-}
-
-.size-chart {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.size-chart th,
-.size-chart td {
-  border: 1px solid #333;
-  padding: 8px;
-  text-align: center;
-}
-
-.size-note {
-  font-size: 0.8rem;
-  color: #aaa;
-  margin-top: 10px;
-}
-
-.link-btn {
-  background: none;
-  border: none;
-  color: gold;
-  padding: 0;
-  cursor: pointer;
-  font-size: 0.8rem;
-}
-
-/* CART REMOVE ANIMATION */
-.cart-item {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.cart-item.removing {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .add-to-cart {
-    font-size: 14px;
-  }
-}
-
-/* =========================
-   LA FAMILLE COLLECTION ROW
-   ========================= */
-.collection-showcase {
-  padding: 80px 0;
-  background: #000;
-  text-align: center;
-  overflow: hidden;
-}
-
-/* The images container is no longer inside the link */
-.stacked-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 0;
-  margin-left: 60px; /* Offset to center the stack */
-}
-
-.stacked-row img {
-  width: 180px; 
-  height: 280px;
-  object-fit: cover;
-  border: 1px solid #111;
-  margin-left: -60px; /* Desktop overlap */
-  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-  box-shadow: -10px 0 20px rgba(0,0,0,0.5);
-  position: relative;
-  cursor: default; /* Shows the mouse isn't clicking here */
-}
-
-.stacked-row img:hover {
-  transform: scale(1.1) translateY(-15px);
-  margin-right: 35px;
-  margin-left: 15px;
-  z-index: 100;
-  border-color: gold;
-}
-
-.collection-link {
-  display: inline-block;
-  margin-top: 20px;
-  text-decoration: none;
-}
-
-.collection-title {
-  font-size: 28px;
-  letter-spacing: 8px;
-  text-transform: uppercase;
-  color: gold;
-  font-weight: 300;
-}
-
-.shop-prompt {
-  color: #555;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-top: 8px;
-  transition: 0.3s;
-}
-
-.collection-link:hover .shop-prompt {
-  color: white;
-  letter-spacing: 5px;
-}
-
-/* =========================
-   MOBILE 10% TIGHTER STACK
-   ========================= */
-@media (max-width: 768px) {
-  .collection-showcase {
-    padding: 50px 0; 
-  }
-
-  .stacked-row {
-    /* Slightly increased padding to keep the narrower stack centered */
-    margin-left: 45px; 
-    padding: 20px 0;
-  }
-
-  .stacked-row img {
-    width: 105px;      
-    height: 165px;
-    /* -77px: Exactly 10% tighter than the original -70px */
-    margin-left: -77px; 
-    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-    border-radius: 2px;
-    transition: 0.3s ease;
-  }
-
-  /* Ensure the first image doesn't get pulled left */
-  .stacked-row img:first-child {
-    margin-left: 0;
-  }
-
-  .stacked-row img:hover {
-    /* Pop-out effect */
-    transform: scale(1.2) translateY(-12px);
-    margin-right: 35px; /* Added 5px here to help clear the tighter overlap */
-    margin-left: 10px;
-    z-index: 100;
-  }
-
-  .collection-title { 
-    font-size: 19px; 
-    letter-spacing: 5px; 
-    margin-top: 25px;
-    color: gold;
-    text-align: center;
-  }
-}
-
-/* SIZE GUIDE COLLAPSIBLE */
-.size-guide-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    padding: 15px 0;
-}
-
-.size-arrow {
-    transition: transform 0.3s ease;
-    font-size: 14px;
-}
-
-.size-guide-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.3s ease;
-    opacity: 0;
-}
-
-.size-guide-content.open {
-    max-height: 1000px; /* enough to fit table */
-    opacity: 1;
-}
-
-.size-arrow.rotate {
-    transform: rotate(180deg);
 }
