@@ -322,10 +322,6 @@ const products = {
       { type: 'image', src: 'images/p10_img11.jpg' }
     ],
     sizes: { "S": 89000, "M": 93000, "L": 96000 },
-    colors: [
-      {name: "Green", hex: "#006400"},
-      {name: "Brown", hex: "#5D4037"}
-    ],
     stock: 1
   },
   11: {
@@ -412,7 +408,6 @@ const products = {
       { type: 'image', src: 'images/p13_img3.jpg' }
     ],
     sizes: { "S": 55000, "M": 58000, "L": 61000 },
-    colors: [ {name: "Blue", hex: "#0000FF"}, {name: "GreenBlue", hex: "#008080"} ],
     stock: 1
   },
   14: {
