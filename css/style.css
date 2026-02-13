@@ -849,15 +849,3 @@ body {
 .size-arrow.rotate {
     transform: rotate(180deg);
 }
-
-.checkout-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-}
-
-@media (max-width: 768px) {
-  .checkout-grid {
-    grid-template-columns: 1fr;
-  }
-}
