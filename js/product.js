@@ -607,7 +607,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: product.name,
       size: selectedSize,
       price: selectedPrice,
-      image: product.media[0]?.src,
+      image: product.media.find(m => m.type === "image")?.src,
       quantity: 1
     };
 
