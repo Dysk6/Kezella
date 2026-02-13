@@ -449,126 +449,111 @@ const products = {
   }
 };
 
+// ================= GLOBAL STATE =================
+let selectedSize = null;
+let currentProductId = null;
+
 // ================= PAGE LOGIC =================
-const params = new URLSearchParams(window.location.search);
-const productId = params.get("id");
-const product = products[productId];
-let selectedSize = ""; 
+function loadProduct() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    currentProductId = id;
+    const product = products[id];
 
-if (product) {
-  // 1. TEXT DETAILS
-  document.getElementById("productName").textContent = product.name;
-  document.getElementById("productDescription").textContent = product.description;
-  document.getElementById("stockCount").textContent = `${product.stock} items available`;
+    if (!product) {
+        document.getElementById('productName').innerText = "Product Not Found";
+        return;
+    }
 
-  // --- ADD THESE LINES BELOW ---
-  const storyEl = document.getElementById("productStory");
-  const storySection = document.getElementById("storySection");
-  
-  if (product.story) {
-    storyEl.innerHTML = product.story; // Use innerHTML to allow <strong> tags
-    storySection.style.display = "block";
-  } else {
-    storySection.style.display = "none"; // Hide section if no story exists yet
-  }
-  // ------------------------------
+    // 1. Basic Info
+    document.getElementById('productName').innerText = product.name;
+    document.getElementById('productDescription').innerText = product.description;
+    document.getElementById('productStory').innerHTML = product.story;
+    document.getElementById('stockCount').innerText = product.stock > 0 ? "IN STOCK - READY TO SHIP" : "OUT OF STOCK";
 
-  // 2. SLIDER
-  const slider = document.getElementById("productSlider");
-  const dotsContainer = document.getElementById("sliderDots");
+    // 2. Render Sizes
+    const sizeContainer = document.getElementById('sizeContainer');
+    sizeContainer.innerHTML = "";
+    Object.keys(product.sizes).forEach(size => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerText = size;
+        btn.onclick = () => {
+            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedSize = size;
+            document.getElementById('productPrice').innerText = `₦${product.sizes[size].toLocaleString()}`;
+        };
+        sizeContainer.appendChild(btn);
+    });
 
-  product.media.forEach((item, index) => {
-    const slideDiv = document.createElement("div");
-    slideDiv.className = "slide-item";
+    // 3. Load Media & Slider logic
+    const slider = document.getElementById('productSlider');
+    slider.innerHTML = "";
+    product.media.forEach(item => {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        if (item.type === 'video') {
+            slide.innerHTML = `<video src="${item.src}" autoplay loop muted playsinline></video>`;
+        } else {
+            slide.innerHTML = `<img src="${item.src}" alt="${product.name}">`;
+        }
+        slider.appendChild(slide);
+    });
+
+    // 4. Arrow Buttons Logic
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
     
-    if (item.type === 'video') {
-      slideDiv.innerHTML = `<video src="${item.src}" controls loop muted playsinline autoplay></video>`;
-    } else {
-      slideDiv.innerHTML = `<img src="${item.src}" alt="${product.name}">`;
+    if(prevBtn && nextBtn) {
+        prevBtn.onclick = () => { 
+            slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" }); 
+        };
+        nextBtn.onclick = () => { 
+            slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); 
+        };
     }
-    slider.appendChild(slideDiv);
+}
 
-    const dot = document.createElement("div");
-    dot.className = "dot" + (index === 0 ? " active" : "");
-    dotsContainer.appendChild(dot);
-  });
+// ================= ADD TO CART =================
+document.getElementById('addToCart').onclick = () => {
+    const product = products[currentProductId];
+    if (!product) return;
 
-  // 3. TRACKER
-  slider.addEventListener("scroll", () => {
-    const scrollPos = slider.scrollLeft;
-    const width = slider.offsetWidth;
-    const index = Math.round(scrollPos / width);
-    const dots = document.querySelectorAll(".dot");
-    dots.forEach(d => d.classList.remove("active"));
-    if (dots[index]) dots[index].classList.add("active");
-  });
-
-  // 4. PRICE & SIZES
-  const sizeContainer = document.getElementById("sizeContainer");
-  const priceEl = document.getElementById("productPrice");
-  const firstSize = Object.keys(product.sizes)[0];
-  selectedSize = firstSize;
-
-  Object.keys(product.sizes).forEach(size => {
-    const btn = document.createElement("button");
-    btn.className = "option-btn" + (size === firstSize ? " active" : "");
-    btn.textContent = size;
-    btn.onclick = () => {
-      document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      selectedSize = size;
-      priceEl.textContent = "₦" + product.sizes[size].toLocaleString();
-    };
-    sizeContainer.appendChild(btn);
-  });
-
-  priceEl.textContent = "₦" + product.sizes[firstSize].toLocaleString();
-
-  // 5. CART
-  document.getElementById("addToCart").addEventListener("click", () => {
-    if (product.stock <= 0) {
-      alert("Sorry, this item is out of stock!");
-      return;
+    // Validation: Only check for Size now!
+    if (!selectedSize) {
+        alert("Please select a Size before adding to cart.");
+        return;
     }
-    let thumbnail = "";
-    const imageItem = product.media.find(m => m.type === 'image');
-    thumbnail = imageItem ? imageItem.src : "favicon.png"; 
 
-    const cartItem = {
-      id: productId,
-      name: product.name,
-      size: selectedSize,
-      price: product.sizes[selectedSize],
-      image: thumbnail, 
-      quantity: 1
-    };
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    const imgObj = product.media.find(m => m.type === 'image') || {src: 'favicon.png'};
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const existing = cart.find(i => i.id === productId && i.size === selectedSize);
-    if (existing) { existing.quantity += 1; } else { cart.push(cartItem); }
+    cart.push({
+        id: currentProductId,
+        name: product.name,
+        price: product.sizes[selectedSize],
+        size: selectedSize,
+        image: imgObj.src,
+        quantity: 1
+    });
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${product.name} added to bag!`);
     updateCartCount();
-    alert("Added to cart!");
-  });
+};
 
-  // 6. ARROW BUTTONS (PC)
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
-  if(prevBtn && nextBtn) {
-    prevBtn.addEventListener("click", () => { slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" }); });
-    nextBtn.addEventListener("click", () => { slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); });
-  }
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const countElement = document.getElementById('cartCount');
+    if (countElement) {
+        countElement.innerText = cart.length;
+    }
 }
 
-// ================= SIZE GUIDE TOGGLE =================
-const sizeGuideToggle = document.getElementById("sizeGuideToggle");
-const sizeGuideContent = document.getElementById("sizeGuideContent");
-const sizeArrow = document.getElementById("sizeArrow");
-
-if (sizeGuideToggle) {
-  sizeGuideToggle.addEventListener("click", () => {
-    sizeGuideContent.classList.toggle("open");
-    sizeArrow.classList.toggle("rotate");
-  });
-}
+// ================= INITIALIZE =================
+window.onload = () => {
+    loadProduct();
+    updateCartCount();
+};
