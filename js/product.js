@@ -449,7 +449,6 @@ const products = {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ===== GET PRODUCT ID FROM URL =====
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
 
@@ -460,7 +459,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const product = products[productId];
 
-  // ===== ELEMENT REFERENCES =====
+  // ===== ELEMENTS =====
   const productName = document.getElementById("productName");
   const productPrice = document.getElementById("productPrice");
   const productDescription = document.getElementById("productDescription");
@@ -473,7 +472,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextBtn = document.getElementById("nextBtn");
   const addToCartBtn = document.getElementById("addToCart");
 
-  // ===== LOAD BASIC INFO =====
+  // ===== LOAD PRODUCT INFO =====
   productName.textContent = product.name;
   productDescription.textContent = product.description;
   productStory.innerHTML = product.story;
@@ -483,19 +482,22 @@ document.addEventListener("DOMContentLoaded", () => {
       ? `Only ${product.stock} left in stock`
       : "Out of stock";
 
-  // ===== SIZE + PRICE LOGIC =====
+  // ========================
+  // SIZE & PRICE LOGIC
+  // ========================
   let selectedSize = null;
   let selectedPrice = null;
 
-  Object.keys(product.sizes).forEach((size) => {
+  Object.keys(product.sizes).forEach((size, index) => {
+
     const btn = document.createElement("button");
     btn.textContent = size;
-    btn.classList.add("size-option");
+    btn.classList.add("option-btn");
 
     btn.addEventListener("click", () => {
-      document
-        .querySelectorAll(".size-option")
-        .forEach((b) => b.classList.remove("active"));
+
+      document.querySelectorAll(".option-btn")
+        .forEach(b => b.classList.remove("active"));
 
       btn.classList.add("active");
 
@@ -506,75 +508,97 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     sizeContainer.appendChild(btn);
+
+    // Auto select first size
+    if (index === 0) {
+      btn.click();
+    }
   });
 
-  // Auto-select first size
-  const firstSize = Object.keys(product.sizes)[0];
-  if (firstSize) {
-    selectedSize = firstSize;
-    selectedPrice = product.sizes[firstSize];
-    productPrice.textContent = `₦${selectedPrice.toLocaleString()}`;
-    sizeContainer.firstChild.classList.add("active");
-  }
-
-  // ===== MEDIA SLIDER =====
-  let currentSlide = 0;
-
+  // ========================
+  // BUILD SLIDER (YOUR STYLE)
+  // ========================
   product.media.forEach((item, index) => {
-    let element;
+
+    const slideItem = document.createElement("div");
+    slideItem.classList.add("slide-item");
 
     if (item.type === "image") {
-      element = document.createElement("img");
-      element.src = item.src;
-    } else if (item.type === "video") {
-      element = document.createElement("video");
-      element.src = item.src;
-      element.controls = true;
+      const img = document.createElement("img");
+      img.src = item.src;
+      slideItem.appendChild(img);
     }
 
-    element.classList.add("slide");
-    slider.appendChild(element);
+    if (item.type === "video") {
+      const video = document.createElement("video");
+      video.src = item.src;
+      video.controls = true;
+      video.playsInline = true;
+      slideItem.appendChild(video);
+    }
+
+    slider.appendChild(slideItem);
 
     // Create dots
-    const dot = document.createElement("span");
+    const dot = document.createElement("div");
     dot.classList.add("dot");
-    dot.addEventListener("click", () => goToSlide(index));
+
+    dot.addEventListener("click", () => {
+      slider.scrollTo({
+        left: slider.clientWidth * index,
+        behavior: "smooth"
+      });
+    });
+
     dotsContainer.appendChild(dot);
   });
 
-  const slides = document.querySelectorAll(".slide");
   const dots = document.querySelectorAll(".dot");
 
-  function updateSlider() {
-    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+  function updateDots() {
+    const scrollLeft = slider.scrollLeft;
+    const slideWidth = slider.clientWidth;
+    const currentIndex = Math.round(scrollLeft / slideWidth);
 
-    dots.forEach((dot) => dot.classList.remove("active"));
-    if (dots[currentSlide]) dots[currentSlide].classList.add("active");
+    dots.forEach(dot => dot.classList.remove("active"));
+
+    if (dots[currentIndex]) {
+      dots[currentIndex].classList.add("active");
+    }
   }
 
-  function goToSlide(index) {
-    currentSlide = index;
-    updateSlider();
-  }
+  slider.addEventListener("scroll", updateDots);
+  updateDots();
 
+  // ========================
+  // ARROWS (DESKTOP)
+  // ========================
   nextBtn.addEventListener("click", () => {
-    currentSlide =
-      currentSlide === slides.length - 1 ? 0 : currentSlide + 1;
-    updateSlider();
+    slider.scrollBy({
+      left: slider.clientWidth,
+      behavior: "smooth"
+    });
   });
 
   prevBtn.addEventListener("click", () => {
-    currentSlide =
-      currentSlide === 0 ? slides.length - 1 : currentSlide - 1;
-    updateSlider();
+    slider.scrollBy({
+      left: -slider.clientWidth,
+      behavior: "smooth"
+    });
   });
 
-  updateSlider();
-
-  // ===== ADD TO CART =====
+  // ========================
+  // ADD TO CART
+  // ========================
   addToCartBtn.addEventListener("click", () => {
+
     if (!selectedSize) {
-      alert("Please select a size");
+      alert("Please select a size.");
+      return;
+    }
+
+    if (product.stock <= 0) {
+      alert("This item is out of stock.");
       return;
     }
 
@@ -583,23 +607,28 @@ document.addEventListener("DOMContentLoaded", () => {
       name: product.name,
       size: selectedSize,
       price: selectedPrice,
-      image: product.media[1]?.src || product.media[0]?.src,
-      quantity: 1,
+      image: product.media[0]?.src,
+      quantity: 1
     };
 
-    addToCart(cartItem); // From cart.js
-    alert("Added to cart!");
+    addToCart(cartItem); // from cart.js
+
+    addToCartBtn.textContent = "Added ✓";
+    setTimeout(() => {
+      addToCartBtn.textContent = "Add to Cart";
+    }, 1500);
   });
 
-  // ===== SIZE GUIDE TOGGLE =====
+  // ========================
+  // SIZE GUIDE TOGGLE
+  // ========================
   const sizeGuideToggle = document.getElementById("sizeGuideToggle");
   const sizeGuideContent = document.getElementById("sizeGuideContent");
   const sizeArrow = document.getElementById("sizeArrow");
 
   sizeGuideToggle.addEventListener("click", () => {
     sizeGuideContent.classList.toggle("open");
-    sizeArrow.textContent =
-      sizeGuideContent.classList.contains("open") ? "▴" : "▾";
+    sizeArrow.classList.toggle("rotate");
   });
 
 });
