@@ -20,6 +20,20 @@ body {
 
 a { text-decoration: none; color: inherit; }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-container {
+  flex: 1;
+}
+
 /* =========================
    HEADER / NAV
    ========================= */
