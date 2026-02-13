@@ -847,3 +847,25 @@ a { text-decoration: none; color: inherit; }
       grid-template-columns: 1fr;
    } 
 }
+
+/* ===== CART RESPONSIVE FIX ===== */
+@media (max-width: 768px) {
+  .cart-container {
+    margin: 100px 15px 60px;
+    padding: 20px;
+  }
+
+  .cart-item {
+    grid-template-columns: 60px 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
+  }
+
+  .cart-item img {
+    grid-row: span 2;
+  }
+
+  .cart-item div:last-child {
+    grid-column: span 2;
+  }
+}
