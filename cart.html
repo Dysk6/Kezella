@@ -302,8 +302,33 @@
 </script>
 
 <style>
+  /* Make page full height so footer stays at bottom */
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cart-container {
+    flex: 1;
+  }
+
+  /* Checkout Grid Layout */
+  .checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  /* Mobile */
   @media (max-width: 768px) {
-    .checkout-grid { grid-template-columns: 1fr !important; }
+    .checkout-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 
