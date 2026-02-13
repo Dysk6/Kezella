@@ -20,20 +20,6 @@ body {
 
 a { text-decoration: none; color: inherit; }
 
-html, body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-.cart-container {
-  flex: 1;
-}
-
 /* =========================
    HEADER / NAV
    ========================= */
@@ -848,4 +834,16 @@ body {
 
 .size-arrow.rotate {
     transform: rotate(180deg);
+}
+
+.checkout-grid {
+   display: grid; 
+   grid-template-columns: 1fr 1fr; 
+   gap: 40px; 
+} 
+
+@media (max-width: 768px) {
+   .checkout-grid {
+      grid-template-columns: 1fr;
+   } 
 }
