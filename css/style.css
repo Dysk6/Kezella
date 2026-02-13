@@ -169,16 +169,9 @@ a { text-decoration: none; color: inherit; }
 /* =========================
    ABOUT & FOOTER
    ========================= */
-.about {
-  padding: 80px 20px;
-  background: #111;
-  color: white;
-  text-align: center;
-}
-
 .footer {
   background: #050505;
-  padding: 80px 20px 40px;
+  padding: 60px 20px;
   border-top: 1px solid #111;
   color: white;
   text-align: center;
@@ -187,74 +180,108 @@ a { text-decoration: none; color: inherit; }
 .footer-container {
   max-width: 600px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
 }
 
 .footer-section h3 {
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #666; /* Muted header for elegance */
-  margin-bottom: 20px;
+  color: gold; 
+  margin-bottom: 25px;
 }
 
-/* Email Styling */
-.email-link {
-  font-size: 16px;
-  letter-spacing: 1px;
-  color: white;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.email-link i { font-size: 14px; color: gold; }
-
-.email-link:hover {
-  color: gold;
-  transform: translateY(-2px);
-}
-
-/* Social Icons */
 .social-icons {
   display: flex;
   justify-content: center;
-  gap: 35px;
+  gap: 25px;
+  margin-bottom: 40px;
 }
 
 .social-icons a {
-  font-size: 24px;
-  color: white;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  border: 1px solid #222; /* Subtle border box */
-  border-radius: 50%;
+  font-size: 20px;
+  color: #fff;
+  transition: 0.3s;
+  text-decoration: none;
 }
 
 .social-icons a:hover {
-  border-color: gold;
   color: gold;
-  transform: scale(1.1);
-  background: rgba(255, 215, 0, 0.05);
+  transform: translateY(-3px);
 }
 
-/* Copyright */
 .footer-bottom {
-  margin-top: 60px;
-  padding-top: 20px;
   border-top: 1px solid #111;
-  font-size: 10px;
+  padding-top: 20px;
+  font-size: 9px;
   color: #444;
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+/* --- LUXURY SIZE CHART STYLES (Collapsible) --- */
+.size-chart-container {
+    width: 100%;
+    margin: 30px 0;
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #222;
+}
+
+.size-guide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    cursor: pointer;
+}
+
+.size-guide-header h3 {
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+    color: gold;
+}
+
+.size-arrow {
+    color: gold;
+    font-size: 18px;
+}
+
+.size-guide-content {
+    display: none; /* Hidden by default */
+    padding-bottom: 30px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.size-chart {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.size-chart th {
+    text-align: left;
+    padding: 12px 5px;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 10px;
+    border-bottom: 1px solid #222;
+}
+
+.size-chart td {
+    padding: 15px 5px;
+    border-bottom: 1px solid #111;
+    color: #ccc;
+}
+
+.size-note {
+    font-size: 11px;
+    color: #555;
+    margin-top: 15px;
+    font-style: italic;
 }
 
 /* =========================
@@ -435,78 +462,6 @@ a { text-decoration: none; color: inherit; }
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
-}
-
-/* --- LUXURY SIZE CHART STYLES --- */
-.size-chart-container {
-    width: 100%;
-    max-width: 800px; /* Keeps it from getting too wide on desktop */
-    margin: 40px 0;   /* Adds breathing room before the story */
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #ffffff;
-}
-
-.size-chart-container h3 {
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    border-left: 3px solid #d4af37; /* Kezeélla Gold accent */
-    padding-left: 10px;
-}
-
-.table-responsive {
-    overflow-x: auto; /* Allows scrolling on mobile if table is too wide */
-}
-
-.size-chart {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #111; /* Deep black background */
-    font-size: 0.9rem;
-}
-
-.size-chart th, 
-.size-chart td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #333; /* Subtle divider lines */
-}
-
-.size-chart th {
-    background-color: #000;
-    color: #888; /* Muted header text like the image */
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-}
-
-.size-chart td {
-    color: #fff;
-    font-weight: 300;
-}
-
-.size-chart tr:last-child td {
-    border-bottom: none;
-}
-
-.size-chart tr:hover {
-    background-color: #1a1a1a; /* Subtle highlight on hover */
-}
-
-.size-note {
-    font-size: 0.8rem;
-    color: #888;
-    margin-top: 10px;
-    font-style: italic;
-}
-
-.section-divider {
-    border: 0;
-    height: 1px;
-    background: #333;
-    margin: 40px 0;
 }
 
 /* =========================
