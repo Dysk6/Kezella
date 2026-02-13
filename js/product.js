@@ -466,27 +466,18 @@ function loadProduct() {
     document.getElementById('productStory').innerHTML = product.story;
     document.getElementById('stockCount').innerText = product.stock > 0 ? "IN STOCK - READY TO SHIP" : "OUT OF STOCK";
 
-    // 2. Render Sizes & Set Initial Price
+    // 2. Render Sizes
     const sizeContainer = document.getElementById('sizeContainer');
-    const priceDisplay = document.getElementById('productPrice');
     sizeContainer.innerHTML = "";
-    
-    const sizeKeys = Object.keys(product.sizes);
-    if (sizeKeys.length > 0) {
-        // Automatically select the first size so price isn't ₦0
-        selectedSize = sizeKeys[0];
-        priceDisplay.innerText = `₦${product.sizes[selectedSize].toLocaleString()}`;
-    }
-
-    sizeKeys.forEach(size => {
+    Object.keys(product.sizes).forEach(size => {
         const btn = document.createElement('button');
-        btn.className = 'option-btn' + (size === selectedSize ? ' active' : '');
+        btn.className = 'option-btn';
         btn.innerText = size;
         btn.onclick = () => {
             document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             selectedSize = size;
-            priceDisplay.innerText = `₦${product.sizes[size].toLocaleString()}`;
+            document.getElementById('productPrice').innerText = `₦${product.sizes[size].toLocaleString()}`;
         };
         sizeContainer.appendChild(btn);
     });
@@ -508,23 +499,13 @@ function loadProduct() {
     // 4. Arrow Buttons Logic
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
-    if(prevBtn && nextBtn && slider) {
-        prevBtn.onclick = () => { slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" }); };
-        nextBtn.onclick = () => { slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); };
-    }
-}
-
-// 5. Size Guide Toggle Logic
-function setupSizeGuide() {
-    const toggleBtn = document.getElementById("sizeGuideToggle");
-    const content = document.getElementById("sizeGuideContent");
-    const arrow = document.getElementById("sizeArrow");
-
-    if (toggleBtn && content) {
-        toggleBtn.onclick = () => {
-            const isHidden = content.style.display === "none" || content.style.display === "";
-            content.style.display = isHidden ? "block" : "none";
-            if (arrow) arrow.innerText = isHidden ? "▴" : "▾";
+    
+    if(prevBtn && nextBtn) {
+        prevBtn.onclick = () => { 
+            slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" }); 
+        };
+        nextBtn.onclick = () => { 
+            slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); 
         };
     }
 }
@@ -534,12 +515,14 @@ document.getElementById('addToCart').onclick = () => {
     const product = products[currentProductId];
     if (!product) return;
 
+    // Validation: Only check for Size now!
     if (!selectedSize) {
         alert("Please select a Size before adding to cart.");
         return;
     }
 
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
     const imgObj = product.media.find(m => m.type === 'image') || {src: 'favicon.png'};
 
     cart.push({
@@ -559,12 +542,13 @@ document.getElementById('addToCart').onclick = () => {
 function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const countElement = document.getElementById('cartCount');
-    if (countElement) countElement.innerText = cart.length;
+    if (countElement) {
+        countElement.innerText = cart.length;
+    }
 }
 
 // ================= INITIALIZE =================
 window.onload = () => {
     loadProduct();
-    setupSizeGuide(); // Initialize the toggle
     updateCartCount();
 };
