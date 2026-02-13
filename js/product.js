@@ -444,10 +444,6 @@ const products = {
   }
 };
 
-// ================= GLOBAL STATE =================
-let selectedSize = null;
-let currentProductId = null;
-
 // ================= PAGE LOGIC =================
 function loadProduct() {
     const params = new URLSearchParams(window.location.search);
