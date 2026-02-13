@@ -444,107 +444,162 @@ const products = {
   }
 };
 
+
 // ================= PAGE LOGIC =================
-function loadProduct() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-    currentProductId = id;
-    const product = products[id];
 
-    if (!product) {
-        document.getElementById('productName').innerText = "Product Not Found";
-        return;
-    }
+document.addEventListener("DOMContentLoaded", () => {
 
-    // 1. Basic Info
-    document.getElementById('productName').innerText = product.name;
-    document.getElementById('productDescription').innerText = product.description;
-    document.getElementById('productStory').innerHTML = product.story;
-    document.getElementById('stockCount').innerText = product.stock > 0 ? "IN STOCK - READY TO SHIP" : "OUT OF STOCK";
+  // ===== GET PRODUCT ID FROM URL =====
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get("id");
 
-    // 2. Render Sizes
-    const sizeContainer = document.getElementById('sizeContainer');
-    sizeContainer.innerHTML = "";
-    Object.keys(product.sizes).forEach(size => {
-        const btn = document.createElement('button');
-        btn.className = 'option-btn';
-        btn.innerText = size;
-        btn.onclick = () => {
-            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            selectedSize = size;
-            document.getElementById('productPrice').innerText = `₦${product.sizes[size].toLocaleString()}`;
-        };
-        sizeContainer.appendChild(btn);
+  if (!productId || !products[productId]) {
+    document.body.innerHTML = "<h2 style='color:white;text-align:center;margin-top:100px;'>Product Not Found</h2>";
+    return;
+  }
+
+  const product = products[productId];
+
+  // ===== ELEMENT REFERENCES =====
+  const productName = document.getElementById("productName");
+  const productPrice = document.getElementById("productPrice");
+  const productDescription = document.getElementById("productDescription");
+  const productStory = document.getElementById("productStory");
+  const stockCount = document.getElementById("stockCount");
+  const sizeContainer = document.getElementById("sizeContainer");
+  const slider = document.getElementById("productSlider");
+  const dotsContainer = document.getElementById("sliderDots");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const addToCartBtn = document.getElementById("addToCart");
+
+  // ===== LOAD BASIC INFO =====
+  productName.textContent = product.name;
+  productDescription.textContent = product.description;
+  productStory.innerHTML = product.story;
+
+  stockCount.textContent =
+    product.stock > 0
+      ? `Only ${product.stock} left in stock`
+      : "Out of stock";
+
+  // ===== SIZE + PRICE LOGIC =====
+  let selectedSize = null;
+  let selectedPrice = null;
+
+  Object.keys(product.sizes).forEach((size) => {
+    const btn = document.createElement("button");
+    btn.textContent = size;
+    btn.classList.add("size-option");
+
+    btn.addEventListener("click", () => {
+      document
+        .querySelectorAll(".size-option")
+        .forEach((b) => b.classList.remove("active"));
+
+      btn.classList.add("active");
+
+      selectedSize = size;
+      selectedPrice = product.sizes[size];
+
+      productPrice.textContent = `₦${selectedPrice.toLocaleString()}`;
     });
 
-    // 3. Load Media & Slider logic
-    const slider = document.getElementById('productSlider');
-    slider.innerHTML = "";
-    product.media.forEach(item => {
-        const slide = document.createElement('div');
-        slide.className = 'slide';
-        if (item.type === 'video') {
-            slide.innerHTML = `<video src="${item.src}" autoplay loop muted playsinline></video>`;
-        } else {
-            slide.innerHTML = `<img src="${item.src}" alt="${product.name}">`;
-        }
-        slider.appendChild(slide);
-    });
+    sizeContainer.appendChild(btn);
+  });
 
-    // 4. Arrow Buttons Logic
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    
-    if(prevBtn && nextBtn) {
-        prevBtn.onclick = () => { 
-            slider.scrollBy({ left: -slider.offsetWidth, behavior: "smooth" }); 
-        };
-        nextBtn.onclick = () => { 
-            slider.scrollBy({ left: slider.offsetWidth, behavior: "smooth" }); 
-        };
+  // Auto-select first size
+  const firstSize = Object.keys(product.sizes)[0];
+  if (firstSize) {
+    selectedSize = firstSize;
+    selectedPrice = product.sizes[firstSize];
+    productPrice.textContent = `₦${selectedPrice.toLocaleString()}`;
+    sizeContainer.firstChild.classList.add("active");
+  }
+
+  // ===== MEDIA SLIDER =====
+  let currentSlide = 0;
+
+  product.media.forEach((item, index) => {
+    let element;
+
+    if (item.type === "image") {
+      element = document.createElement("img");
+      element.src = item.src;
+    } else if (item.type === "video") {
+      element = document.createElement("video");
+      element.src = item.src;
+      element.controls = true;
     }
-}
 
-// ================= ADD TO CART =================
-document.getElementById('addToCart').onclick = () => {
-    const product = products[currentProductId];
-    if (!product) return;
+    element.classList.add("slide");
+    slider.appendChild(element);
 
-    // Validation: Only check for Size now!
+    // Create dots
+    const dot = document.createElement("span");
+    dot.classList.add("dot");
+    dot.addEventListener("click", () => goToSlide(index));
+    dotsContainer.appendChild(dot);
+  });
+
+  const slides = document.querySelectorAll(".slide");
+  const dots = document.querySelectorAll(".dot");
+
+  function updateSlider() {
+    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    dots.forEach((dot) => dot.classList.remove("active"));
+    if (dots[currentSlide]) dots[currentSlide].classList.add("active");
+  }
+
+  function goToSlide(index) {
+    currentSlide = index;
+    updateSlider();
+  }
+
+  nextBtn.addEventListener("click", () => {
+    currentSlide =
+      currentSlide === slides.length - 1 ? 0 : currentSlide + 1;
+    updateSlider();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    currentSlide =
+      currentSlide === 0 ? slides.length - 1 : currentSlide - 1;
+    updateSlider();
+  });
+
+  updateSlider();
+
+  // ===== ADD TO CART =====
+  addToCartBtn.addEventListener("click", () => {
     if (!selectedSize) {
-        alert("Please select a Size before adding to cart.");
-        return;
+      alert("Please select a size");
+      return;
     }
 
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-    const imgObj = product.media.find(m => m.type === 'image') || {src: 'favicon.png'};
+    const cartItem = {
+      id: productId,
+      name: product.name,
+      size: selectedSize,
+      price: selectedPrice,
+      image: product.media[1]?.src || product.media[0]?.src,
+      quantity: 1,
+    };
 
-    cart.push({
-        id: currentProductId,
-        name: product.name,
-        price: product.sizes[selectedSize],
-        size: selectedSize,
-        image: imgObj.src,
-        quantity: 1
-    });
+    addToCart(cartItem); // From cart.js
+    alert("Added to cart!");
+  });
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert(`${product.name} added to bag!`);
-    updateCartCount();
-};
+  // ===== SIZE GUIDE TOGGLE =====
+  const sizeGuideToggle = document.getElementById("sizeGuideToggle");
+  const sizeGuideContent = document.getElementById("sizeGuideContent");
+  const sizeArrow = document.getElementById("sizeArrow");
 
-function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const countElement = document.getElementById('cartCount');
-    if (countElement) {
-        countElement.innerText = cart.length;
-    }
-}
+  sizeGuideToggle.addEventListener("click", () => {
+    sizeGuideContent.classList.toggle("open");
+    sizeArrow.textContent =
+      sizeGuideContent.classList.contains("open") ? "▴" : "▾";
+  });
 
-// ================= INITIALIZE =================
-window.onload = () => {
-    loadProduct();
-    updateCartCount();
-};
+});
