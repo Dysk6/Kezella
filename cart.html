@@ -266,12 +266,10 @@
       return;
     }
 
-    const handler = PaystackPop.setup({
-      key: publicKey,
-      email: email,
-      amount: amount * 100,
-      currency: "NGN",
-      ref: "" + Math.floor(Math.random() * 1000000000 + 1),
+    function paymentCallback(response) {
+    // Handle the successful payment response here
+    console.log(response);
+    alert('Payment successful! Reference: ' + response.reference);
 
       metadata: {
         custom_fields: [
