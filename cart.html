@@ -99,7 +99,7 @@
       <span id="totalDisplay">₦0</span>
     </div>
 
-    <button type="submit" id="payBtn" class="checkout-btn">Proceed to Payment</button>
+    <button type="button" id="payBtn" class="checkout-btn">Proceed to Payment</button>
   </form>
 </div>
 
@@ -236,12 +236,10 @@
       document.getElementById("shippingDisplay").innerText = "₦" + shippingCost.toLocaleString();
       document.getElementById("totalDisplay").innerText = "₦" + total.toLocaleString();
       btn.innerText = "Pay Now (Secured by Paystack)";
-      btn.onclick = (e) => payWithPaystack(e, total);
     } else {
       document.getElementById("shippingDisplay").innerText = "TBD";
       document.getElementById("totalDisplay").innerText = "Inquire";
       btn.innerText = "Contact Us for International Invoice";
-      btn.onclick = (e) => contactForInternational(e);
     }
   }
 
@@ -316,6 +314,22 @@
     const badge = document.getElementById("cartCount");
     if (badge) badge.innerText = count;
   }
+
+  // ================= PAY BUTTON LISTENER =================
+document.getElementById("payBtn").addEventListener("click", function (e) {
+
+  const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+  const location = document.getElementById("locationSelect").value;
+
+  if (location !== "nigeria") {
+    contactForInternational(e);
+    return;
+  }
+
+  const total = subtotal + shippingCost;
+  payWithPaystack(e, total);
+});
+
 </script>
 
 </body>
