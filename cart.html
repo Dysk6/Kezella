@@ -244,42 +244,60 @@
   }
 
   function payWithPaystack(e, amount) {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
-    const phone = document.getElementById("phone").value;
-    const name = document.getElementById("fullName").value;
+  e.preventDefault();
 
-    if (!email || !phone || !name) {
-      alert("Please fill in all details.");
-      return;
-    }
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const name = document.getElementById("fullName").value;
 
-   const handler = PaystackPop.setup({
-  key: publicKey,
-  email: email,
-  amount: amount * 100,
-  currency: "NGN",
-  ref: '' + Math.floor((Math.random() * 1000000000) + 1),
-
-  callback: function(response) {
-    alert("Payment successful! Reference: " + response.reference);
-    window.location.href = "/success.html";
-  },
-
-  onClose: function() {
-    alert("Transaction was not completed.");
+  if (!email || !phone || !name) {
+    alert("Please fill in all details.");
+    return;
   }
-});
 
-handler.openIframe();
+  const handler = PaystackPop.setup({
+    key: publicKey,
+    email: email,
+    amount: amount * 100,
+    currency: "NGN",
+    ref: '' + Math.floor((Math.random() * 1000000000) + 1),
 
-      metadata: {
-  custom_fields: [
-    { display_name: "Full Name", variable_name: "full_name", value: name },
-    { display_name: "Phone Number", variable_name: "phone", value: phone },
-    { display_name: "Address", variable_name: "address", value: `${document.getElementById('town').value}, ${document.getElementById('city').value}, ${document.getElementById('state').value}` },
-    { display_name: "Cart Items", variable_name: "cart_items", value: JSON.stringify(cart.map(c => `${c.name} (${c.size})`)) }
-  ]
+    metadata: {
+      custom_fields: [
+        {
+          display_name: "Full Name",
+          variable_name: "full_name",
+          value: name
+        },
+        {
+          display_name: "Phone Number",
+          variable_name: "phone",
+          value: phone
+        },
+        {
+          display_name: "Address",
+          variable_name: "address",
+          value: `${document.getElementById('town').value}, ${document.getElementById('city').value}, ${document.getElementById('state').value}`
+        },
+        {
+          display_name: "Cart Items",
+          variable_name: "cart_items",
+          value: JSON.stringify(cart.map(c => `${c.name} (${c.size})`))
+        }
+      ]
+    },
+
+    callback: function(response) {
+      alert("Payment successful! Reference: " + response.reference);
+      window.location.href = "/success.html";
+    },
+
+    onClose: function() {
+      alert("Transaction was not completed.");
+    }
+  });
+
+  handler.openIframe();
 },
       callback: async function (response) {
 
