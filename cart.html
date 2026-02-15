@@ -254,12 +254,25 @@
       return;
     }
 
-    const handler = PaystackPop.setup({
-      key: publicKey,
-      email: email,
-      amount: amount * 100, // Paystack counts in Kobo
-      currency: "NGN",
-      ref: ''+Math.floor((Math.random() * 1000000000) + 1),
+   const handler = PaystackPop.setup({
+  key: publicKey,
+  email: email,
+  amount: amount * 100,
+  currency: "NGN",
+  ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+
+  callback: function(response) {
+    alert("Payment successful! Reference: " + response.reference);
+    window.location.href = "/success.html";
+  },
+
+  onClose: function() {
+    alert("Transaction was not completed.");
+  }
+});
+
+handler.openIframe();
+
       metadata: {
   custom_fields: [
     { display_name: "Full Name", variable_name: "full_name", value: name },
