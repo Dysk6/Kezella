@@ -270,11 +270,23 @@
     { display_name: "Cart Items", variable_name: "cart_items", value: JSON.stringify(cart.map(c => `${c.name} (${c.size})`)) }
   ]
 },
-      callback: function(response) {
-        window.location.href = "success.html?ref=" + response.reference;
-        localStorage.removeItem("cart"); // Clear cart
-        window.location.href = "index.html"; // Go home
-      },
+      callback: async function (response) {
+
+  try {
+    const verify = await fetch(`/api/verify?reference=${response.reference}`);
+    const result = await verify.json();
+
+    if (result.verified) {
+      localStorage.removeItem("cart");
+      window.location.href = "success.html?ref=" + response.reference;
+    } else {
+      alert("Payment verification failed. Please contact support.");
+    }
+
+  } catch (err) {
+    alert("Unable to verify payment. Please try again.");
+  }
+},
       onClose: function() {
         alert('Transaction was not completed, window closed.');
       }
