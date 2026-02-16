@@ -175,12 +175,31 @@
 </footer>
 
 <script>
-  // ================= CONFIGURATION =================
+  // ================= CONFIG =================
   const publicKey = "pk_test_f22c4ad5c8c5204d3efef976c0fef21dc04c35fc";
-  // =================================================
-
   const shippingCost = 6000;
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  // ================= PAYMENT CALLBACK =================
+  function paymentCallback(response) {
+    console.log(response);
+    alert('Payment successful! Reference: ' + response.reference);
+
+    // Optional verification call
+    fetch(`/api/verify?reference=${response.reference}`)
+      .then(res => res.json())
+      .then(result => {
+        if (result.verified) {
+          localStorage.removeItem("cart");
+          window.location.href = "success.html?ref=" + response.reference;
+        } else {
+          alert("Payment verification failed. Contact support.");
+        }
+      })
+      .catch(() => {
+        alert("Verification error. Try again.");
+      });
+  }
 
   // ================= RENDER CART =================
   function renderCart() {
@@ -206,13 +225,13 @@
       div.style.padding = "20px 0";
 
       div.innerHTML = `
-        <img src="${item.image}" style="width: 80px; height: 100px; object-fit: cover;">
-        <div style="flex: 1;">
-          <h4 style="color: gold; text-transform: uppercase;">${item.name}</h4>
-          <p style="font-size: 12px; color: #888;">Size: ${item.size}</p>
-          <p style="font-size: 14px; margin-top: 5px;">₦${item.price.toLocaleString()}</p>
+        <img src="${item.image}" style="width:80px;height:100px;object-fit:cover;">
+        <div style="flex:1;">
+          <h4 style="color:gold;text-transform:uppercase;">${item.name}</h4>
+          <p style="font-size:12px;color:#888;">Size: ${item.size}</p>
+          <p style="font-size:14px;margin-top:5px;">₦${item.price.toLocaleString()}</p>
           <button onclick="removeItem(${index})"
-            style="background:none; border:none; color:#ff4444; font-size:11px; margin-top:10px; cursor:pointer;">
+            style="background:none;border:none;color:#ff4444;font-size:11px;margin-top:10px;cursor:pointer;">
             REMOVE
           </button>
         </div>
@@ -230,7 +249,7 @@
     renderCart();
   }
 
-  // ================= TOTAL CALCULATION =================
+  // ================= TOTAL =================
   function calculateTotal() {
     const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
     const location = document.getElementById("locationSelect").value;
@@ -266,53 +285,21 @@
       return;
     }
 
-    function paymentCallback(response) {
-    // Handle the successful payment response here
-    console.log(response);
-    alert('Payment successful! Reference: ' + response.reference);
+    const handler = PaystackPop.setup({
+      key: publicKey,
+      email: email,
+      amount: amount * 100,
+      currency: "NGN",
+      ref: "" + Math.floor(Math.random() * 1000000000 + 1),
 
       metadata: {
         custom_fields: [
-          {
-            display_name: "Full Name",
-            variable_name: "full_name",
-            value: name
-          },
-          {
-            display_name: "Phone Number",
-            variable_name: "phone",
-            value: phone
-          },
-          {
-            display_name: "Address",
-            variable_name: "address",
-            value: `${document.getElementById("town").value},
-                    ${document.getElementById("city").value},
-                    ${document.getElementById("state").value}`
-          },
-          {
-            display_name: "Cart Items",
-            variable_name: "cart_items",
-            value: JSON.stringify(cart.map(c => `${c.name} (${c.size})`))
-          }
+          { display_name: "Full Name", variable_name: "full_name", value: name },
+          { display_name: "Phone", variable_name: "phone", value: phone }
         ]
       },
 
-      callback: async function (response) {
-        try {
-          const verify = await fetch(`/api/verify?reference=${response.reference}`);
-          const result = await verify.json();
-
-          if (result.verified) {
-            localStorage.removeItem("cart");
-            window.location.href = "success.html?ref=" + response.reference;
-          } else {
-            alert("Payment verification failed. Please contact support.");
-          }
-        } catch (err) {
-          alert("Unable to verify payment. Please try again.");
-        }
-      },
+      callback: paymentCallback,
 
       onClose: function () {
         alert("Transaction was not completed.");
@@ -322,35 +309,13 @@
     handler.openIframe();
   }
 
-  // ================= INTERNATIONAL =================
-  function contactForInternational(e) {
-    e.preventDefault();
-
-    let msg = "Hello Kezeélla, I would like to order:\n";
-    cart.forEach(item => {
-      msg += `- ${item.name} (Size: ${item.size})\n`;
-    });
-
-    msg += "\nI am ordering from outside Nigeria. Please provide a shipping quote.";
-
-    const url = `https://wa.me/2347067777246?text=${encodeURIComponent(msg)}`;
-    window.open(url, "_blank");
-  }
-
-  // ================= HELPERS =================
-  function updateGlobalCartCount() {
-    const count = cart.length;
-    const badge = document.getElementById("cartCount");
-    if (badge) badge.innerText = count;
-  }
-
-  // ================= BUTTON LISTENER =================
+  // ================= BUTTON =================
   document.getElementById("payBtn").addEventListener("click", function (e) {
     const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
     const location = document.getElementById("locationSelect").value;
 
     if (location !== "nigeria") {
-      contactForInternational(e);
+      alert("International orders handled manually.");
       return;
     }
 
@@ -358,6 +323,10 @@
     payWithPaystack(e, total);
   });
 
-  // ================= INIT =================
+  function updateGlobalCartCount() {
+    const badge = document.getElementById("cartCount");
+    if (badge) badge.innerText = cart.length;
+  }
+
   document.addEventListener("DOMContentLoaded", renderCart);
 </script>
