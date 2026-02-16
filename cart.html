@@ -79,7 +79,7 @@
     <div style="margin-bottom: 20px;">
       <label class="field-label">Delivery Region</label>
       <select id="locationSelect" onchange="calculateTotal()" class="dark-input" style="cursor: pointer;">
-        <option value="nigeria">Within Nigeria (₦50)</option>
+        <option value="nigeria">Within Nigeria (₦6,000)</option>
         <option value="international">Outside Nigeria (Contact Us)</option>
       </select>
     </div>
@@ -92,7 +92,7 @@
     </div>
     <div class="total-row">
       <span>Shipping</span>
-      <span id="shippingDisplay">₦50</span>
+      <span id="shippingDisplay">₦6,000</span>
     </div>
     <div class="total-row main-total">
       <span>TOTAL</span>
@@ -177,7 +177,7 @@
 <script>
 /* ================= CONFIG ================= */
 const publicKey = "pk_live_abb659a5759ee7b6e6cbf9c0cfcb568e0d3584e8";
-const shippingCost = 50;
+const shippingCost = 6000;
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 /* ================= PAYMENT CALLBACK ================= */
