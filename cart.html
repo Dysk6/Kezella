@@ -175,56 +175,50 @@
 </footer>
 
 <script>
-  // ================= CONFIG =================
-  const publicKey = "pk_test_f22c4ad5c8c5204d3efef976c0fef21dc04c35fc";
-  const shippingCost = 6000;
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+/* ================= CONFIG ================= */
+const publicKey = "pk_test_f22c4ad5c8c5204d3efef976c0fef21dc04c35fc";
+const shippingCost = 6000;
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // ================= PAYMENT CALLBACK =================
-  function paymentCallback(response) {
-    console.log(response);
-    alert('Payment successful! Reference: ' + response.reference);
+/* ================= PAYMENT CALLBACK ================= */
+function paymentCallback(response) {
+  alert("Payment successful! Reference: " + response.reference);
 
-    // Optional verification call
-    fetch(`/api/verify?reference=${response.reference}`)
-      .then(res => res.json())
-      .then(result => {
-        if (result.verified) {
-          localStorage.removeItem("cart");
-          window.location.href = "success.html?ref=" + response.reference;
-        } else {
-          alert("Payment verification failed. Contact support.");
-        }
-      })
-      .catch(() => {
-        alert("Verification error. Try again.");
-      });
+  fetch(`/api/verify?reference=${response.reference}`)
+    .then(res => res.json())
+    .then(result => {
+      if (result.verified) {
+        localStorage.removeItem("cart");
+        window.location.href = "success.html?ref=" + response.reference;
+      } else {
+        alert("Payment verification failed.");
+      }
+    })
+    .catch(() => alert("Verification error."));
+}
+
+/* ================= RENDER CART ================= */
+function renderCart() {
+  const wrapper = document.getElementById("cartItemsWrapper");
+  const emptyMsg = document.getElementById("emptyMsg");
+  const checkoutSection = document.querySelector(".checkout-form-section");
+
+  if (!wrapper) return;
+
+  wrapper.innerHTML = "";
+
+  if (cart.length === 0) {
+    emptyMsg.style.display = "block";
+    checkoutSection.style.display = "none";
+    return;
   }
 
-  // ================= RENDER CART =================
-  function renderCart() {
-    const wrapper = document.getElementById("cartItemsWrapper");
-    const emptyMsg = document.getElementById("emptyMsg");
-    wrapper.innerHTML = "";
+  emptyMsg.style.display = "none";
+  checkoutSection.style.display = "block";
 
-    if (cart.length === 0) {
-      emptyMsg.style.display = "block";
-      document.querySelector(".checkout-form-section").style.display = "none";
-      return;
-    }
-
-    emptyMsg.style.display = "none";
-    document.querySelector(".checkout-form-section").style.display = "block";
-
-    cart.forEach((item, index) => {
-      const div = document.createElement("div");
-      div.classList.add("cart-item");
-      div.style.display = "flex";
-      div.style.gap = "20px";
-      div.style.borderBottom = "1px solid #222";
-      div.style.padding = "20px 0";
-
-      div.innerHTML = `
+  cart.forEach((item, index) => {
+    wrapper.innerHTML += `
+      <div class="cart-item" style="display:flex;gap:20px;border-bottom:1px solid #222;padding:20px 0;">
         <img src="${item.image}" style="width:80px;height:100px;object-fit:cover;">
         <div style="flex:1;">
           <h4 style="color:gold;text-transform:uppercase;">${item.name}</h4>
@@ -235,103 +229,100 @@
             REMOVE
           </button>
         </div>
-      `;
-      wrapper.appendChild(div);
-    });
+      </div>
+    `;
+  });
 
-    calculateTotal();
-    updateGlobalCartCount();
+  calculateTotal();
+  updateGlobalCartCount();
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+}
+
+/* ================= TOTAL ================= */
+function calculateTotal() {
+  const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+  const location = document.getElementById("locationSelect")?.value;
+  const btn = document.getElementById("payBtn");
+
+  document.getElementById("subtotalDisplay").innerText = "₦" + subtotal.toLocaleString();
+
+  if (location === "nigeria") {
+    const total = subtotal + shippingCost;
+    document.getElementById("shippingDisplay").innerText = "₦" + shippingCost.toLocaleString();
+    document.getElementById("totalDisplay").innerText = "₦" + total.toLocaleString();
+    btn.innerText = "Pay Now (Secured by Paystack)";
+  } else {
+    document.getElementById("shippingDisplay").innerText = "TBD";
+    document.getElementById("totalDisplay").innerText = "Inquire";
+    btn.innerText = "Contact Us for International Invoice";
+  }
+}
+
+/* ================= PAYSTACK ================= */
+function payWithPaystack(e) {
+  e.preventDefault();
+
+  const email = document.getElementById("email")?.value.trim();
+  const phone = document.getElementById("phone")?.value.trim();
+  const name = document.getElementById("fullName")?.value.trim();
+  const state = document.getElementById("state")?.value || "";
+  const lga = document.getElementById("lga")?.value || "";
+  const town = document.getElementById("town")?.value || "";
+  const comment = document.getElementById("addComment")?.value || "";
+
+  if (!email || !phone || !name) {
+    alert("Please fill in all required details.");
+    return;
   }
 
-  function removeItem(index) {
-    cart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
-  }
+  const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+  const total = subtotal + shippingCost;
 
-  // ================= TOTAL =================
-  function calculateTotal() {
-    const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
-    const location = document.getElementById("locationSelect").value;
-    const btn = document.getElementById("payBtn");
+  PaystackPop.setup({
+    key: publicKey,
+    email: email,
+    amount: total * 100,
+    currency: "NGN",
+    ref: "" + Date.now(),
 
-    document.getElementById("subtotalDisplay").innerText =
-      "₦" + subtotal.toLocaleString();
+    metadata: {
+      custom_fields: [
+        { display_name: "Full Name", variable_name: "full_name", value: name },
+        { display_name: "Phone", variable_name: "phone", value: phone },
+        { display_name: "State", variable_name: "state", value: state },
+        { display_name: "LGA", variable_name: "lga", value: lga },
+        { display_name: "Town", variable_name: "town", value: town },
+        { display_name: "Add Comment", variable_name: "add_comment", value: comment },
+        { display_name: "Cart Items", variable_name: "cart_items", value: cart.map(i => `${i.name} | Size: ${i.size} | ₦${i.price}`).join(" || ") }
+      ]
+    },
 
-    if (location === "nigeria") {
-      const total = subtotal + shippingCost;
-      document.getElementById("shippingDisplay").innerText =
-        "₦" + shippingCost.toLocaleString();
-      document.getElementById("totalDisplay").innerText =
-        "₦" + total.toLocaleString();
-      btn.innerText = "Pay Now (Secured by Paystack)";
-    } else {
-      document.getElementById("shippingDisplay").innerText = "TBD";
-      document.getElementById("totalDisplay").innerText = "Inquire";
-      btn.innerText = "Contact Us for International Invoice";
-    }
-  }
+    callback: paymentCallback,
+    onClose: () => alert("Transaction was not completed.")
+  }).openIframe();
+}
 
-  // ================= PAYSTACK =================
-  function payWithPaystack(e, amount) {
-    e.preventDefault();
+/* ================= INIT ================= */
+document.addEventListener("DOMContentLoaded", function () {
+  renderCart();
 
-    const email = document.getElementById("email").value;
-    const phone = document.getElementById("phone").value;
-    const name = document.getElementById("fullName").value;
-
-    if (!email || !phone || !name) {
-      alert("Please fill in all details.");
-      return;
-    }
-
-    const handler = PaystackPop.setup({
-      key: publicKey,
-      email: email,
-      amount: amount * 100,
-      currency: "NGN",
-      ref: "" + Math.floor(Math.random() * 1000000000 + 1),
-
-      metadata: {
-        custom_fields: [
-          { display_name: "Full Name", variable_name: "full_name", value: name },
-          { display_name: "Phone", variable_name: "phone", value: phone },
-          { display_name: "State", variable_name: "state", value: document.getElementById("state").value },
-          { display_name: "LGA", variable_name: "lga", value:  document.getElementById("lga").value },
-          { display_name: "Town", variable_name: "town", value:  document.getElementById("town").value },
-          { display_name: "Add Comment", variable_name: "add_commnet", value:  document.getElementById("addComment").value },
-          { display_name: "Cart Items", variable_name: "cart_items", value: cart.map(item => `${item.name} | Size: ${item.size} | ₦${item.price}`).join(" || ") }
-        ]
-      },
-
-      callback: paymentCallback,
-
-      onClose: function () {
-        alert("Transaction was not completed.");
-      }
-    });
-
-    handler.openIframe();
-  }
-
-  // ================= BUTTON =================
-  document.getElementById("payBtn").addEventListener("click", function (e) {
-    const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
-    const location = document.getElementById("locationSelect").value;
-
+  document.getElementById("payBtn")?.addEventListener("click", function (e) {
+    const location = document.getElementById("locationSelect")?.value;
     if (location !== "nigeria") {
       alert("International orders handled manually.");
       return;
     }
-
-    const total = subtotal + shippingCost;
-    payWithPaystack(e, total);
+    payWithPaystack(e);
   });
+});
 
-  function updateGlobalCartCount() {
-    const badge = document.getElementById("cartCount");
-    if (badge) badge.innerText = cart.length;
-  }
-
-  document.addEventListener("DOMContentLoaded", renderCart);
+function updateGlobalCartCount() {
+  const badge = document.getElementById("cartCount");
+  if (badge) badge.innerText = cart.length;
+}
 </script>
