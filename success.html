@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Successful | Kezeélla</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #000;
+      color: gold;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      margin: 0;
+    }
+
+    .box {
+      border: 1px solid gold;
+      padding: 40px;
+      max-width: 400px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+      border: 1px solid gold;
+      padding: 10px 20px;
+    }
+
+    a:hover {
+      background: gold;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h1>Payment Successful</h1>
+    <p>Your order has been received.</p>
+    <p id="reference"></p>
+    <a href="index.html">Return Home</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get("ref");
+    if (ref) {
+      document.getElementById("reference").innerText =
+        "Reference: " + ref;
+    }
+  </script>
+
+</body>
+</html>
