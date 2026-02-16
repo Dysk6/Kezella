@@ -344,7 +344,7 @@ const products = {
     <strong>THE FEELING</strong>
     Protective yet undeniably sensual. When you walk, the heavy drapes at the hip swing with a rhythmic grace, making you feel like a living statue—timeless, artistic, and breathtakingly grounded.`,
     media: [
-      { type: 'image', src: 'images/p11_vid.mp4' },
+      { type: 'video', src: 'images/p11_vid.mp4' },
       { type: 'image', src: 'images/p11_img1.jpg' },
       { type: 'image', src: 'images/p11_img2.jpg' },
       { type: 'image', src: 'images/p11_img3.jpg' },
