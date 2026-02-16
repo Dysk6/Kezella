@@ -295,7 +295,12 @@
       metadata: {
         custom_fields: [
           { display_name: "Full Name", variable_name: "full_name", value: name },
-          { display_name: "Phone", variable_name: "phone", value: phone }
+          { display_name: "Phone", variable_name: "phone", value: phone },
+          { display_name: "State", variable_name: "state", value: document.getElementById("state").value },
+          { display_name: "LGA", variable_name: "lga", value:  document.getElementById("lga").value },
+          { display_name: "Town", variable_name: "town", value:  document.getElementById("town").value },
+          { display_name: "Add Comment", variable_name: "add_commnet", value:  document.getElementById("addComment").value },
+          { display_name: "Cart Items", variable_name: "cart_items", value: cart.map(item => `${item.name} | Size: ${item.size} | ₦${item.price}`).join(" || ") }
         ]
       },
 
