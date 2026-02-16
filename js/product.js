@@ -29,7 +29,7 @@ const products = {
       { type: 'image', src: 'images/p1_img6.jpg' },
       { type: 'image', src: 'images/p1_img7.jpg' }
     ],
-    sizes: { "S": 1000, "M": 99500, "L": 104000 },
+    sizes: { "S": 95000, "M": 99500, "L": 104000 },
     stock: 1
   },
   2: {
