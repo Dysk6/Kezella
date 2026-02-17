@@ -347,8 +347,7 @@ const products = {
       { type: 'video', src: 'images/p11_vid.mp4' },
       { type: 'image', src: 'images/p11_img1.jpg' },
       { type: 'image', src: 'images/p11_img2.jpg' },
-      { type: 'image', src: 'images/p11_img3.jpg' },
-      { type: 'image', src: 'images/p11_img4.jpg' }
+      { type: 'image', src: 'images/p11_img3.jpg' }
     ],
     sizes: { "S": 175000, "M": 185000, "L": 195000 },
     stock: 1
