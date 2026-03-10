@@ -70,6 +70,10 @@ a { text-decoration: none; color: inherit; }
   font-size: 18px;
 }
 
+.cart-link:hover {
+   color: gold;
+}
+
 #cartCount {
   position: absolute;
   top: -8px;
