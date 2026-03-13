@@ -52,7 +52,7 @@ a { text-decoration: none; color: inherit; }
    height: 75px;
    width: auto;
    display: block
-   align: right;
+   align: left;
 }
 
 .nav {
