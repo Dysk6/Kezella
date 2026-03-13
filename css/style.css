@@ -38,15 +38,18 @@ a { text-decoration: none; color: inherit; }
 }
 
 .logo {
+  display: flex;
+  align-items: center;
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 2px;
   color: white;
   text-transform: uppercase;
+
 }
 
 .logo-img {
-   height: 50px;
+   height: 75px;
    width: auto;
    display: block
 }
